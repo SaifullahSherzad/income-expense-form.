@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ps">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>د عاید او مصارفو حساب - 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0F172A; --card: #0B2447; --accent: #0A3AFF;
+      --text: #E5E7EB; --muted: #94A3B8; --input: #0D2A57; --border: #1E3A8A;
+      --success: #22C55E; --error: #EF4444;
+    }
+    body{margin:0;background:radial-gradient(1200px 600px at 70% 10%,#0A3AFF22,transparent),var(--bg);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;color:var(--text);}
+    .container{max-width:820px;margin:48px auto;padding:0 16px;}
+    .card{background:linear-gradient(180deg,#0B2447cc,#0B2447ee);border:1px solid #103073;border-radius:16px;
+      box-shadow:0 20px 60px rgba(10,58,255,.15);backdrop-filter:saturate(1.1) blur(8px);padding:28px;}
+    .title{font-weight:600;font-size:22px;margin-bottom:6px;}
+    .subtitle{color:var(--muted);margin-bottom:22px;}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .grid .full{grid-column:1 / -1;}
+    label{display:block;font-weight:600;margin-bottom:8px;}
+    input,textarea,button{width:100%;border-radius:10px;border:1px solid var(--border);background:var(--input);
+      color:var(--text);padding:12px 14px;outline:none;transition:border-color .2s,box-shadow .2s;}
+    input:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(10,58,255,.18);}
+    textarea{min-height:120px;resize:vertical;}
+    .actions{margin-top:20px;display:flex;gap:10px;}
+    .btn{background:var(--accent);border:none;font-weight:600;cursor:pointer;}
+    .btn.secondary{background:#1F2937;}
+    .status{margin-top:14px;font-size:14px;}
+    .success{color:var(--success);} .error{color:var(--error);}
+    @media(max-width:720px){.grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="title">د عاید او مصارفو حساب - 2026</div>
+      <div class="subtitle">مهرباني وکړئ خپل معلومات په دقیقه توګه ولیکئ.</div>
+
+      <form id="form">
+        <div class="grid">
+          <div>
+            <label>نیټه</label>
+            <input type="date" name="date" required aria-required="true">
+            <div class="hint" style="color:#94A3B8;font-size:12px;margin-top:6px">فارمیټ: DD-MM-YYYY</div>
+          </div>
+          <div>
+            <label>عاید</label>
+            <input type="number" name="income" min="0" step="0.01" required aria-required="true" placeholder="0">
+          </div>
+          <div>
+            <label>مصارف</label>
+            <input type="number" name="expense" min="0" step="0.01" placeholder="0">
+          </div>
+          <div class="full">
+            <label>د کار تفصیل</label>
+            <textarea name="detail" placeholder="دلته تفصیل ولیکئ…"></textarea>
+          </div>
+          <div class="full">
+            <label>یادښت</label>
+            <textarea name="note" placeholder="هر ډول یادونه…"></textarea>
+          </div>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn">ثبت کړئ</button>
+          <button type="reset" class="btn secondary">پاک کړئ</button>
+        </div>
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+
+<script>
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyEU9SLCtyzShfmAUJxluXXISmV97n51G52TFNd-EBaH4yQU_moKweBOv08U0tZPCOv/exec';
+
+document.getElementById('form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const status = document.getElementById('status');
+  status.textContent = 'درحال ثبتولو...';
+
+  const fd = new FormData(e.target);
+  const payload = {
+    date: fd.get('date'),
+    income: Number(fd.get('income') || 0),
+    expense: Number(fd.get('expense') || 0),
+    detail: (fd.get('detail') || '').trim(),
+    note: (fd.get('note') || '').trim()
+  };
+
+  if (!payload.date) { status.textContent = 'مهرباني وکړئ نیټه ورکړئ.'; return; }
+  if (isNaN(payload.income)) { status.textContent = 'مهرباني وکړئ صحیح عاید ولیکئ.'; return; }
+  if (isNaN(payload.expense)) { status.textContent = 'مهرباني وکړئ صحیح مصارف ولیکئ.'; return; }
+
+  try {
+    const res = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const json = await res.json();
+    if (json.ok) {
+      status.textContent = 'ستاسو معلومات ثبت شول. مننه!';
+      e.target.reset();
+    } else {
+      status.textContent = 'ستونزه رامنځته شوه: ' + (json.error || 'نامعلومه ستونزه');
+    }
+  } catch (err) {
+    status.textContent = 'شبکه یا سرور ستونزه: ' + String(err);
+  }
+});
+</script>
+</body>
+</html>
