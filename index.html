@@ -3,214 +3,181 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>د عاید او مصارفو حساب - 2026</title>
-
-  <!-- Pashto-friendly font -->
+  <title>د عاید او مصارفو حساب — 2026</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg1:#0b1220;
-      --bg2:#101b34;
-      --card:#0f213f99; /* glass */
-      --accent:#4f8afa;
-      --accent2:#7c5cff;
+      --bg:#0a0f1a;
+      --glass:#0f213f99;
       --text:#eaf2ff;
       --muted:#a9b7d9;
-      --border:#22406f;
+      --accent:#60a5fa;      /* آبي */
+      --accent2:#a78bfa;     /* بنفش */
+      --accent3:#34d399;     /* شین */
+      --border:#2b3e66;
       --ok:#22c55e;
       --err:#ef4444;
+      --warning:#f59e0b;
     }
     *{box-sizing:border-box}
-    html,body{
-      height:100%;
-      margin:0;
-      padding:0;
-      background: radial-gradient(1200px 600px at 20% 10%, #122045 0%, var(--bg1) 40%, var(--bg2) 100%),
-                  radial-gradient(900px 500px at 80% 80%, #1a2c58 0%, var(--bg2) 60%, #0b1220 100%);
-      color:var(--text);
+    html,body{height:100%;}
+    body{
+      margin:0; padding:0; color:var(--text);
       font-family:'Noto Naskh Arabic', system-ui, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 15% 15%, #142b57 0%, #0d1830 55%, var(--bg) 100%),
+        radial-gradient(1000px 600px at 85% 80%, #1a345f 0%, #0f1a33 50%, #0a0f1a 100%);
+      overflow-x:hidden;
     }
 
-    /* animated aurora background blobs */
-    .aurora{
-      position:fixed; inset:0; pointer-events:none; filter: blur(60px);
-    }
-    .blob{
-      position:absolute; width:450px; height:450px; border-radius:50%;
-      opacity:0.35; mix-blend-mode:screen;
-      animation: float 10s ease-in-out infinite;
-    }
-    .blob.b1{ background:#5aa2ff; left:8%; top:12%; animation-duration:12s;}
-    .blob.b2{ background:#8b6cff; right:10%; top:18%; animation-duration:14s;}
-    .blob.b3{ background:#3bd6a5; left:20%; bottom:12%; animation-duration:16s;}
+    /* Animated aurora / nebula */
+    .aurora{position:fixed; inset:0; pointer-events:none; filter: blur(60px);}
+    .blob{position:absolute; width:520px; height:520px; border-radius:50%;
+      opacity:.35; mix-blend-mode:screen; animation:float 12s ease-in-out infinite;}
+    .b1{background:#5aa2ff; left:8%; top:10%; animation-duration:13s;}
+    .b2{background:#8b6cff; right:10%; top:18%; animation-duration:15s;}
+    .b3{background:#3bd6a5; left:20%; bottom:10%; animation-duration:17s;}
     @keyframes float{
-      0%{ transform:translateY(0) translateX(0) scale(1);}
-      50%{ transform:translateY(-20px) translateX(12px) scale(1.05);}
-      100%{ transform:translateY(0) translateX(0) scale(1);}
+      0%{ transform:translate3d(0,0,0) scale(1); }
+      50%{ transform:translate3d(14px,-18px,0) scale(1.06); }
+      100%{ transform:translate3d(0,0,0) scale(1); }
     }
 
-    /* container and hero */
-    .wrap{
-      max-width:980px; margin:60px auto; padding:0 20px;
-    }
-    .hero{
-      text-align:center; margin-bottom:24px;
-    }
+    /* Parallax wrapper */
+    .wrap{max-width:1000px; margin:60px auto; padding:0 24px; will-change:transform;}
+
+    /* Hero */
+    .hero{text-align:center; margin-bottom:28px;}
     .title{
-      font-size:32px; font-weight:600; letter-spacing:0.3px;
-      text-shadow: 0 10px 30px rgba(79,138,250,0.35);
+      font-size:34px; font-weight:700; letter-spacing:.3px;
+      text-shadow:0 10px 30px rgba(96,165,250,.35);
+      background:linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
     }
-    .subtitle{
-      font-size:16px; color:var(--muted);
-      margin-top:6px;
-    }
+    .subtitle{font-size:16px; color:var(--muted); margin-top:8px;}
 
-    /* card with glassmorphism */
+    /* Card (glassmorphism + neumorphism edges) */
     .card{
-      position:relative;
-      background:linear-gradient(180deg, rgba(20,40,80,0.5), rgba(10,22,44,0.55));
+      position:relative; padding:28px; border-radius:20px;
+      background:linear-gradient(180deg, rgba(22,36,70,.55), rgba(12,24,48,.6));
       backdrop-filter:saturate(140%) blur(14px);
-      border:1px solid rgba(110,160,255,0.18);
-      border-radius:18px;
+      border:1px solid rgba(110,160,255,.18);
       box-shadow:
-        0 20px 50px rgba(0,0,0,0.45),
-        inset 0 1px 0 rgba(255,255,255,0.12);
-      padding:28px;
+        0 24px 60px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.12);
       overflow:hidden;
     }
     .card::before{
-      content:"";
-      position:absolute; inset:-2px;
-      border-radius:20px;
-      background: conic-gradient(from 140deg, transparent 0 30%, rgba(127,197,255,0.18) 40%, transparent 70%);
-      filter: blur(20px);
-      opacity:0.35;
-      pointer-events:none;
+      content:""; position:absolute; inset:-2px; border-radius:22px;
+      background: conic-gradient(from 140deg, transparent 0 35%, rgba(127,197,255,.20) 40%, transparent 70%);
+      filter: blur(22px); opacity:.35; pointer-events:none;
     }
 
-    /* grid layout */
-    .grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:18px;
-    }
-    @media (max-width:720px){
-      .grid{ grid-template-columns:1fr; }
+    /* Section header */
+    .section-header{display:flex; align-items:center; gap:10px; margin:6px 0 20px;}
+    .section-title{font-weight:700;}
+    .accent-line{
+      flex:1; height:2px;
+      background:linear-gradient(90deg, transparent, var(--accent), var(--accent2), var(--accent3), transparent);
+      filter:blur(.7px);
     }
 
-    /* form field group */
-    .field{
-      position:relative;
-    }
-    .label{
-      display:block; margin-bottom:8px; font-weight:600; color:#dbe8ff;
-    }
+    /* Grid */
+    .grid{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+    @media (max-width:760px){ .grid{grid-template-columns:1fr;} }
+
+    /* Field */
+    .field{position:relative;}
+    .label{display:block; margin-bottom:8px; font-weight:600; color:#dbe8ff;}
     .input, .textarea{
-      width:100%; padding:14px 14px;
-      background:linear-gradient(180deg, rgba(17,32,64,0.75), rgba(13,26,52,0.85));
-      border:1px solid var(--border);
-      border-radius:12px;
-      color:var(--text);
-      outline:none;
-      transition: border-color .2s ease, box-shadow .2s ease, transform .12s ease;
+      width:100%; padding:14px; border-radius:14px;
+      background:linear-gradient(180deg, rgba(17,32,64,.78), rgba(13,26,52,.9));
+      border:1px solid var(--border); color:var(--text);
+      outline:none; font-size:16px;
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.06),
-        0 10px 22px rgba(15,32,64,0.6);
+        inset 0 1px 0 rgba(255,255,255,.06),
+        0 12px 28px rgba(15,32,64,.55);
+      transition:border-color .2s ease, box-shadow .2s ease, transform .12s ease;
     }
-    .input:hover, .textarea:hover{
-      border-color:#4f8afa;
-    }
+    .input:hover, .textarea:hover{border-color:var(--accent);}
     .input:focus, .textarea:focus{
-      border-color:#7c5cff;
-      box-shadow: 0 0 0 4px rgba(124,92,255,0.18), 0 12px 28px rgba(56,96,180,0.25);
-      transform: translateY(-1px);
+      border-color:var(--accent2);
+      box-shadow:0 0 0 4px rgba(167,139,250,.20), 0 12px 28px rgba(56,96,180,.25);
+      transform:translateY(-1px);
     }
-    .textarea{ min-height:120px; resize:vertical; }
+    .textarea{min-height:120px; resize:vertical;}
 
-    /* 3D buttons */
-    .actions{
-      display:flex; gap:14px; margin-top:8px; flex-wrap:wrap;
-    }
+    /* Micro helper hint */
+    .hint{font-size:12px; color:var(--muted); margin-top:6px;}
+
+    /* 3D Buttons */
+    .actions{display:flex; gap:14px; margin-top:10px; flex-wrap:wrap;}
     .btn{
-      position:relative;
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:10px; width:auto; min-width:160px;
-      padding:12px 18px; border-radius:14px;
-      color:#fff; font-weight:700; letter-spacing:0.2px;
-      text-shadow:0 1px 0 rgba(0,0,0,0.35);
-      cursor:pointer; user-select:none;
-      border:1px solid rgba(255,255,255,0.12);
+      position:relative; display:inline-flex; align-items:center; justify-content:center;
+      gap:10px; min-width:170px; padding:12px 18px; border-radius:16px;
+      color:#fff; font-weight:800; letter-spacing:.25px; cursor:pointer; user-select:none;
+      border:1px solid rgba(255,255,255,.12);
       background:
         linear-gradient(180deg, #6aa0ff 0%, #3a7bfd 40%, #215ef1 60%, #163bd6 100%);
       box-shadow:
-        0 16px 35px rgba(41,92,240,0.35),
-        inset 0 6px 12px rgba(255,255,255,0.18),
-        inset 0 -6px 12px rgba(16,48,160,0.5);
-      transition: transform .12s ease, box-shadow .2s ease, filter .2s ease;
+        0 20px 40px rgba(41,92,240,.35),
+        inset 0 6px 12px rgba(255,255,255,.18),
+        inset 0 -6px 12px rgba(16,48,160,.5);
+      transition:transform .12s ease, box-shadow .2s ease, filter .2s ease;
     }
     .btn::after{
-      content:"";
-      position:absolute; inset:0; border-radius:14px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
-      opacity:.7; pointer-events:none;
+      content:""; position:absolute; inset:0; border-radius:16px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.45); opacity:.7; pointer-events:none;
     }
-    .btn:hover{ transform: translateY(-2px); filter: brightness(1.05); }
-    .btn:active{ transform: translateY(0); box-shadow: 0 8px 18px rgba(41,92,240,0.28); }
-
+    .btn:hover{transform:translateY(-2px); filter:brightness(1.06);}
+    .btn:active{transform:translateY(0); box-shadow:0 10px 22px rgba(41,92,240,.28);}
     .btn.secondary{
-      background:
-        linear-gradient(180deg, #9aa5b1 0%, #7b8694 40%, #5b6571 100%);
+      background:linear-gradient(180deg,#9aa5b1 0%, #7b8694 40%, #5b6571 100%);
       box-shadow:
-        0 12px 26px rgba(90,100,120,0.35),
-        inset 0 6px 12px rgba(255,255,255,0.15),
-        inset 0 -6px 12px rgba(55,60,70,0.5);
+        0 16px 34px rgba(90,100,120,.35),
+        inset 0 6px 12px rgba(255,255,255,.15),
+        inset 0 -6px 12px rgba(55,60,70,.5);
     }
 
-    /* status toast */
-    .status{
-      margin-top:14px; font-size:15px; color:var(--muted);
-    }
-    .status.success{ color:var(--ok); }
-    .status.error{ color:var(--err); }
+    /* Toast status */
+    .status{margin-top:14px; font-size:15px; color:var(--muted);}
+    .status.success{color:var(--ok);} .status.error{color:var(--err);}
+    .status.warn{color:var(--warning);}
 
-    /* section header with accent line */
-    .section-header{
-      display:flex; align-items:center; gap:10px; margin:10px 0 18px;
-    }
-    .accent-line{
-      flex:1; height:2px;
-      background: linear-gradient(90deg, transparent, #4f8afa, #7c5cff, transparent);
-      filter: blur(.6px);
+    /* Footer */
+    .footer{
+      text-align:center; margin:28px 0 60px; color:var(--muted); font-size:13px;
     }
   </style>
 </head>
 <body>
 
-  <!-- animated ambient blobs -->
+  <!-- Ambient aurora layers -->
   <div class="aurora">
     <div class="blob b1"></div>
     <div class="blob b2"></div>
     <div class="blob b3"></div>
   </div>
 
-  <div class="wrap">
+  <div class="wrap" id="wrap">
     <div class="hero">
       <div class="title">د عاید او مصارفو حساب — 2026</div>
-      <div class="subtitle">لاندې معلومات په دقت سره ولیکئ. ډیزاین د ښکلا او وضاحت لپاره اصلاح شوی.</div>
+      <div class="subtitle">ښکلا، وضاحت، او سرعت سره جوړ شوی. لاندې معلومات په دقت سره ولیکئ.</div>
     </div>
 
     <div class="card">
       <div class="section-header">
-        <span style="font-weight:700">فورم</span>
+        <div class="section-title">فورم</div>
         <div class="accent-line"></div>
       </div>
 
-      <form id="form">
+      <form id="form" novalidate>
         <div class="grid">
           <div class="field">
             <label class="label">نیټه</label>
             <input class="input" type="date" name="date" required>
+            <div class="hint">د نیټې له مخې به سکرپټ خپله مناسبه میاشت شیوټ انتخاب کړي.</div>
           </div>
 
           <div class="field">
@@ -239,26 +206,49 @@
           <button class="btn secondary" type="reset">پاک کړی</button>
         </div>
 
-        <div id="status" class="status"></div>
+        <div id="status" class="status" aria-live="polite"></div>
       </form>
     </div>
+
+    <div class="footer">© 2026 — ډیزاین د ښکلا، لوستتیا او سرعت لپاره اصلاح شوی</div>
   </div>
 
   <script>
-    // NOTE: Replace with your actual Web App URL if you deploy again.
+    // خپل Web App /exec URL دلته ولیکه
     const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyEU9SLCtyzShfmAUJxluXXISmV97n51G52TFNd-EBaH4yQU_moKweBOv08U0tZPCOv/exec';
 
-    // graceful status helper
+    // پارالاکس نرم حرکت
+    (function(){
+      const wrap = document.getElementById('wrap');
+      let rafId = null;
+      function onMouseMove(e){
+        const x = (e.clientX / window.innerWidth - 0.5) * 2;
+        const y = (e.clientY / window.innerHeight - 0.5) * 2;
+        if(rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(()=>{
+          wrap.style.transform = `translate3d(${x*6}px, ${y*4}px, 0)`;
+        });
+      }
+      window.addEventListener('mousemove', onMouseMove);
+    })();
+
+    // وضعیت ښودلو مرستیال
     function setStatus(msg, kind){
       const el = document.getElementById('status');
       el.textContent = msg;
       el.className = 'status' + (kind ? (' ' + kind) : '');
     }
 
+    // دقیق فارم اعتبار سنجي
+    function validatePayload(p){
+      if(!p.date) return 'مهرباني، نیټه لازمي ده.';
+      if(isNaN(p.income) || p.income < 0) return 'عاید باید غیر منفي عدد وي.';
+      if(isNaN(p.expense) || p.expense < 0) return 'مصارف باید غیر منفي عدد وي.';
+      return null;
+    }
+
     document.getElementById('form').addEventListener('submit', async (e)=>{
       e.preventDefault();
-      setStatus('ثبت روان دی…');
-
       const fd = new FormData(e.target);
       const payload = {
         date: fd.get('date'),
@@ -268,6 +258,11 @@
         note: (fd.get('note') || '').trim()
       };
 
+      const errMsg = validatePayload(payload);
+      if(errMsg){ setStatus(errMsg, 'warn'); return; }
+
+      setStatus('ثبت روان دی…');
+
       try{
         const res = await fetch(ENDPOINT, {
           method:'POST',
@@ -275,11 +270,12 @@
           body: JSON.stringify(payload)
         });
 
-        // If the response is not JSON, show a readable message
+        // ځواب د متن په توګه واخلﺉ او بیا کوشش وکړه JSON شي
         const text = await res.text();
         let json;
-        try{ json = JSON.parse(text); } catch{
-          throw new Error('د سرور نااشنا ځواب: ' + text.slice(0,120) + '…');
+        try{ json = JSON.parse(text); }
+        catch{
+          throw new Error('د سرور نااشنا ځواب: ' + text.slice(0,140) + '…');
         }
 
         if(json.ok){
