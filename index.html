@@ -5,155 +5,129 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>د عاید او مصارفو حساب — 2026</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600&display=swap" rel="stylesheet">
-
   <style>
     :root{
-      --bg:#0a0f1a;
-      --glass:#0f213f99;
+      --bg:#080f1e;
+      --layer1:#102449;
+      --layer2:#0c1a35;
       --text:#eaf2ff;
       --muted:#a9b7d9;
-      --accent:#60a5fa;      /* آبي */
-      --accent2:#a78bfa;     /* بنفش */
-      --accent3:#34d399;     /* شین */
+      --glass1:rgba(24,42,82,.55);
+      --glass2:rgba(14,28,58,.62);
       --border:#2b3e66;
+      --accent:#5aa2ff;
+      --accent2:#a78bfa;
+      --accent3:#34d399;
       --ok:#22c55e;
       --err:#ef4444;
-      --warning:#f59e0b;
+      --warn:#f59e0b;
+      --radius-xl:22px;
+      --radius-lg:16px;
+      --radius-md:12px;
+      --gap-xl:24px;   /* د فیلډونو ترمنځ واضح فاصله */
+      --gap-lg:18px;
+      --gap-md:12px;
+      --pad-card:30px;
+      --pad-field:14px;
+      --btn-min:176px;
     }
     *{box-sizing:border-box}
     html,body{height:100%;}
     body{
-      margin:0; padding:0; color:var(--text);
+      margin:0; color:var(--text);
       font-family:'Noto Naskh Arabic', system-ui, sans-serif;
       background:
-        radial-gradient(1200px 600px at 15% 15%, #142b57 0%, #0d1830 55%, var(--bg) 100%),
-        radial-gradient(1000px 600px at 85% 80%, #1a345f 0%, #0f1a33 50%, #0a0f1a 100%);
+        radial-gradient(1200px 600px at 18% 14%, var(--layer1) 0%, var(--layer2) 55%, var(--bg) 100%),
+        radial-gradient(1000px 600px at 82% 84%, #153062 0%, var(--layer2) 50%, var(--bg) 100%);
       overflow-x:hidden;
     }
 
-    /* Animated aurora / nebula */
-    .aurora{position:fixed; inset:0; pointer-events:none; filter: blur(60px);}
-    .blob{position:absolute; width:520px; height:520px; border-radius:50%;
-      opacity:.35; mix-blend-mode:screen; animation:float 12s ease-in-out infinite;}
-    .b1{background:#5aa2ff; left:8%; top:10%; animation-duration:13s;}
+    /* animated aurora */
+    .aurora{position:fixed; inset:0; pointer-events:none; filter:blur(60px);}
+    .blob{position:absolute; width:540px; height:540px; border-radius:50%; opacity:.35; mix-blend-mode:screen; animation:float 12s ease-in-out infinite;}
+    .b1{background:#5aa2ff; left:7%; top:12%; animation-duration:13s;}
     .b2{background:#8b6cff; right:10%; top:18%; animation-duration:15s;}
-    .b3{background:#3bd6a5; left:20%; bottom:10%; animation-duration:17s;}
-    @keyframes float{
-      0%{ transform:translate3d(0,0,0) scale(1); }
-      50%{ transform:translate3d(14px,-18px,0) scale(1.06); }
-      100%{ transform:translate3d(0,0,0) scale(1); }
-    }
+    .b3{background:#3bd6a5; left:22%; bottom:10%; animation-duration:17s;}
+    @keyframes float{0%{transform:translate3d(0,0,0) scale(1);}50%{transform:translate3d(16px,-20px,0) scale(1.06);}100%{transform:translate3d(0,0,0) scale(1);}}
 
-    /* Parallax wrapper */
-    .wrap{max-width:1000px; margin:60px auto; padding:0 24px; will-change:transform;}
-
-    /* Hero */
-    .hero{text-align:center; margin-bottom:28px;}
+    .wrap{max-width:1040px; margin:64px auto; padding:0 24px; will-change:transform;}
+    .hero{text-align:center; margin-bottom:22px;}
     .title{
-      font-size:34px; font-weight:700; letter-spacing:.3px;
-      text-shadow:0 10px 30px rgba(96,165,250,.35);
+      font-size:36px; font-weight:700; letter-spacing:.3px;
       background:linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
       -webkit-background-clip:text; background-clip:text; color:transparent;
+      text-shadow:0 10px 30px rgba(96,165,250,.35);
     }
-    .subtitle{font-size:16px; color:var(--muted); margin-top:8px;}
+    .subtitle{font-size:16px; color:var(--muted); margin-top:10px;}
 
-    /* Card (glassmorphism + neumorphism edges) */
     .card{
-      position:relative; padding:28px; border-radius:20px;
-      background:linear-gradient(180deg, rgba(22,36,70,.55), rgba(12,24,48,.6));
-      backdrop-filter:saturate(140%) blur(14px);
+      position:relative; border-radius:var(--radius-xl); padding:var(--pad-card);
+      background:linear-gradient(180deg, var(--glass1), var(--glass2));
+      backdrop-filter:saturate(140%) blur(16px);
       border:1px solid rgba(110,160,255,.18);
-      box-shadow:
-        0 24px 60px rgba(0,0,0,.45),
-        inset 0 1px 0 rgba(255,255,255,.12);
+      box-shadow:0 26px 64px rgba(0,0,0,.46), inset 0 1px 0 rgba(255,255,255,.12);
       overflow:hidden;
     }
     .card::before{
-      content:""; position:absolute; inset:-2px; border-radius:22px;
-      background: conic-gradient(from 140deg, transparent 0 35%, rgba(127,197,255,.20) 40%, transparent 70%);
-      filter: blur(22px); opacity:.35; pointer-events:none;
+      content:""; position:absolute; inset:-2px; border-radius:calc(var(--radius-xl) + 2px);
+      background:conic-gradient(from 140deg, transparent 0 35%, rgba(127,197,255,.22) 40%, transparent 70%);
+      filter:blur(24px); opacity:.35; pointer-events:none;
     }
 
-    /* Section header */
-    .section-header{display:flex; align-items:center; gap:10px; margin:6px 0 20px;}
+    .section-header{display:flex; align-items:center; gap:12px; margin:6px 0 18px;}
     .section-title{font-weight:700;}
-    .accent-line{
-      flex:1; height:2px;
-      background:linear-gradient(90deg, transparent, var(--accent), var(--accent2), var(--accent3), transparent);
-      filter:blur(.7px);
+    .accent-line{flex:1; height:2px; background:linear-gradient(90deg, transparent, var(--accent), var(--accent2), var(--accent3), transparent); filter:blur(.7px);}
+
+    /* grid with generous spacing to avoid fields touching */
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      column-gap:var(--gap-xl); /* لوی فاصله د نیټې او عاید ترمنځ */
+      row-gap:var(--gap-xl);
+      margin-bottom:var(--gap-xl);
     }
+    @media (max-width:780px){ .grid{grid-template-columns:1fr;} }
 
-    /* Grid */
-    .grid{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
-    @media (max-width:760px){ .grid{grid-template-columns:1fr;} }
-
-    /* Field */
     .field{position:relative;}
-    .label{display:block; margin-bottom:8px; font-weight:600; color:#dbe8ff;}
+    .label{display:block; margin-bottom:10px; font-weight:600; color:#dbe8ff;}
     .input, .textarea{
-      width:100%; padding:14px; border-radius:14px;
-      background:linear-gradient(180deg, rgba(17,32,64,.78), rgba(13,26,52,.9));
-      border:1px solid var(--border); color:var(--text);
-      outline:none; font-size:16px;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.06),
-        0 12px 28px rgba(15,32,64,.55);
+      width:100%; padding:var(--pad-field); border-radius:var(--radius-lg);
+      background:linear-gradient(180deg, rgba(17,32,64,.80), rgba(13,26,52,.92));
+      border:1px solid var(--border); color:var(--text); outline:none; font-size:16px;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 14px 30px rgba(15,32,64,.55);
       transition:border-color .2s ease, box-shadow .2s ease, transform .12s ease;
     }
     .input:hover, .textarea:hover{border-color:var(--accent);}
-    .input:focus, .textarea:focus{
-      border-color:var(--accent2);
-      box-shadow:0 0 0 4px rgba(167,139,250,.20), 0 12px 28px rgba(56,96,180,.25);
-      transform:translateY(-1px);
-    }
-    .textarea{min-height:120px; resize:vertical;}
+    .input:focus, .textarea:focus{border-color:var(--accent2); box-shadow:0 0 0 5px rgba(167,139,250,.20), 0 14px 32px rgba(56,96,180,.25); transform:translateY(-1px);}
+    .textarea{min-height:128px; resize:vertical;}
+    .hint{font-size:12px; color:var(--muted); margin-top:8px;}
 
-    /* Micro helper hint */
-    .hint{font-size:12px; color:var(--muted); margin-top:6px;}
-
-    /* 3D Buttons */
-    .actions{display:flex; gap:14px; margin-top:10px; flex-wrap:wrap;}
+    .actions{display:flex; gap:var(--gap-lg); margin-top:4px; flex-wrap:wrap;}
     .btn{
       position:relative; display:inline-flex; align-items:center; justify-content:center;
-      gap:10px; min-width:170px; padding:12px 18px; border-radius:16px;
+      min-width:var(--btn-min); padding:12px 20px; border-radius:18px;
       color:#fff; font-weight:800; letter-spacing:.25px; cursor:pointer; user-select:none;
       border:1px solid rgba(255,255,255,.12);
-      background:
-        linear-gradient(180deg, #6aa0ff 0%, #3a7bfd 40%, #215ef1 60%, #163bd6 100%);
-      box-shadow:
-        0 20px 40px rgba(41,92,240,.35),
-        inset 0 6px 12px rgba(255,255,255,.18),
-        inset 0 -6px 12px rgba(16,48,160,.5);
+      background:linear-gradient(180deg, #6aa0ff 0%, #3a7bfd 40%, #215ef1 60%, #163bd6 100%);
+      box-shadow:0 22px 44px rgba(41,92,240,.35), inset 0 6px 12px rgba(255,255,255,.18), inset 0 -6px 12px rgba(16,48,160,.5);
       transition:transform .12s ease, box-shadow .2s ease, filter .2s ease;
     }
-    .btn::after{
-      content:""; position:absolute; inset:0; border-radius:16px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.45); opacity:.7; pointer-events:none;
-    }
+    .btn::after{content:""; position:absolute; inset:0; border-radius:18px; box-shadow:inset 0 1px 0 rgba(255,255,255,.45); opacity:.7; pointer-events:none;}
     .btn:hover{transform:translateY(-2px); filter:brightness(1.06);}
-    .btn:active{transform:translateY(0); box-shadow:0 10px 22px rgba(41,92,240,.28);}
+    .btn:active{transform:translateY(0); box-shadow:0 12px 24px rgba(41,92,240,.28);}
     .btn.secondary{
-      background:linear-gradient(180deg,#9aa5b1 0%, #7b8694 40%, #5b6571 100%);
-      box-shadow:
-        0 16px 34px rgba(90,100,120,.35),
-        inset 0 6px 12px rgba(255,255,255,.15),
-        inset 0 -6px 12px rgba(55,60,70,.5);
+      background:linear-gradient(180deg, #9aa5b1 0%, #7b8694 40%, #5b6571 100%);
+      box-shadow:0 18px 36px rgba(90,100,120,.35), inset 0 6px 12px rgba(255,255,255,.15), inset 0 -6px 12px rgba(55,60,70,.5);
     }
 
-    /* Toast status */
-    .status{margin-top:14px; font-size:15px; color:var(--muted);}
-    .status.success{color:var(--ok);} .status.error{color:var(--err);}
-    .status.warn{color:var(--warning);}
+    .status{margin-top:12px; font-size:15px; color:var(--muted);}
+    .status.success{color:var(--ok);} .status.error{color:var(--err);} .status.warn{color:var(--warn);}
 
-    /* Footer */
-    .footer{
-      text-align:center; margin:28px 0 60px; color:var(--muted); font-size:13px;
-    }
+    .footer{text-align:center; margin:26px 0 60px; color:var(--muted); font-size:13px;}
   </style>
 </head>
 <body>
 
-  <!-- Ambient aurora layers -->
   <div class="aurora">
     <div class="blob b1"></div>
     <div class="blob b2"></div>
@@ -163,7 +137,7 @@
   <div class="wrap" id="wrap">
     <div class="hero">
       <div class="title">د عاید او مصارفو حساب — 2026</div>
-      <div class="subtitle">ښکلا، وضاحت، او سرعت سره جوړ شوی. لاندې معلومات په دقت سره ولیکئ.</div>
+      <div class="subtitle">د ښکلا، وضاحت او سرعت سره جوړ شوی؛ معلومات په دقت سره ولیکئ.</div>
     </div>
 
     <div class="card">
@@ -177,7 +151,7 @@
           <div class="field">
             <label class="label">نیټه</label>
             <input class="input" type="date" name="date" required>
-            <div class="hint">د نیټې له مخې به سکرپټ خپله مناسبه میاشت شیوټ انتخاب کړي.</div>
+            <div class="hint">د نیټې له مخې به مناسبه میاشت شیوټ خپله انتخاب شي.</div>
           </div>
 
           <div class="field">
@@ -202,22 +176,22 @@
         </div>
 
         <div class="actions">
-          <button class="btn" type="submit">ثبت کړی</button>
-          <button class="btn secondary" type="reset">پاک کړی</button>
+          <button class="btn" type="submit">ثبت کړه</button>
+          <button class="btn secondary" type="reset">پاک کړه</button>
         </div>
 
         <div id="status" class="status" aria-live="polite"></div>
       </form>
     </div>
 
-    <div class="footer">© 2026 — ډیزاین د ښکلا، لوستتیا او سرعت لپاره اصلاح شوی</div>
+    <div class="footer">© 2026 — ښکلا، لوستتیا او سرعت په یو ځای کې</div>
   </div>
 
   <script>
-    // خپل Web App /exec URL دلته ولیکه
+    // د Web App /exec URL دلته ولیکه
     const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyEU9SLCtyzShfmAUJxluXXISmV97n51G52TFNd-EBaH4yQU_moKweBOv08U0tZPCOv/exec';
 
-    // پارالاکس نرم حرکت
+    // نرم پارالاکس
     (function(){
       const wrap = document.getElementById('wrap');
       let rafId = null;
@@ -232,14 +206,12 @@
       window.addEventListener('mousemove', onMouseMove);
     })();
 
-    // وضعیت ښودلو مرستیال
     function setStatus(msg, kind){
       const el = document.getElementById('status');
       el.textContent = msg;
       el.className = 'status' + (kind ? (' ' + kind) : '');
     }
 
-    // دقیق فارم اعتبار سنجي
     function validatePayload(p){
       if(!p.date) return 'مهرباني، نیټه لازمي ده.';
       if(isNaN(p.income) || p.income < 0) return 'عاید باید غیر منفي عدد وي.';
@@ -270,13 +242,10 @@
           body: JSON.stringify(payload)
         });
 
-        // ځواب د متن په توګه واخلﺉ او بیا کوشش وکړه JSON شي
         const text = await res.text();
         let json;
         try{ json = JSON.parse(text); }
-        catch{
-          throw new Error('د سرور نااشنا ځواب: ' + text.slice(0,140) + '…');
-        }
+        catch{ throw new Error('د سرور نااشنا ځواب: ' + text.slice(0,140) + '…'); }
 
         if(json.ok){
           setStatus('ستاسو معلومات بریالي ثبت شول. مننه!', 'success');
