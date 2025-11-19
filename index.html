@@ -8,43 +8,49 @@
   <style>
     body {
       font-family: 'Noto Naskh Arabic', sans-serif;
-      background: #0F172A;
-      color: #E5E7EB;
+      background: linear-gradient(to right, #0f172a, #1e293b);
+      color: #f1f5f9;
       margin: 0;
       padding: 0;
     }
     .container {
       max-width: 800px;
       margin: 40px auto;
-      padding: 20px;
-      background: #1E293B;
-      border-radius: 12px;
+      padding: 30px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     }
     h1 {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
       font-weight: 600;
+      font-size: 28px;
     }
     label {
       display: block;
       margin-bottom: 6px;
       font-weight: 600;
     }
-    input, textarea, select, button {
+    input, textarea, button {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 16px;
-      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 10px;
       border: 1px solid #334155;
-      background: #0D2A57;
-      color: #E5E7EB;
+      background: #0d2a57;
+      color: #f1f5f9;
+      font-size: 16px;
     }
     button {
-      background: #0A3AFF;
+      background: #0a3aff;
       border: none;
       font-weight: 600;
       cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #2563eb;
     }
     button.secondary {
       background: #374151;
@@ -53,8 +59,8 @@
       margin-top: 10px;
       font-size: 14px;
     }
-    .success { color: #22C55E; }
-    .error { color: #EF4444; }
+    .success { color: #22c55e; }
+    .error { color: #ef4444; }
   </style>
 </head>
 <body>
@@ -64,36 +70,20 @@
       <label>نیټه</label>
       <input type="date" name="date" required>
 
-      <label>میاشت</label>
-      <select name="month" required>
-        <option value="جنوري">جنوري</option>
-        <option value="فبروري">فبروري</option>
-        <option value="مارچ">مارچ</option>
-        <option value="اپریل">اپریل</option>
-        <option value="می">می</option>
-        <option value="جون">جون</option>
-        <option value="جولای">جولای</option>
-        <option value="اګست">اګست</option>
-        <option value="سپتمبر">سپتمبر</option>
-        <option value="اکتوبر">اکتوبر</option>
-        <option value="نومبر">نومبر</option>
-        <option value="دسمبر">دسمبر</option>
-      </select>
-
-      <label>عاید</label>
+      <label>عایدات</label>
       <input type="number" name="income" min="0" step="0.01" required placeholder="0">
 
       <label>مصارف</label>
       <input type="number" name="expense" min="0" step="0.01" placeholder="0">
 
-      <label>د کار تفصیل</label>
+      <label>د کلې تفصیل</label>
       <textarea name="detail" placeholder="دلته تفصیل ولیکئ…"></textarea>
 
       <label>یادښت</label>
       <textarea name="note" placeholder="هر ډول یادونه…"></textarea>
 
-      <button type="submit">ثبت کړئ</button>
-      <button type="reset" class="secondary">پاک کړئ</button>
+      <button type="submit">ثبت کړی</button>
+      <button type="reset" class="secondary">پاک کړی</button>
 
       <div id="status" class="status"></div>
     </form>
@@ -110,7 +100,6 @@ document.getElementById('form').addEventListener('submit', async (e) => {
   const fd = new FormData(e.target);
   const payload = {
     date: fd.get('date'),
-    month: fd.get('month'),
     income: Number(fd.get('income') || 0),
     expense: Number(fd.get('expense') || 0),
     detail: (fd.get('detail') || '').trim(),
@@ -140,4 +129,3 @@ document.getElementById('form').addEventListener('submit', async (e) => {
 </script>
 </body>
 </html>
-
