@@ -67,20 +67,20 @@
   <div class="container">
     <h1>د عاید او مصارفو حساب - 2026</h1>
     <form id="form">
-      <label>نیټه</label>
+      <label>نېټه</label>
       <input type="date" name="date" required>
 
-      <label>عایدات</label>
+      <label>عايد</label>
       <input type="number" name="income" min="0" step="0.01" required placeholder="0">
 
       <label>مصارف</label>
       <input type="number" name="expense" min="0" step="0.01" placeholder="0">
 
-      <label>د کلې تفصیل</label>
+      <label>تفصیلات</label>
       <textarea name="detail" placeholder="دلته تفصیل ولیکئ…"></textarea>
 
-      <label>یادښت</label>
-      <textarea name="note" placeholder="هر ډول یادونه…"></textarea>
+      <label>یاداښت</label>
+      <textarea name="note" placeholder="هر ډول یاداښت دلته ولیکئ…"></textarea>
 
       <button type="submit">ثبت کړی</button>
       <button type="reset" class="secondary">پاک کړی</button>
@@ -95,7 +95,7 @@ const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyEU9SLCtyzShfmAUJxluX
 document.getElementById('form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const status = document.getElementById('status');
-  status.textContent = 'درحال ثبتولو...';
+  status.textContent = 'د ثبتولو په حال کې ...';
 
   const fd = new FormData(e.target);
   const payload = {
