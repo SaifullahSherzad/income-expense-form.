@@ -1,73 +1,103 @@
 <!DOCTYPE html>
-<html lang="ps">
+<html lang="ps" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trailer Data Entry</title>
-<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>د ټریلر د ورځني حساب فارم</title>
+  <style>
     body {
-        font-family: sans-serif;
-        background: #f0f0f0;
-        padding: 20px;
+      font-family: 'Noto Naskh Arabic', sans-serif;
+      background: #f0f4f8;
+      padding: 30px;
     }
     .box {
-        background: white;
-        padding: 20px;
-        max-width: 400px;
-        margin: auto;
-        border-radius: 10px;
-        box-shadow: 0 0 10px #aaa;
+      background: white;
+      padding: 24px;
+      max-width: 420px;
+      margin: auto;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: 600;
     }
     input, textarea, button {
-        width: 100%;
-        margin-top: 10px;
-        padding: 10px;
-        font-size: 16px;
+      width: 100%;
+      margin-top: 12px;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
     }
     button {
-        background: #007bff;
-        color: white;
-        border: none;
-        cursor: pointer;
+      background: #007bff;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
     }
-</style>
+    button:hover {
+      background: #0056b3;
+    }
+    #msg {
+      margin-top: 16px;
+      font-size: 14px;
+      text-align: center;
+      color: #d32f2f;
+    }
+  </style>
 </head>
 <body>
 
 <div class="box">
-    <h2>د ټریلر د ورځني حساب فارم</h2>
+  <h2>د ټریلر د ورځني حساب فارم</h2>
 
-    <input id="date" type="text" placeholder="نیټه (dd-MM-yyyy)">
-    <input id="income" type="number" placeholder="عاید (که وي)">
-    <input id="expense" type="number" placeholder="مصرف (که وي)">
-    <input id="detail" type="text" placeholder="تفصیل">
-    <textarea id="note" placeholder="یادښت"></textarea>
+  <input id="date" type="date" required>
+  <input id="income" type="number" placeholder="عاید (که وي)">
+  <input id="expense" type="number" placeholder="مصرف (که وي)">
+  <input id="detail" type="text" placeholder="تفصیل">
+  <textarea id="note" placeholder="یادښت"></textarea>
 
-    <button onclick="sendData()">ثبتول</button>
+  <button onclick="sendData()">ثبتول</button>
 
-    <p id="msg"></p>
+  <p id="msg"></p>
 </div>
 
 <script>
 function sendData() {
-    const URL = "https://script.google.com/macros/s/AKfycbxoq3wuJ6FuGQibcl5x_4PDtw68KmOQzCtvTuTQ6llV6k_X-RXlj1FIrY-mlxh_31dn/exec";
+  const URL = "https://script.google.com/macros/s/AKfycbxoq3wuJ6FuGQibcl5x_4PDtw68KmOQzCtvTuTQ6llV6k_X-RXlj1FIrY-mlxh_31dn/exec";
 
-    const date = document.getElementById("date").value;
-    const income = document.getElementById("income").value;
-    const expense = document.getElementById("expense").value;
-    const detail = document.getElementById("detail").value;
-    const note = document.getElementById("note").value;
+  const rawDate = document.getElementById("date").value;
+  if (!rawDate) {
+    document.getElementById("msg").innerText = "مهرباني وکړئ نیټه انتخاب کړئ";
+    return;
+  }
 
-    const finalURL = `${URL}?date=${encodeURIComponent(date)}&income=${income}&expense=${expense}&detail=${encodeURIComponent(detail)}&note=${encodeURIComponent(note)}`;
+  const d = new Date(rawDate);
+  const dd = String(d.getDate()).padStart(2, '0');
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const yyyy = d.getFullYear();
+  const date = `${dd}-${mm}-${yyyy}`;
 
-    fetch(finalURL)
-        .then(r => r.text())
-        .then(res => {
-            document.getElementById("msg").innerText = res;
-        })
-        .catch(err => {
-            document.getElementById("msg").innerText = "Error sending data";
-        });
+  const income = document.getElementById("income").value || 0;
+  const expense = document.getElementById("expense").value || 0;
+  const detail = document.getElementById("detail").value.trim();
+  const note = document.getElementById("note").value.trim();
+
+  const finalURL = `${URL}?date=${encodeURIComponent(date)}&income=${income}&expense=${expense}&detail=${encodeURIComponent(detail)}&note=${encodeURIComponent(note)}`;
+
+  fetch(finalURL)
+    .then(r => r.text())
+    .then(res => {
+      document.getElementById("msg").innerText = res;
+    })
+    .catch(err => {
+      document.getElementById("msg").innerText = "د معلوماتو لیږلو ستونزه";
+    });
 }
 </script>
 
