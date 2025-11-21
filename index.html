@@ -1,411 +1,146 @@
 <!DOCTYPE html>
-<html lang="ps" dir="rtl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>د ټریلر د ورځني حساب فورم  </title>
-  
-  <!-- Google Fonts & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  
-  <style>
-    /* ====== CSS Variables - Premium Theme ====== */
-    :root {
-      --primary: #6366f1;
-      --primary-dark: #4f46e5;
-      --secondary: #10b981;
-      --accent: #f59e0b;
-      --error: #ef4444;
-      --dark-bg: #0f172a;
-      --card-bg: rgba(255, 255, 255, 0.08);
-      --card-border: rgba(255, 255, 255, 0.1);
-      --text-primary: #f1f5f9;
-      --text-secondary: #94a3b8;
-      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      --shadow-hover: 0 35px 60px -15px rgba(0, 0, 0, 0.6);
-      --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Vision Pro UI</title>
 
-    /* ====== Animated Background ====== */
-    body {
-      font-family: 'Noto Naskh Arabic', 'Inter', sans-serif;
-      background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 50%, #334155 100%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      color: var(--text-primary);
-      overflow-x: hidden;
-      position: relative;
-    }
+<style>
 
-    /* Floating particles effect */
-    body::before {
-      content: '';
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
-      animation: float 20s infinite linear;
-      z-index: -1;
-    }
+/* GLOBAL */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #f5f5f7;
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px;
+}
 
-    @keyframes float {
-      0% { transform: translate(0, 0) rotate(0deg); }
-      50% { transform: translate(-50px, -50px) rotate(180deg); }
-      100% { transform: translate(0, 0) rotate(360deg); }
-    }
+/* CARD WRAPPER — Apple Style */
+.form-card {
+    width: 100%;
+    max-width: 500px;
+    padding: 32px;
+    border-radius: 24px;
 
-    /* ====== 3D Card with Glassmorphism ====== */
-    .card-3d {
-      background: var(--card-bg);
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      border: 1px solid var(--card-border);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      width: 100%;
-      max-width: 500px;
-      padding: 40px;
-      transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
-      transition: var(--transition);
-      position: relative;
-      z-index: 1;
-    }
+    background: rgba(255,255,255,0.60);
+    backdrop-filter: blur(40px);
 
-    .card-3d:hover {
-      transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translateY(-10px);
-      box-shadow: var(--shadow-hover);
-    }
+    border: 1px solid rgba(255,255,255,0.35);
+    box-shadow:
+        0 4px 15px rgba(0,0,0,0.04),
+        inset 0 1px 0 rgba(255,255,255,0.4);
 
-    /* Card glow effect */
-    .card-3d::after {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, #6366f1, #8b5cf6, #ec4899);
-      border-radius: 24px;
-      opacity: 0;
-      z-index: -1;
-      transition: opacity 0.3s ease;
-      filter: blur(15px);
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
 
-    .card-3d:hover::after {
-      opacity: 0.7;
-    }
+/* TITLE */
+.form-card h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: #111;
+    letter-spacing: -0.3px;
+}
 
-    /* ====== Header with Gradient Text ====== */
-    .header {
-      text-align: center;
-      margin-bottom: 40px;
-      position: relative;
-    }
+/* LABEL */
+label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 6px;
+    display: block;
+}
 
-    .header h2 {
-      font-size: 32px;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--primary) 0%, #a78bfa 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin: 0;
-      letter-spacing: -0.5px;
-      position: relative;
-      display: inline-block;
-    }
+/* INPUTS */
+input, textarea, select {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 15px;
+    border-radius: 14px;
 
-    .header h2::after {
-      content: '🚛';
-      position: absolute;
-      left: -50px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 28px;
-      -webkit-text-fill-color: initial;
-      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
-    }
+    border: 1px solid rgba(0,0,0,0.10);
+    background: rgba(255,255,255,0.65);
+    backdrop-filter: blur(20px);
 
-    .header p {
-      font-size: 15px;
-      color: var(--text-secondary);
-      margin-top: 12px;
-      font-weight: 500;
-    }
+    transition: 0.25s ease;
+    outline: none;
+}
 
-    /* ====== Form Fields with Floating Labels ====== */
-    .form-group {
-      margin-bottom: 28px;
-      position: relative;
-    }
+/* INPUT FOCUS — Apple soft glow (no neon) */
+input:focus, textarea:focus, select:focus {
+    border-color: rgba(0,0,0,0.25);
+    background: rgba(255,255,255,0.85);
+}
 
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 18px 20px;
-      font-size: 16px;
-      font-family: inherit;
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      background: rgba(15, 23, 42, 0.4);
-      color: var(--text-primary);
-      transition: var(--transition);
-      direction: rtl;
-      text-align: right;
-    }
+/* BUTTON */
+button {
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
 
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--primary);
-      background: rgba(15, 23, 42, 0.6);
-      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
-      transform: translateY(-2px);
-    }
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: #fff;
 
-    textarea {
-      resize: vertical;
-      min-height: 110px;
-    }
+    transition: 0.2s ease;
+}
 
-    /* ====== Dual Fields Grid ====== */
-    .dual-fields {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
+button:hover {
+    opacity: 0.92;
+}
 
-    @media (max-width: 480px) {
-      .dual-fields {
-        grid-template-columns: 1fr;
-      }
-    }
+/* SMALL SPACER */
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
 
-    /* ====== 3D Submit Button ====== */
-    .submit-btn-3d {
-      width: 100%;
-      padding: 18px 20px;
-      font-size: 17px;
-      font-weight: 600;
-      color: white;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-      border: none;
-      border-radius: 14px;
-      cursor: pointer;
-      transition: var(--transition);
-      position: relative;
-      transform: perspective(500px) translateZ(0);
-      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
-      margin-top: 12px;
-      letter-spacing: 0.5px;
-    }
-
-    .submit-btn-3d:hover {
-      transform: perspective(500px) translateZ(10px) translateY(-4px);
-      box-shadow: 0 12px 30px rgba(99, 102, 241, 0.6);
-    }
-
-    .submit-btn-3d:active {
-      transform: perspective(500px) translateZ(0) translateY(0);
-      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-    }
-
-    .submit-btn-3d i {
-      margin-left: 10px;
-      font-size: 18px;
-    }
-
-    /* Loading spinner */
-    .loading {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      border: 2px solid #ffffff;
-      border-radius: 50%;
-      border-top-color: transparent;
-      animation: spin 0.8s linear infinite;
-      margin-right: 10px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* ====== Message Animation ====== */
-    .message-3d {
-      margin-top: 24px;
-      padding: 16px 20px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(-20px) scale(0.95);
-      transition: var(--transition);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--card-border);
-    }
-
-    .message-3d.show {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-
-    .message-3d.success {
-      background: rgba(16, 185, 129, 0.15);
-      color: #10b981;
-    }
-
-    .message-3d.error {
-      background: rgba(239, 68, 68, 0.15);
-      color: #ef4444;
-    }
-
-    /* ====== Input Icons ====== */
-    .input-icon {
-      position: relative;
-    }
-
-    .input-icon input,
-    .input-icon textarea {
-      padding-right: 50px;
-    }
-
-    .input-icon::before {
-      content: attr(data-icon);
-      position: absolute;
-      right: 18px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 18px;
-      color: var(--text-secondary);
-      z-index: 1;
-      transition: var(--transition);
-    }
-
-    .input-icon:focus-within::before {
-      color: var(--primary);
-    }
-
-    /* ====== Success Animation (Checkmark) ====== */
-    @keyframes successPulse {
-      0% { transform: scale(0); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
-    }
-
-    .success-check {
-      display: inline-block;
-      animation: successPulse 0.6s ease;
-    }
-  </style>
+</style>
 </head>
+
 <body>
 
-<div class="card-3d">
-  <div class="header">
-    <h2>د ټریلر د ورځني حساب فورم</h2>
-    <p>مهرباني وکړئ ورځني معلومات په دقیقه توګه ثبت کړئ</p>
-  </div>
+<div class="form-card">
 
-  <form id="trailerForm">
-    <div class="form-group input-icon" data-icon="📅">
-      <input id="date" type="date" required placeholder=" ">
+    <h2>Register</h2>
+
+    <!-- هماغه ستا موجود فیلډونه — هیڅ اضافه نشته -->
+
+    <div class="field">
+        <label>Full Name</label>
+        <input type="text" placeholder="Enter full name">
     </div>
 
-    <div class="dual-fields">
-      <div class="form-group input-icon" data-icon="💰">
-        <input id="income" type="number" placeholder="عاید (دلته د عائد اندازه ولیکئ)" min="0">
-      </div>
-      <div class="form-group input-icon" data-icon="💸">
-        <input id="expense" type="number" placeholder="مصرف (دلته د مصرف اندازه ولیکئ)" min="0">
-      </div>
+    <div class="field">
+        <label>Phone</label>
+        <input type="text" placeholder="Enter phone number">
     </div>
 
-    <div class="form-group input-icon" data-icon="📝">
-      <input id="detail" type="text" placeholder="تفصیل">
+    <div class="field">
+        <label>Address</label>
+        <input type="text" placeholder="Enter address">
     </div>
 
-    <div class="form-group input-icon" data-icon="📌">
-      <textarea id="note" placeholder="یادښتونه..."></textarea>
+    <div class="field">
+        <label>Amount</label>
+        <input type="number" placeholder="Enter amount">
     </div>
 
-    <button type="button" class="submit-btn-3d" onclick="sendData()">
-      <i class="fas fa-save"></i>ثبتول
-    </button>
-  </form>
+    <div class="field">
+        <label>Note</label>
+        <textarea rows="3" placeholder="Note here"></textarea>
+    </div>
 
-  <div id="msg" class="message-3d"></div>
+    <button>Submit</button>
+
 </div>
-
-<script>
-// اصلي فنکشن (ستاسو موجوده منطق)
-function sendData() {
-  const URL = "https://script.google.com/macros/s/AKfycbxMuzcGNbDxdvzOaOw-n1hY-Mbr2OsxYEBVDqnC2TP35baYP3lkXbo0nyF87LltSVHB/exec";
-
-  const rawDate = document.getElementById("date").value;
-  if (!rawDate) {
-    showMessage('⚠️ مهرباني وکړئ سمه نیټه انتخاب کړئ', 'error');
-    return;
-  }
-
-  const parts = rawDate.split("-");
-  const yyyy = Number(parts[0]);
-  const mmIdx = Number(parts[1]) - 1;
-  const dd = Number(parts[2]);
-  const date = `${String(dd).padStart(2,'0')}-${String(mmIdx+1).padStart(2,'0')}-${yyyy}`;
-
-  const income = document.getElementById("income").value || 0;
-  const expense = document.getElementById("expense").value || 0;
-  const detail = (document.getElementById("detail").value || '').trim();
-  const note = (document.getElementById("note").value || '').trim();
-
-  const finalURL = `${URL}?date=${encodeURIComponent(date)}&income=${income}&expense=${expense}&detail=${encodeURIComponent(detail)}&note=${encodeURIComponent(note)}`;
-
-  const btn = document.querySelector('.submit-btn-3d');
-  const originalHTML = btn.innerHTML;
-  btn.disabled = true;
-  btn.innerHTML = '<span class="loading"></span>...ثبتېږي';
-
-  fetch(finalURL)
-    .then(r => r.text())
-    .then(res => {
-      if (res.includes('OK:')) {
-        showMessage('<span class="success-check">✓</span> معلومات په بریالیتوب سره ثبت شول', 'success');
-        setTimeout(() => {
-          document.getElementById('trailerForm').reset();
-        }, 2000);
-      } else {
-        showMessage('✗ ' + res, 'error');
-      }
-    })
-    .catch(() => {
-      showMessage('✗ د معلوماتو لیږلو ستونزه رامنځته شوه', 'error');
-    })
-    .finally(() => {
-      btn.disabled = false;
-      btn.innerHTML = originalHTML;
-    });
-}
-
-// د پیغام ښودلو فنکشن
-function showMessage(text, type) {
-  const msgEl = document.getElementById('msg');
-  msgEl.innerHTML = text;
-  msgEl.className = `message-3d ${type} show`;
-  
-  setTimeout(() => {
-    msgEl.classList.remove('show');
-  }, 6000);
-}
-</script>
 
 </body>
 </html>
