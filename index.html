@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>د ورځني حساب فورم</title>
+  <title>د ټریلر د ورځني حساب فورم</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,8 +15,8 @@
     :root {
       --bg-primary: #020203;
       --bg-secondary: #0a0b0e;
-      --accent-1: #6366f1;      /* انډیګو */
-      --accent-2: #a78bfa;      /* جامي */
+      --accent-1: #6366f1;
+      --accent-2: #a78bfa;
       --accent-glow: rgba(163, 138, 250, 0.4);
       --text-primary: #f8fafc;
       --text-secondary: #889096;
@@ -35,7 +35,6 @@
     body {
       margin: 0;
       min-height: 100vh;
-      /* د ښایسته بېګراونډ ګرېډینټ */
       background: radial-gradient(1200px 600px at 90% -10%, rgba(99, 102, 241, 0.1), transparent 60%),
                   radial-gradient(800px 400px at 0% 30%, rgba(167, 139, 250, 0.08), transparent 50%),
                   linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
@@ -297,17 +296,18 @@
     <div class="card-header">
       <div class="brand" aria-hidden="true"><span>TR</span></div>
       <div class="header-text">
-        <h1 id="formTitle">دورځني حساب فورم</h1>
+        <h1 id="formTitle">د ورځني حساب فورم</h1>
         <p>مهرباني وکړئ ورځني معلومات په دقیقه توګه ډک کړئ</p>
       </div>
     </div>
 
     <form id="trailerForm" novalidate>
-      <!-- نیټه -->
+      <!-- نیټه - یوازې ۲۰۲۶ -->
       <div class="field full">
-        <input id="date" type="date" required aria-required="true" placeholder=" " />
-        <label class="floating" for="date">نیټه</label>
-        <div class="hint">مهرباني وکړئ سمه نېټه انتخاب کړئ</div>
+        <input id="date" type="date" required aria-required="true" placeholder=" " 
+               min="2026-01-01" max="2026-12-31" />
+        <label class="floating" for="date">نیټه (2026)</label>
+        <div class="hint">یوازې د 2026 کال نیټې انتخاب کړئ</div>
       </div>
 
       <!-- عاید -->
@@ -350,13 +350,22 @@
       const URL = "https://script.google.com/macros/s/AKfycbxMuzcGNbDxdvzOaOw-n1hY-Mbr2OsxYEBVDqnC2TP35baYP3lkXbo0nyF87LltSVHB/exec";
       
       const rawDate = document.getElementById("date").value;
+      
+      // نیټه مهمې څېړنې
       if (!rawDate) {
         showMessage('⚠️ مهرباني وکړئ سمه نیټه انتخاب کړئ', 'error');
         return;
       }
 
-      // د نېټې فارمیټ بدلول: YYYY-MM-DD -> DD-MM-YYYY
+      // د کال څېړنه: یوازې ۲۰۲۶
       const parts = rawDate.split("-");
+      const yyyy = Number(parts[0]);
+      if (yyyy !== 2026) {
+        showMessage('✗ یوازې د 2026 کال نیټې منل کېږي', 'error');
+        return;
+      }
+
+      // د نېټې فارمیټ بدلول: YYYY-MM-DD -> DD-MM-YYYY
       const date = `${parts[2].padStart(2,'0')}-${String(Number(parts[1])).padStart(2,'0')}-${parts[0]}`;
 
       const income = document.getElementById("income").value || 0;
@@ -396,8 +405,8 @@
       setTimeout(() => msgEl.classList.remove('show'), 5000);
     }
 
-    // ننۍ نېټه په اوتومات ډول ډکه کړئ
-    document.getElementById('date').value = new Date().toISOString().split('T')[0];
+    // د ۲۰۲۶ کال لپاره د نیټې ډیفالټ مقدار
+    document.getElementById('date').value = "2026-01-01";
   </script>
 </body>
 </html>
