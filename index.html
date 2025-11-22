@@ -138,7 +138,6 @@
 
     .field.full { grid-column: 1 / -1; }
 
-    /* ==================== Inputs & Floating Labels ==================== */
     input, textarea {
       width: 100%;
       padding: 18px 16px;
@@ -158,12 +157,10 @@
       line-height: 1.6;
     }
 
-    /* Placeholder (پټ کړو - floating label کار کوي) */
     input::placeholder, textarea::placeholder {
       color: transparent;
     }
 
-    /* Floating Label */
     label.floating {
       position: absolute;
       right: 16px;
@@ -182,7 +179,6 @@
       transform: translateY(-50%);
     }
 
-    /* Label animation when focused or filled */
     input:focus ~ label.floating,
     input:not(:placeholder-shown) ~ label.floating,
     textarea:focus ~ label.floating,
@@ -194,14 +190,12 @@
       font-weight: 500;
     }
 
-    /* Focus Glow Effect */
     input:focus, textarea:focus {
       border-color: var(--accent-2);
       box-shadow: 0 0 0 4px rgba(163, 138, 250, 0.15), 0 8px 24px rgba(0, 0, 0, 0.3);
       transform: translateY(-2px);
     }
 
-    /* Hint text */
     .hint {
       font-size: 12px;
       color: var(--text-secondary);
@@ -210,7 +204,6 @@
       opacity: 0.8;
     }
 
-    /* ==================== Submit Button ==================== */
     .btn {
       grid-column: 1 / -1;
       justify-self: end;
@@ -237,7 +230,6 @@
       transform: translateY(0) scale(0.98);
     }
 
-    /* Ripple Effect */
     .btn::before {
       content: '';
       position: absolute;
@@ -256,13 +248,6 @@
       height: 300px;
     }
 
-    /* Loading state */
-    .btn.loading {
-      opacity: 0.8;
-      pointer-events: none;
-    }
-
-    /* ==================== Message Box ==================== */
     #msg {
       grid-column: 1 / -1;
       padding: 16px 20px;
@@ -284,7 +269,6 @@
     #msg.success { color: var(--success); border-color: rgba(52, 211, 153, 0.2); }
     #msg.error { color: var(--danger); border-color: rgba(248, 113, 113, 0.2); }
 
-    /* ==================== Responsive ==================== */
     @media (max-width: 640px) {
       .card { padding: 24px; }
       .header-text h1 { font-size: 22px; }
@@ -293,8 +277,12 @@
 </head>
 <body>
   <div class="card" role="region" aria-labelledby="formTitle">
-    <div class="card-header">
-      <div class="brand" aria-hidden="true"><span>TR</span></div>
+
+   <div class="brand" aria-hidden="true">
+  <img src="/mnt/data/01F7EE82-4408-41FE-B008-50F7BEB633A7.jpeg"
+       alt="logo"
+       style="width:100%; height:100%; object-fit:cover; border-radius:16px;">
+</div>
       <div class="header-text">
         <h1 id="formTitle">د ورځني حساب فورم</h1>
         <p>مهرباني وکړئ ورځني معلومات په دقیقه توګه ډک کړئ</p>
@@ -302,7 +290,7 @@
     </div>
 
     <form id="trailerForm" novalidate>
-      <!-- نیټه - یوازې ۲۰۲۶ -->
+
       <div class="field full">
         <input id="date" type="date" required aria-required="true" placeholder=" " 
                min="2026-01-01" max="2026-12-31" />
@@ -310,37 +298,31 @@
         <div class="hint">یوازې د 2026 کال نیټې انتخاب کړئ</div>
       </div>
 
-      <!-- عاید -->
       <div class="field">
         <input id="income" type="number" min="0" inputmode="numeric" placeholder=" " />
         <label class="floating" for="income">دلته عائد ولیکئ</label>
       </div>
 
-      <!-- مصرف -->
       <div class="field">
         <input id="expense" type="number" min="0" inputmode="numeric" placeholder=" " />
         <label class="floating" for="expense">دلته مصارف ولیکئ</label>
       </div>
 
-      <!-- تفصیل -->
       <div class="field full">
         <input id="detail" type="text" placeholder=" " />
         <label class="floating" for="detail">د کار تفصیل</label>
       </div>
 
-      <!-- یاداښت -->
       <div class="field full">
         <textarea id="note" placeholder=" "></textarea>
         <label class="floating" for="note">یاداښت</label>
       </div>
 
-      <!-- ثبتولو تڼۍ -->
       <button type="button" class="btn" onclick="sendData()" aria-label="ثبتول">
         <span>ثبتول</span>
         <span style="margin-right: 8px;">💾</span>
       </button>
 
-      <!-- پیغام -->
       <div id="msg" role="status" aria-live="polite"></div>
     </form>
   </div>
@@ -350,14 +332,12 @@
       const URL = "https://script.google.com/macros/s/AKfycbxMuzcGNbDxdvzOaOw-n1hY-Mbr2OsxYEBVDqnC2TP35baYP3lkXbo0nyF87LltSVHB/exec";
       
       const rawDate = document.getElementById("date").value;
-      
-      // نیټه مهمې څېړنې
+
       if (!rawDate) {
         showMessage('⚠️ مهرباني وکړئ سمه نیټه انتخاب کړئ', 'error');
         return;
       }
 
-      // د کال څېړنه: یوازې ۲۰۲۶
       const parts = rawDate.split("-");
       const yyyy = Number(parts[0]);
       if (yyyy !== 2026) {
@@ -365,7 +345,6 @@
         return;
       }
 
-      // د نېټې فارمیټ بدلول: YYYY-MM-DD -> DD-MM-YYYY
       const date = `${parts[2].padStart(2,'0')}-${String(Number(parts[1])).padStart(2,'0')}-${parts[0]}`;
 
       const income = document.getElementById("income").value || 0;
@@ -405,7 +384,6 @@
       setTimeout(() => msgEl.classList.remove('show'), 5000);
     }
 
-    // د ۲۰۲۶ کال لپاره د نیټې ډیفالټ مقدار
     document.getElementById('date').value = "2026-01-01";
   </script>
 </body>
