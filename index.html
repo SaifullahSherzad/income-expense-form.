@@ -5,11 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>د ټریلر د ورځني حساب فورم</title>
 
-  <!-- iOS Web App مېټا تګلارې -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="د ټریلر حساب">
-
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,11 +46,6 @@
       display: grid;
       place-items: center;
       padding: 24px;
-      /* iOS safe area */
-      padding-top: constant(safe-area-inset-top);
-      padding-top: env(safe-area-inset-top);
-      padding-bottom: constant(safe-area-inset-bottom);
-      padding-bottom: env(safe-area-inset-bottom);
     }
 
     /* ==================== Glass Morphism Card ==================== */
@@ -104,13 +94,12 @@
       font-weight: 800;
       font-size: 24px;
       box-shadow: 0 8px 24px var(--accent-glow);
-      overflow: hidden;
+      animation: float 4s ease-in-out infinite;
     }
 
-    .brand img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
 
     .header-text h1 {
@@ -213,70 +202,12 @@
     }
 
     /* Hint text */
+    .hint {
       font-size: 12px;
       color: var(--text-secondary);
       margin-top: 8px;
       text-align: right;
       opacity: 0.8;
-    }
-
-    /* ==================== Live Preview Panel ==================== */
-    .preview-panel {
-      grid-column: 1 / -1;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 14px;
-      padding: 20px;
-      margin-top: 10px;
-      backdrop-filter: blur(4px);
-      display: none;
-      animation: slideDown 0.3s var(--transition-bounce);
-    }
-
-    .preview-panel.show {
-      display: block;
-    }
-
-    .preview-panel h3 {
-      margin: 0 0 16px 0;
-      font-size: 16px;
-      color: var(--accent-2);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .preview-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--glass-border);
-    }
-
-    .preview-item:last-child {
-      border-bottom: none;
-    }
-
-    .preview-label {
-      color: var(--text-secondary);
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    .preview-value {
-      color: var(--text-primary);
-      font-size: 14px;
-      font-weight: 600;
-      text-align: left;
-      direction: ltr; /* د انګلیسي عددونو لپاره */
-    }
-
-    .preview-value.empty {
-      color: var(--text-secondary);
-      font-style: italic;
-      opacity: 0.6;
-      direction: rtl; /* د "نشته" پیغام لپاره */
     }
 
     /* ==================== Submit Button ==================== */
@@ -304,6 +235,25 @@
 
     .btn:active {
       transform: translateY(0) scale(0.98);
+    }
+
+    /* Ripple Effect */
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn:active::before {
+      width: 300px;
+      height: 300px;
     }
 
     /* Loading state */
@@ -344,13 +294,10 @@
 <body>
   <div class="card" role="region" aria-labelledby="formTitle">
     <div class="card-header">
-      <div class="brand" aria-hidden="true">
-        <!-- د SHERZAD تصویر - دا فایل د HTML په سمې فولډر کې اوسنی شي -->
-        <img src="200937EF-DCDC-4EF1-A1F7-AC2184DBCD4B.jpg" alt="SHERZAD Logo" style="width: 100%; height: 100%; object-fit: cover;">
-      </div>
+      <div class="brand" aria-hidden="true"><span>TR</span></div>
       <div class="header-text">
-        <h1 id="formTitle">د ټریلر د ورځني حساب فورم</h1>
-        <p>مهرباني اnd کړئ ورځني معلومات په دقیقه توګه ډک کړئ</p>
+        <h1 id="formTitle">د ورځني حساب فورم</h1>
+        <p>مهرباني وکړئ ورځني معلومات په دقیقه توګه ډک کړئ</p>
       </div>
     </div>
 
@@ -359,20 +306,20 @@
       <div class="field full">
         <input id="date" type="date" required aria-required="true" placeholder=" " 
                min="2026-01-01" max="2026-12-31" />
-        <label class="floating" for="date">نیټه (۲۰۲۶)</label>
-        <div class="hint">یوازې د ۲۰۲۶ کال نیټې انتخاب کړئ</div>
+        <label class="floating" for="date">نیټه (2026)</label>
+        <div class="hint">یوازې د 2026 کال نیټې انتخاب کړئ</div>
       </div>
 
       <!-- عاید -->
       <div class="field">
         <input id="income" type="number" min="0" inputmode="numeric" placeholder=" " />
-        <label class="floating" for="income">عاید</label>
+        <label class="floating" for="income">دلته عائد ولیکئ</label>
       </div>
 
       <!-- مصرف -->
       <div class="field">
         <input id="expense" type="number" min="0" inputmode="numeric" placeholder=" " />
-        <label class="floating" for="expense">مصرف</label>
+        <label class="floating" for="expense">دلته مصارف ولیکئ</label>
       </div>
 
       <!-- تفصیل -->
@@ -384,32 +331,7 @@
       <!-- یاداښت -->
       <div class="field full">
         <textarea id="note" placeholder=" "></textarea>
-        <label class="floating" for="note">اضافي یاداښت</label>
-      </div>
-
-      <!-- ژوندۍ پیش‌نمایش -->
-      <div id="previewPanel" class="preview-panel">
-        <h3>📝 د معلوماتو پیش‌نمایش</h3>
-        <div class="preview-item">
-          <span class="preview-label">نیټه:</span>
-          <span class="preview-value empty" id="previewDate">نیټه انتخاب شوې نه ده</span>
-        </div>
-        <div class="preview-item">
-          <span class="preview-label">عاید:</span>
-          <span class="preview-value currency" id="previewIncome">۰</span>
-        </div>
-        <div class="preview-item">
-          <span class="preview-label">مصرف:</span>
-          <span class="preview-value currency negative" id="previewExpense">۰</span>
-        </div>
-        <div class="preview-item">
-          <span class="preview-label">تفصیل:</span>
-          <span class="preview-value empty" id="previewDetail">تفصیل نشته</span>
-        </div>
-        <div class="preview-item">
-          <span class="preview-label">یاداښت:</span>
-          <span class="preview-value empty" id="previewNote">یاداښت نشته</span>
-        </div>
+        <label class="floating" for="note">یاداښت</label>
       </div>
 
       <!-- ثبتولو تڼۍ -->
@@ -424,96 +346,22 @@
   </div>
 
   <script>
-    // ==================== ژوندۍ پیش‌نمایش f ====================
-    function updatePreview() {
-      const previewPanel = document.getElementById('previewPanel');
-      const date = document.getElementById('date').value;
-      const income = document.getElementById('income').value;
-      const expense = document.getElementById('expense').value;
-      const detail = document.getElementById('detail').value;
-      const note = document.getElementById('note').value;
-
-      // پیش‌نمایش ښکاره کړئ که څه هم ولیکل شي
-      if (date || income || expense || detail || note) {
-        previewPanel.classList.add('show');
-      } else {
-        previewPanel.classList.remove('show');
-      }
-
-      // نیټه
-      const previewDate = document.getElementById('previewDate');
-      if (date) {
-        const parts = date.split('-');
-        previewDate.textContent = `${parts[2].padStart(2,'0')}-${String(Number(parts[1])).padStart(2,'0')}-${parts[0]}`;
-        previewDate.classList.remove('empty');
-      } else {
-        previewDate.textContent = 'نیټه انتخاب شوې نه ده';
-        previewDate.classList.add('empty');
-      }
-
-      // عاید (انګلیسي عددونه)
-      const previewIncome = document.getElementById('previewIncome');
-      if (income && parseFloat(income) > 0) {
-        previewIncome.textContent = `${parseFloat(income).toLocaleString('en-US')}`;
-        previewIncome.classList.remove('empty');
-      } else {
-        previewIncome.textContent = '0';
-        previewIncome.classList.add('empty');
-      }
-
-      // مصرف (انګلیسي عددونه)
-      const previewExpense = document.getElementById('previewExpense');
-      if (expense && parseFloat(expense) > 0) {
-        previewExpense.textContent = `${parseFloat(expense).toLocaleString('en-US')}`;
-        previewExpense.classList.remove('empty');
-      } else {
-        previewExpense.textContent = '0';
-        previewExpense.classList.add('empty');
-      }
-
-      // تفصیل
-      const previewDetail = document.getElementById('previewDetail');
-      if (detail) {
-        previewDetail.textContent = detail;
-        previewDetail.classList.remove('empty');
-      } else {
-        previewDetail.textContent = 'تفصیل نشته';
-        previewDetail.classList.add('empty');
-      }
-
-      // یاداښت
-      const previewNote = document.getElementById('previewNote');
-      if (note) {
-        previewNote.textContent = note;
-        previewNote.classList.remove('empty');
-      } else {
-        previewNote.textContent = 'یاداښت نشته';
-        previewNote.classList.add('empty');
-      }
-    }
-
-    // د انپټ فیلډونو ته Event Listeners اضافه کړئ
-    document.getElementById('date').addEventListener('change', updatePreview);
-    document.getElementById('income').addEventListener('input', updatePreview);
-    document.getElementById('expense').addEventListener('input', updatePreview);
-    document.getElementById('detail').addEventListener('input', updatePreview);
-    document.getElementById('note').addEventListener('input', updatePreview);
-
-    // ==================== د معلوماتو لیږلو فنکشن ====================
     function sendData() {
       const URL = "https://script.google.com/macros/s/AKfycbxMuzcGNbDxdvzOaOw-n1hY-Mbr2OsxYEBVDqnC2TP35baYP3lkXbo0nyF87LltSVHB/exec";
       
       const rawDate = document.getElementById("date").value;
       
-      // د کال محدودیت څېړنه
+      // نیټه مهمې څېړنې
       if (!rawDate) {
         showMessage('⚠️ مهرباني وکړئ سمه نیټه انتخاب کړئ', 'error');
         return;
       }
+
+      // د کال څېړنه: یوازې ۲۰۲۶
       const parts = rawDate.split("-");
       const yyyy = Number(parts[0]);
       if (yyyy !== 2026) {
-        showMessage('✗ یوازې د ۲۰۲۶ کال نیټې منل کېږي', 'error');
+        showMessage('✗ یوازې د 2026 کال نیټې منل کېږي', 'error');
         return;
       }
 
@@ -537,10 +385,7 @@
         .then(res => {
           if (res.includes('OK:')) {
             showMessage('✓ معلومات په بریالیتوب سره ثبت شول', 'success');
-            setTimeout(() => {
-              document.getElementById('trailerForm').reset();
-              updatePreview(); // پیش‌نمایش پاک کړئ
-            }, 1200);
+            setTimeout(() => document.getElementById('trailerForm').reset(), 1200);
           } else {
             showMessage('✗ ' + res, 'error');
           }
@@ -562,9 +407,6 @@
 
     // د ۲۰۲۶ کال لپاره د نیټې ډیفالټ مقدار
     document.getElementById('date').value = "2026-01-01";
-    updatePreview(); // لومړنی پیش‌نمایش تازه کړئ
   </script>
 </body>
 </html>
-<img src="https://your-username.github.io/sherzad-trailer-app/200937EF-DCDC-4EF1-A1F7-AC2184DBCD4B.jpg" ...>
-
