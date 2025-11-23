@@ -113,20 +113,20 @@
         .container {
             width: 100%;
             max-width: 750px;
-            padding: 50px;
+            padding: 30px 50px;
             z-index: 10;
             animation: slideInDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
         }
 
         .glass-card {
-            @extend .glass;
             box-shadow: 
                 0 20px 60px rgba(0, 0, 0, 0.5),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2),
                 0 0 80px rgba(139, 92, 246, 0.1);
             position: relative;
             z-index: 1;
+            padding: 40px;
         }
 
         @keyframes slideInDown {
@@ -147,15 +147,16 @@
             display: flex;
             align-items: center;
             gap: 24px;
-            margin-bottom: 40px;
+            margin-bottom: 28px;
             animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
         .logo-wrapper {
             position: relative;
-            width: 100px;
-            height: 100px;
+            width: 90px;
+            height: 90px;
             perspective: 1000px;
+            flex-shrink: 0;
         }
 
         .logo {
@@ -166,7 +167,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 48px;
+            font-size: 42px;
             font-weight: 900;
             color: white;
             box-shadow: 
@@ -203,8 +204,8 @@
                 box-shadow: 0 20px 50px rgba(139, 92, 246, 0.5), inset -1px -1px 30px rgba(255, 255, 255, 0.3), inset 1px 1px 20px rgba(0, 0, 0, 0.2);
             }
             50% { 
-                transform: translateY(-15px) rotateZ(2deg);
-                box-shadow: 0 30px 70px rgba(139, 92, 246, 0.7), inset -1px -1px 30px rgba(255, 255, 255, 0.3), inset 1px 1px 20px rgba(0, 0, 0, 0.2);
+                transform: translateY(-10px) rotateZ(2deg);
+                box-shadow: 0 25px 60px rgba(139, 92, 246, 0.7), inset -1px -1px 30px rgba(255, 255, 255, 0.3), inset 1px 1px 20px rgba(0, 0, 0, 0.2);
             }
         }
 
@@ -214,7 +215,7 @@
         }
 
         h1 {
-            font-size: 42px;
+            font-size: 40px;
             font-weight: 800;
             background: linear-gradient(to left, #c084fc, #60a5fa, #f472b6);
             -webkit-background-clip: text;
@@ -227,8 +228,8 @@
 
         .subtitle {
             color: #7dd3fc;
-            font-size: 15px;
-            margin-top: 12px;
+            font-size: 14px;
+            margin-top: 8px;
             font-weight: 500;
             letter-spacing: 0.5px;
         }
@@ -253,6 +254,7 @@
         .input-group {
             position: relative;
             animation: fadeInUp 0.6s ease-out forwards;
+            padding-top: 24px;
         }
 
         .input-group:nth-child(1) { animation-delay: 0.25s; }
@@ -274,8 +276,8 @@
 
         label {
             position: absolute;
-            top: -10px;
-            right: 16px;
+            top: 0;
+            right: 0;
             background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(59, 130, 246, 0.15));
             padding: 6px 14px;
             font-size: 12px;
@@ -288,11 +290,12 @@
             box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            white-space: nowrap;
         }
 
         input, textarea {
             width: 100%;
-            padding: 18px 20px;
+            padding: 16px 20px;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
             border: 2px solid rgba(139, 92, 246, 0.3);
             border-radius: 16px;
@@ -443,6 +446,7 @@
             max-width: 600px;
             width: 100%;
             animation: modalPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            padding: 40px;
         }
 
         @keyframes modalPop {
@@ -477,6 +481,7 @@
             font-size: 38px;
             box-shadow: 0 15px 40px rgba(245, 158, 11, 0.5);
             animation: pulseIcon 2s ease-in-out infinite;
+            flex-shrink: 0;
         }
 
         @keyframes pulseIcon {
@@ -691,7 +696,10 @@
 
         @media (max-width: 640px) {
             .container {
-                padding: 30px 20px;
+                padding: 20px;
+            }
+            .glass-card {
+                padding: 28px 20px;
             }
             h1 {
                 font-size: 32px;
@@ -737,12 +745,12 @@
 
                 <div class="input-group">
                     <label for="income">💰 عائد</label>
-                    <input type="number" id="income" name="income" min="0" placeholder="0">
+                    <input type="number" id="income" name="income" min="0" placeholder="عدد درج کړئ">
                 </div>
 
                 <div class="input-group">
                     <label for="expense">💸 مصارف</label>
-                    <input type="number" id="expense" name="expense" min="0" placeholder="0">
+                    <input type="number" id="expense" name="expense" min="0" placeholder="عدد درج کړئ">
                 </div>
 
                 <div class="input-group full-width">
