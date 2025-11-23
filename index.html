@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- FAVICON - شیرزاد لوگو -->
     <link rel="icon" type="image/png" href="./favicon.png" sizes="32x32">
     <link rel="apple-touch-icon" href="./favicon.png">
     <link rel="shortcut icon" href="./favicon.ico">
@@ -156,6 +155,273 @@
                 transform: translateY(0);
                 filter: blur(0);
             }
+        }
+
+        /* Password Screen */
+        #passwordScreen {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 5, 21, 0.98);
+            backdrop-filter: blur(30px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 16px;
+        }
+
+        #passwordScreen.hidden {
+            display: none;
+        }
+
+        .password-card {
+            max-width: 500px;
+            width: 100%;
+            animation: modalPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes modalPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.7) translateY(40px) rotateX(15deg);
+                filter: blur(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0) rotateX(0);
+                filter: blur(0);
+            }
+        }
+
+        .password-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 28px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        @media (min-width: 768px) {
+            .password-header {
+                gap: 24px;
+                margin-bottom: 36px;
+            }
+        }
+
+        .lock-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #f59e0b, #f97316, #ef4444);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.5);
+            animation: pulseIcon 2s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        @media (min-width: 768px) {
+            .lock-icon {
+                width: 80px;
+                height: 80px;
+                border-radius: 20px;
+                font-size: 42px;
+            }
+        }
+
+        @keyframes pulseIcon {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 15px 40px rgba(245, 158, 11, 0.5);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 20px 50px rgba(245, 158, 11, 0.7);
+            }
+        }
+
+        .password-title {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(to left, #c084fc, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        @media (min-width: 768px) {
+            .password-title {
+                font-size: 36px;
+            }
+        }
+
+        .password-subtitle {
+            color: #7dd3fc;
+            font-size: 13px;
+            margin-top: 8px;
+            font-weight: 600;
+        }
+
+        @media (min-width: 768px) {
+            .password-subtitle {
+                font-size: 14px;
+                margin-top: 10px;
+            }
+        }
+
+        .password-input-group {
+            position: relative;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.6s ease-out 0.4s both;
+        }
+
+        @media (min-width: 768px) {
+            .password-input-group {
+                margin-bottom: 24px;
+            }
+        }
+
+        .password-input-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #c084fc;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media (min-width: 768px) {
+            .password-input-label {
+                font-size: 13px;
+                margin-bottom: 12px;
+            }
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 14px;
+            color: #f8fafc;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            backdrop-filter: blur(12px);
+            box-shadow: 
+                inset 0 2px 8px rgba(0, 0, 0, 0.2),
+                0 4px 15px rgba(139, 92, 246, 0.1);
+        }
+
+        @media (min-width: 768px) {
+            .password-input {
+                padding: 16px 20px;
+                border-radius: 16px;
+                font-size: 18px;
+            }
+        }
+
+        .password-input:hover {
+            border-color: rgba(168, 85, 247, 0.6);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
+            box-shadow: 
+                inset 0 2px 8px rgba(0, 0, 0, 0.2),
+                0 8px 30px rgba(139, 92, 246, 0.25);
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #a78bfa;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+            box-shadow: 
+                inset 0 2px 8px rgba(0, 0, 0, 0.2),
+                0 0 40px rgba(168, 85, 247, 0.4),
+                inset 0 0 20px rgba(139, 92, 246, 0.1);
+        }
+
+        .password-input::placeholder {
+            color: #4a5568;
+        }
+
+        .password-button {
+            width: 100%;
+            padding: 14px 32px;
+            min-height: 48px;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #ec4899 100%);
+            color: white;
+            box-shadow: 
+                0 15px 40px rgba(139, 92, 246, 0.4),
+                inset -1px -1px 20px rgba(255, 255, 255, 0.2),
+                inset 1px 1px 20px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 0.6s ease-out 0.55s both;
+        }
+
+        @media (min-width: 768px) {
+            .password-button {
+                padding: 16px 40px;
+                min-height: 56px;
+                font-size: 18px;
+                border-radius: 16px;
+            }
+        }
+
+        .password-button:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 
+                0 25px 60px rgba(139, 92, 246, 0.6),
+                inset -1px -1px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .password-button:active {
+            transform: translateY(-1px) scale(0.99);
+        }
+
+        .password-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .password-button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .password-error {
+            color: #fca5a5;
+            font-size: 13px;
+            margin-top: 8px;
+            font-weight: 600;
+            display: none;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
         }
 
         /* Header */
@@ -504,11 +770,6 @@
             animation: shine 3s infinite;
         }
 
-        @keyframes shine {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
         .btn-primary {
             background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #ec4899 100%);
             color: white;
@@ -573,19 +834,6 @@
             }
         }
 
-        @keyframes modalPop {
-            0% {
-                opacity: 0;
-                transform: scale(0.7) translateY(40px) rotateX(15deg);
-                filter: blur(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) translateY(0) rotateX(0);
-                filter: blur(0);
-            }
-        }
-
         .modal-header {
             display: flex;
             align-items: center;
@@ -621,17 +869,6 @@
                 height: 70px;
                 border-radius: 16px;
                 font-size: 38px;
-            }
-        }
-
-        @keyframes pulseIcon {
-            0%, 100% { 
-                transform: scale(1);
-                box-shadow: 0 15px 40px rgba(245, 158, 11, 0.5);
-            }
-            50% { 
-                transform: scale(1.05);
-                box-shadow: 0 20px 50px rgba(245, 158, 11, 0.7);
             }
         }
 
@@ -916,7 +1153,38 @@
         <div class="orb orb-3"></div>
     </div>
 
-    <div class="container">
+    <!-- Password Screen -->
+    <div id="passwordScreen">
+        <div class="glass-card password-card">
+            <div class="password-header">
+                <div class="lock-icon">🔒</div>
+                <div>
+                    <h2 class="password-title">محفوظ فورم</h2>
+                    <p class="password-subtitle">✨ پاس ورډ درج کړئ</p>
+                </div>
+            </div>
+
+            <div class="password-input-group">
+                <label class="password-input-label" for="passwordInput">🔐 پاس ورډ</label>
+                <input 
+                    type="password" 
+                    id="passwordInput" 
+                    class="password-input" 
+                    placeholder="پاس ورډ ولیکئ..."
+                    autocomplete="off"
+                >
+            </div>
+
+            <div class="password-error" id="passwordError">❌ پاس ورډ غلط دی</div>
+
+            <button type="button" class="password-button" onclick="checkPassword()">
+                <span>دخول</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Form Container -->
+    <div class="container hidden" id="formContainer">
         <div class="glass-card">
             <div class="header">
                 <div class="logo-wrapper">
@@ -1030,9 +1298,39 @@
     </div>
 
     <script>
+        // Password Configuration - یہاں پاس ورډ بدل کریں
+        const CORRECT_PASSWORD = 'sherzad2026';
+
         const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxMuzcGNbDxdvzOaOw-n1hY-Mbr2OsxYEBVDqnC2TP35baYP3lkXbo0nyF87LltSVHB/exec';
         let formDataToSubmit = null;
 
+        // Password Check
+        function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const password = passwordInput.value;
+            const errorDiv = document.getElementById('passwordError');
+
+            if (password === CORRECT_PASSWORD) {
+                // صحیح پاس ورډ
+                document.getElementById('passwordScreen').classList.add('hidden');
+                document.getElementById('formContainer').classList.remove('hidden');
+                errorDiv.style.display = 'none';
+            } else {
+                // غلط پاس ورډ
+                errorDiv.style.display = 'block';
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        }
+
+        // Enter key support
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // Form submission
         document.getElementById('trailerForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
