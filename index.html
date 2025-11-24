@@ -1159,7 +1159,7 @@
             <div class="password-header">
                 <div class="lock-icon">🔒</div>
                 <div>
-                    <h2 class="password-title">محفوظ فورم</h2>
+                    <h2 class="password-title">د ټېلر 2026 کال فورم</h2>
                     <p class="password-subtitle">✨ پاسورډ داخل کړئ</p>
                 </div>
             </div>
@@ -1356,7 +1356,7 @@
         function showModal() {
             document.getElementById('confirmDate').textContent = formDataToSubmit.formattedDate;
             document.getElementById('confirmIncome').textContent = formDataToSubmit.income;
-            document.getElementById('confirmExpense').textContent = formDataToSubmit.expense; 'ندي لیکل شوی';
+            document.getElementById('confirmExpense').textContent = formDataToSubmit.expense || 'ندي لیکل شوی';
             document.getElementById('confirmDetail').textContent = formDataToSubmit.detail || 'ندي لیکل شوی';
             
             if (formDataToSubmit.note) {
