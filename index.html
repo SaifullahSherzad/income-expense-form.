@@ -1,1452 +1,218 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ps" dir="rtl">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
-            name="description"
-            content="د ټریلر ورځني حساب فورم - Premium Edition"
-        />
-        <title>ټېلر 2026 کال</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap"
-            rel="stylesheet"
-        />
-
-        <link rel="icon" type="image/png" href="./favicon.png" sizes="32x32" />
-        <link rel="apple-touch-icon" href="./favicon.png" />
-        <link rel="shortcut icon" href="./favicon.ico" />
-
-        <script
-            defer
-            src="https://identity.netlify.com/v1/netlify-identity-widget.js"
-        ></script>
-
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            html,
-            body {
-                width: 100%;
-                height: 100%;
-            }
-
-            body {
-                font-family:
-                    "Inter",
-                    "Noto Naskh Arabic",
-                    system-ui,
-                    -apple-system,
-                    sans-serif;
-                background: linear-gradient(
-                    135deg,
-                    #0a0515 0%,
-                    #020203 40%,
-                    #030712 100%
-                );
-                color: #f8fafc;
-                direction: rtl;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 0;
-                position: relative;
-                min-height: 100vh;
-                overflow: auto;
-            }
-
-            .bg-orbs {
-                position: fixed;
-                inset: 0;
-                width: 100%;
-                height: 100%;
-                pointer-events: none;
-                z-index: 0;
-                overflow: hidden;
-            }
-
-            .orb {
-                position: absolute;
-                border-radius: 50%;
-                filter: blur(80px);
-                opacity: 0.4;
-                animation: float-orb 20s ease-in-out infinite;
-            }
-
-            .orb-1 {
-                width: 400px;
-                height: 400px;
-                background: linear-gradient(135deg, #8b5cf6, #3b82f6);
-                top: -200px;
-                right: -200px;
-                animation-duration: 20s;
-            }
-
-            .orb-2 {
-                width: 300px;
-                height: 300px;
-                background: linear-gradient(135deg, #ec4899, #f59e0b);
-                bottom: -150px;
-                left: -150px;
-                animation-duration: 25s;
-                animation-delay: -5s;
-            }
-
-            .orb-3 {
-                width: 350px;
-                height: 350px;
-                background: linear-gradient(135deg, #06b6d4, #8b5cf6);
-                top: 50%;
-                right: 10%;
-                animation-duration: 30s;
-                animation-delay: -10s;
-            }
-
-            @keyframes float-orb {
-                0%,
-                100% {
-                    transform: translate(0, 0);
-                }
-                25% {
-                    transform: translate(30px, -40px);
-                }
-                50% {
-                    transform: translate(-20px, 30px);
-                }
-                75% {
-                    transform: translate(40px, 20px);
-                }
-            }
-
-            .glass {
-                background: linear-gradient(
-                    135deg,
-                    rgba(255, 255, 255, 0.12),
-                    rgba(255, 255, 255, 0.04)
-                );
-                border: 1px solid rgba(255, 255, 255, 0.15);
-                backdrop-filter: blur(30px);
-                -webkit-backdrop-filter: blur(30px);
-                border-radius: 24px;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .glass::before {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background: linear-gradient(
-                    135deg,
-                    rgba(139, 92, 246, 0.1),
-                    rgba(59, 130, 246, 0.05),
-                    transparent
-                );
-                pointer-events: none;
-            }
-
-            .container {
-                width: 100%;
-                max-width: 750px;
-                padding: 20px 16px 16px 16px;
-                z-index: 10;
-                animation: slideInDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-                position: relative;
-            }
-
-            @media (min-width: 768px) {
-                .container {
-                    padding: 30px 50px;
-                }
-            }
-
-            .glass-card {
-                box-shadow:
-                    0 20px 60px rgba(0, 0, 0, 0.5),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                    0 0 80px rgba(139, 92, 246, 0.1);
-                position: relative;
-                z-index: 1;
-                padding: 24px;
-            }
-
-            @media (min-width: 768px) {
-                .glass-card {
-                    padding: 40px;
-                }
-            }
-
-            @keyframes slideInDown {
-                from {
-                    opacity: 0;
-                    transform: translateY(-40px);
-                    filter: blur(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                    filter: blur(0);
-                }
-            }
-
-            /* Auth Screen */
-            #authScreen {
-                position: fixed;
-                inset: 0;
-                background: rgba(10, 5, 21, 0.98);
-                backdrop-filter: blur(30px);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 9999;
-                padding: 16px;
-            }
-
-            #authScreen.hidden {
-                display: none;
-            }
-
-            .auth-card {
-                max-width: 500px;
-                width: 100%;
-                animation: modalPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            }
-
-            @keyframes modalPop {
-                0% {
-                    opacity: 0;
-                    transform: scale(0.7) translateY(40px) rotateX(15deg);
-                    filter: blur(20px);
-                }
-                100% {
-                    opacity: 1;
-                    transform: scale(1) translateY(0) rotateX(0);
-                    filter: blur(0);
-                }
-            }
-
-            .auth-header {
-                display: flex;
-                align-items: center;
-                gap: 16px;
-                margin-bottom: 28px;
-                animation: fadeInUp 0.8s ease-out 0.2s both;
-            }
-
-            @media (min-width: 768px) {
-                .auth-header {
-                    gap: 24px;
-                    margin-bottom: 36px;
-                }
-            }
-
-            .auth-icon {
-                width: 70px;
-                height: 70px;
-                border-radius: 16px;
-                background: linear-gradient(135deg, #06b6d4, #3b82f6, #8b5cf6);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 36px;
-                box-shadow: 0 15px 40px rgba(6, 182, 212, 0.5);
-                animation: pulseIcon 2s ease-in-out infinite;
-                flex-shrink: 0;
-            }
-
-            @media (min-width: 768px) {
-                .auth-icon {
-                    width: 80px;
-                    height: 80px;
-                    border-radius: 20px;
-                    font-size: 42px;
-                }
-            }
-
-            @keyframes pulseIcon {
-                0%,
-                100% {
-                    transform: scale(1);
-                    box-shadow: 0 15px 40px rgba(6, 182, 212, 0.5);
-                }
-                50% {
-                    transform: scale(1.05);
-                    box-shadow: 0 20px 50px rgba(6, 182, 212, 0.7);
-                }
-            }
-
-            .auth-title {
-                font-size: 28px;
-                font-weight: 800;
-                background: linear-gradient(to left, #c084fc, #60a5fa);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-                letter-spacing: -1px;
-            }
-
-            @media (min-width: 768px) {
-                .auth-title {
-                    font-size: 36px;
-                }
-            }
-
-            .auth-subtitle {
-                color: #7dd3fc;
-                font-size: 13px;
-                margin-top: 8px;
-                font-weight: 600;
-            }
-
-            @media (min-width: 768px) {
-                .auth-subtitle {
-                    font-size: 14px;
-                    margin-top: 10px;
-                }
-            }
-
-            .auth-buttons-group {
-                display: flex;
-                flex-direction: column;
-                gap: 16px;
-                animation: fadeInUp 0.6s ease-out 0.4s both;
-            }
-
-            @media (min-width: 768px) {
-                .auth-buttons-group {
-                    gap: 20px;
-                }
-            }
-
-            .auth-button {
-                width: 100%;
-                padding: 16px 32px;
-                min-height: 56px;
-                border: none;
-                border-radius: 14px;
-                font-size: 16px;
-                font-weight: 800;
-                cursor: pointer;
-                transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-                font-family: inherit;
-                position: relative;
-                overflow: hidden;
-                text-transform: uppercase;
-                letter-spacing: 0.8px;
-            }
-
-            @media (min-width: 768px) {
-                .auth-button {
-                    min-height: 56px;
-                    font-size: 18px;
-                    border-radius: 16px;
-                }
-            }
-
-            .auth-button:disabled {
-                opacity: 0.7;
-                cursor: not-allowed;
-            }
-
-            .btn-login {
-                background: linear-gradient(
-                    135deg,
-                    #06b6d4 0%,
-                    #3b82f6 50%,
-                    #8b5cf6 100%
-                );
-                color: white;
-                box-shadow:
-                    0 15px 40px rgba(6, 182, 212, 0.4),
-                    inset -1px -1px 20px rgba(255, 255, 255, 0.2),
-                    inset 1px 1px 20px rgba(0, 0, 0, 0.2);
-            }
-
-            .btn-login::before {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background: linear-gradient(
-                    90deg,
-                    transparent 0%,
-                    rgba(255, 255, 255, 0.2) 50%,
-                    transparent 100%
-                );
-                animation: shine 3s infinite;
-            }
-
-            @keyframes shine {
-                0% {
-                    transform: translateX(-100%);
-                }
-                100% {
-                    transform: translateX(100%);
-                }
-            }
-
-            .btn-login:hover {
-                transform: translateY(-4px) scale(1.02);
-                box-shadow:
-                    0 25px 60px rgba(6, 182, 212, 0.6),
-                    inset -1px -1px 20px rgba(255, 255, 255, 0.3);
-            }
-
-            .btn-login:active {
-                transform: translateY(-1px) scale(0.99);
-            }
-
-            .btn-signup {
-                background: linear-gradient(
-                    135deg,
-                    rgba(139, 92, 246, 0.25),
-                    rgba(59, 130, 246, 0.15)
-                );
-                border: 2px solid rgba(168, 85, 247, 0.5);
-                color: #c084fc;
-                box-shadow: 0 8px 20px rgba(139, 92, 246, 0.2);
-            }
-
-            .btn-signup:hover {
-                background: linear-gradient(
-                    135deg,
-                    rgba(139, 92, 246, 0.35),
-                    rgba(59, 130, 246, 0.25)
-                );
-                border-color: rgba(168, 85, 247, 0.7);
-                box-shadow: 0 15px 40px rgba(139, 92, 246, 0.35);
-                transform: translateY(-3px);
-            }
-
-            .auth-divider {
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                margin: 20px 0;
-                animation: fadeInUp 0.6s ease-out 0.5s both;
-            }
-
-            .divider-line {
-                flex: 1;
-                height: 1px;
-                background: linear-gradient(
-                    90deg,
-                    transparent,
-                    rgba(168, 85, 247, 0.3),
-                    transparent
-                );
-            }
-
-            .divider-text {
-                font-size: 12px;
-                color: #7dd3fc;
-                font-weight: 600;
-            }
-
-            .auth-info {
-                background: linear-gradient(
-                    135deg,
-                    rgba(139, 92, 246, 0.1),
-                    rgba(59, 130, 246, 0.05)
-                );
-                border: 1px solid rgba(168, 85, 247, 0.2);
-                border-radius: 12px;
-                padding: 16px;
-                font-size: 12px;
-                color: #bae6fd;
-                animation: fadeInUp 0.6s ease-out 0.6s both;
-            }
-
-            @media (min-width: 768px) {
-                .auth-info {
-                    font-size: 13px;
-                    padding: 20px;
-                }
-            }
-
-            /* Form Screen */
-            #formContainer {
-                display: none;
-            }
-
-            #formContainer.show {
-                display: block;
-            }
-
-            .header {
-                display: flex;
-                align-items: center;
-                gap: 16px;
-                margin-bottom: 20px;
-                animation: fadeInUp 0.8s ease-out 0.2s both;
-                justify-content: space-between;
-            }
-
-            @media (min-width: 768px) {
-                .header {
-                    gap: 24px;
-                    margin-bottom: 28px;
-                }
-            }
-
-            .header-content {
-                display: flex;
-                align-items: center;
-                gap: 16px;
-            }
-
-            @media (min-width: 768px) {
-                .header-content {
-                    gap: 24px;
-                }
-            }
-
-            .logout-btn {
-                padding: 10px 16px;
-                background: linear-gradient(
-                    135deg,
-                    rgba(239, 68, 68, 0.25),
-                    rgba(220, 38, 38, 0.15)
-                );
-                border: 2px solid rgba(252, 165, 165, 0.5);
-                color: #fca5a5;
-                border-radius: 8px;
-                font-weight: 700;
-                font-size: 12px;
-                cursor: pointer;
-                transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-                box-shadow: 0 10px 30px rgba(239, 68, 68, 0.2);
-            }
-
-            .logout-btn:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 15px 40px rgba(239, 68, 68, 0.4);
-            }
-
-            .logo-wrapper {
-                position: relative;
-                width: 70px;
-                height: 70px;
-                perspective: 1000px;
-                flex-shrink: 0;
-            }
-
-            @media (min-width: 768px) {
-                .logo-wrapper {
-                    width: 90px;
-                    height: 90px;
-                }
-            }
-
-            .logo {
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(
-                    135deg,
-                    #8b5cf6 0%,
-                    #3b82f6 50%,
-                    #ec4899 100%
-                );
-                border-radius: 16px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 32px;
-                font-weight: 900;
-                color: white;
-                box-shadow:
-                    0 20px 50px rgba(139, 92, 246, 0.5),
-                    inset -1px -1px 30px rgba(255, 255, 255, 0.3),
-                    inset 1px 1px 20px rgba(0, 0, 0, 0.2);
-                position: relative;
-                overflow: hidden;
-                animation: floatLogo 4s ease-in-out infinite;
-                text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            }
-
-            @media (min-width: 768px) {
-                .logo {
-                    font-size: 42px;
-                    border-radius: 20px;
-                }
-            }
-
-            .logo img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                border-radius: 16px;
-            }
-
-            .logo::before {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background: linear-gradient(
-                    90deg,
-                    transparent 0%,
-                    rgba(255, 255, 255, 0.2) 50%,
-                    transparent 100%
-                );
-                animation: shimmer 3s infinite;
-                z-index: 2;
-            }
-
-            .logo::after {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background:
-                    radial-gradient(
-                        circle at 30% 30%,
-                        rgba(255, 255, 255, 0.3),
-                        transparent 50%
-                    ),
-                    radial-gradient(
-                        circle at 70% 70%,
-                        rgba(139, 92, 246, 0.2),
-                        transparent 50%
-                    );
-                border-radius: inherit;
-                z-index: 3;
-            }
-
-            @keyframes floatLogo {
-                0%,
-                100% {
-                    transform: translateY(0) rotateZ(0deg);
-                    box-shadow:
-                        0 20px 50px rgba(139, 92, 246, 0.5),
-                        inset -1px -1px 30px rgba(255, 255, 255, 0.3),
-                        inset 1px 1px 20px rgba(0, 0, 0, 0.2);
-                }
-                50% {
-                    transform: translateY(-10px) rotateZ(2deg);
-                    box-shadow:
-                        0 25px 60px rgba(139, 92, 246, 0.7),
-                        inset -1px -1px 30px rgba(255, 255, 255, 0.3),
-                        inset 1px 1px 20px rgba(0, 0, 0, 0.2);
-                }
-            }
-
-            @keyframes shimmer {
-                0% {
-                    background-position: -1000px 0;
-                }
-                100% {
-                    background-position: 1000px 0;
-                }
-            }
-
-            h1 {
-                font-size: 28px;
-                font-weight: 800;
-                background: linear-gradient(to left, #c084fc, #60a5fa, #f472b6);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-                letter-spacing: -1px;
-                line-height: 1.2;
-            }
-
-            @media (min-width: 768px) {
-                h1 {
-                    font-size: 40px;
-                }
-            }
-
-            .subtitle {
-                color: #7dd3fc;
-                font-size: 12px;
-                margin-top: 6px;
-                font-weight: 500;
-            }
-
-            @media (min-width: 768px) {
-                .subtitle {
-                    font-size: 14px;
-                    margin-top: 8px;
-                }
-            }
-
-            .form-grid {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 18px;
-                margin-bottom: 8px;
-            }
-
-            @media (min-width: 768px) {
-                .form-grid {
-                    grid-template-columns: 1fr 1fr;
-                    gap: 24px;
-                }
-                .full-width {
-                    grid-column: 1 / -1;
-                }
-            }
-
-            .input-group {
-                position: relative;
-                animation: fadeInUp 0.6s ease-out forwards;
-                padding-top: 28px;
-            }
-
-            label {
-                position: absolute;
-                top: -10px;
-                right: 0;
-                background: linear-gradient(
-                    135deg,
-                    rgba(139, 92, 246, 0.25),
-                    rgba(59, 130, 246, 0.15)
-                );
-                padding: 5px 11px;
-                font-size: 10px;
-                font-weight: 700;
-                color: #c084fc;
-                z-index: 10;
-                border-radius: 50px;
-                border: 1px solid rgba(192, 132, 252, 0.4);
-                backdrop-filter: blur(12px);
-                box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-                white-space: nowrap;
-            }
-
-            input,
-            textarea {
-                width: 100%;
-                padding: 14px 16px;
-                background: linear-gradient(
-                    135deg,
-                    rgba(255, 255, 255, 0.08),
-                    rgba(255, 255, 255, 0.02)
-                );
-                border: 2px solid rgba(139, 92, 246, 0.3);
-                border-radius: 14px;
-                color: #f8fafc;
-                font-size: 15px;
-                font-family: inherit;
-                transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-                backdrop-filter: blur(12px);
-                box-shadow:
-                    inset 0 2px 8px rgba(0, 0, 0, 0.2),
-                    0 4px 15px rgba(139, 92, 246, 0.1);
-            }
-
-            input:hover,
-            textarea:hover {
-                border-color: rgba(168, 85, 247, 0.6);
-                background: linear-gradient(
-                    135deg,
-                    rgba(255, 255, 255, 0.12),
-                    rgba(255, 255, 255, 0.05)
-                );
-                box-shadow:
-                    inset 0 2px 8px rgba(0, 0, 0, 0.2),
-                    0 8px 30px rgba(139, 92, 246, 0.25);
-                transform: translateY(-3px);
-            }
-
-            input:focus,
-            textarea:focus {
-                outline: none;
-                border-color: #a78bfa;
-                background: linear-gradient(
-                    135deg,
-                    rgba(255, 255, 255, 0.15),
-                    rgba(255, 255, 255, 0.08)
-                );
-                box-shadow:
-                    inset 0 2px 8px rgba(0, 0, 0, 0.2),
-                    0 0 40px rgba(168, 85, 247, 0.4),
-                    inset 0 0 20px rgba(139, 92, 246, 0.1);
-            }
-
-            textarea {
-                min-height: 120px;
-                resize: none;
-            }
-
-            .hint {
-                font-size: 12px;
-                color: #7dd3fc;
-                margin-top: 8px;
-                font-weight: 500;
-            }
-
-            .submit-btn-wrapper {
-                display: flex;
-                justify-content: flex-end;
-                margin-top: 12px;
-            }
-
-            .btn-primary {
-                padding: 13px 32px;
-                min-height: 48px;
-                border: none;
-                border-radius: 14px;
-                font-size: 14px;
-                font-weight: 800;
-                cursor: pointer;
-                transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-                font-family: inherit;
-                position: relative;
-                overflow: hidden;
-                text-transform: uppercase;
-                letter-spacing: 0.8px;
-                background: linear-gradient(
-                    135deg,
-                    #8b5cf6 0%,
-                    #3b82f6 50%,
-                    #ec4899 100%
-                );
-                color: white;
-                box-shadow:
-                    0 15px 40px rgba(139, 92, 246, 0.4),
-                    inset -1px -1px 20px rgba(255, 255, 255, 0.2),
-                    inset 1px 1px 20px rgba(0, 0, 0, 0.2);
-            }
-
-            .btn-primary::before {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background: linear-gradient(
-                    90deg,
-                    transparent 0%,
-                    rgba(255, 255, 255, 0.2) 50%,
-                    transparent 100%
-                );
-                animation: shine 3s infinite;
-            }
-
-            .btn-primary:hover {
-                transform: translateY(-4px) scale(1.02);
-                box-shadow:
-                    0 25px 60px rgba(139, 92, 246, 0.6),
-                    inset -1px -1px 20px rgba(255, 255, 255, 0.3);
-            }
-
-            .modal-overlay {
-                position: fixed;
-                inset: 0;
-                background: rgba(10, 5, 21, 0.98);
-                backdrop-filter: blur(30px);
-                display: none;
-                align-items: center;
-                justify-content: center;
-                z-index: 10000;
-                padding: 16px;
-            }
-
-            .modal-overlay.active {
-                display: flex;
-            }
-
-            .modal {
-                max-width: 600px;
-                width: 100%;
-                animation: modalPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            }
-
-            .modal-header {
-                display: flex;
-                align-items: flex-start;
-                gap: 16px;
-                margin-bottom: 28px;
-            }
-
-            .modal-icon {
-                width: 60px;
-                height: 60px;
-                border-radius: 16px;
-                background: linear-gradient(135deg, #f59e0b, #f97316, #ef4444);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 32px;
-                flex-shrink: 0;
-            }
-
-            .modal-title {
-                font-size: 22px;
-                font-weight: 800;
-                background: linear-gradient(to left, #c084fc, #f472b6);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-            }
-
-            .modal-subtitle {
-                color: #7dd3fc;
-                font-size: 12px;
-                margin-top: 6px;
-                font-weight: 500;
-            }
-
-            .data-grid {
-                background: linear-gradient(
-                    135deg,
-                    rgba(139, 92, 246, 0.1),
-                    rgba(59, 130, 246, 0.05)
-                );
-                border: 1px solid rgba(139, 92, 246, 0.2);
-                border-radius: 16px;
-                padding: 20px;
-                margin-bottom: 24px;
-            }
-
-            .data-row {
-                margin-bottom: 20px;
-            }
-
-            .data-row:last-child {
-                margin-bottom: 0;
-            }
-
-            .data-row-grid {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            @media (min-width: 768px) {
-                .data-row-grid {
-                    grid-template-columns: 1fr 1fr;
-                    gap: 28px;
-                }
-            }
-
-            .data-field {
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-            }
-
-            .data-label {
-                font-size: 11px;
-                font-weight: 800;
-                color: #7dd3fc;
-                text-transform: uppercase;
-            }
-
-            .data-value {
-                font-size: 16px;
-                font-weight: 800;
-                background: linear-gradient(to left, #c084fc, #60a5fa);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-            }
-
-            .modal-actions {
-                display: flex;
-                flex-direction: column-reverse;
-                gap: 12px;
-            }
-
-            @media (min-width: 768px) {
-                .modal-actions {
-                    flex-direction: row;
-                    gap: 14px;
-                }
-            }
-
-            .btn-secondary {
-                padding: 13px 32px;
-                border: 2px solid rgba(251, 146, 60, 0.5);
-                color: #fed7aa;
-                background: linear-gradient(
-                    135deg,
-                    rgba(234, 88, 12, 0.25),
-                    rgba(239, 68, 68, 0.15)
-                );
-                border-radius: 14px;
-                font-weight: 800;
-                cursor: pointer;
-                transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-                font-family: inherit;
-            }
-
-            .btn-secondary:hover {
-                transform: translateY(-3px);
-            }
-
-            .btn-success {
-                padding: 13px 32px;
-                background: linear-gradient(
-                    135deg,
-                    #10b981 0%,
-                    #06b6d4 50%,
-                    #14b8a6 100%
-                );
-                color: white;
-                border: none;
-                border-radius: 14px;
-                font-weight: 800;
-                cursor: pointer;
-                transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-                font-family: inherit;
-            }
-
-            .btn-success:hover {
-                transform: translateY(-4px) scale(1.02);
-            }
-
-            .toast {
-                position: fixed;
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%) translateY(200px);
-                background: rgba(10, 11, 14, 0.95);
-                border: 2px solid rgba(255, 255, 255, 0.1);
-                border-radius: 14px;
-                padding: 16px 20px;
-                z-index: 1000;
-                opacity: 0;
-                transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-                max-width: 90%;
-                backdrop-filter: blur(20px);
-            }
-
-            .toast.show {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-
-            .toast.success {
-                background: rgba(16, 185, 129, 0.15);
-                border-color: rgba(16, 185, 129, 0.4);
-            }
-
-            .toast.error {
-                background: rgba(248, 113, 113, 0.15);
-                border-color: rgba(248, 113, 113, 0.4);
-            }
-
-            .toast.success .toast-title {
-                color: #86efac;
-            }
-
-            .toast.error .toast-title {
-                color: #fca5a5;
-            }
-
-            .toast-title {
-                font-weight: 800;
-                margin-bottom: 4px;
-                font-size: 14px;
-                text-transform: uppercase;
-            }
-
-            .toast-description {
-                font-size: 13px;
-                opacity: 0.9;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="bg-orbs">
-            <div class="orb orb-1"></div>
-            <div class="orb orb-2"></div>
-            <div class="orb orb-3"></div>
-        </div>
-
-        <!-- Auth Screen -->
-        <div id="authScreen">
-            <div class="glass-card auth-card">
-                <div class="auth-header">
-                    <div class="auth-icon">🔐</div>
-                    <div>
-                        <h2 class="auth-title">د 2026 کال فورم</h2>
-                        <p class="auth-subtitle">✨ لاګ ان یا ثبت نوم کړئ</p>
-                    </div>
-                </div>
-
-                <div class="auth-buttons-group">
-                    <button
-                        type="button"
-                        class="auth-button btn-login"
-                        onclick="netlifyIdentity.open()"
-                    >
-                        <span>🔓 لاګ ان</span>
-                    </button>
-                    <button
-                        type="button"
-                        class="auth-button btn-signup"
-                        onclick="netlifyIdentity.open()"
-                    >
-                        <span>📝 نیو اکاؤنٹ</span>
-                    </button>
-                </div>
-
-                <div class="auth-divider">
-                    <div class="divider-line"></div>
-                    <div class="divider-text">محفوظ سیستم</div>
-                    <div class="divider-line"></div>
-                </div>
-
-                <div class="auth-info">
-                    ✨ تاسو محفوظ Netlify سیستم استعمال کوئ. د پاسورډ اور ڈیٹا
-                    مکمل محفوظ دي.
-                </div>
-            </div>
-        </div>
-
-        <!-- Form Container -->
-        <div class="container" id="formContainer">
-            <div class="glass-card">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>د 2026 کال فورم</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; height: 100%; }
+        body {
+            font-family: 'Inter', 'Noto Naskh Arabic', sans-serif;
+            background: linear-gradient(135deg, #0a0515 0%, #020203 40%, #030712 100%);
+            color: #f8fafc;
+            direction: rtl;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+        .bg-orbs { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
+        .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; animation: float 20s ease-in-out infinite; }
+        .orb-1 { width: 400px; height: 400px; background: linear-gradient(135deg, #8b5cf6, #3b82f6); top: -200px; right: -200px; }
+        .orb-2 { width: 300px; height: 300px; background: linear-gradient(135deg, #ec4899, #f59e0b); bottom: -150px; left: -150px; animation-delay: -5s; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(30px, -30px); } }
+        .container { max-width: 600px; width: 100%; z-index: 10; position: relative; }
+        .glass {
+            background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+            border: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(30px);
+            border-radius: 24px;
+            padding: 30px 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: slideDown 0.6s ease-out;
+        }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        #authScreen { display: flex; flex-direction: column; gap: 20px; }
+        #authScreen.hidden { display: none !important; }
+        #formScreen { display: none; }
+        #formScreen.show { display: block; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { font-size: 32px; font-weight: 800; background: linear-gradient(to left, #c084fc, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+        .header p { color: #7dd3fc; font-size: 14px; }
+        .btn-group { display: flex; flex-direction: column; gap: 12px; }
+        button { width: 100%; padding: 14px 24px; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s; font-family: inherit; }
+        .btn-primary { background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%); color: white; box-shadow: 0 15px 40px rgba(6,182,212,0.4); }
+        .btn-primary:hover { transform: translateY(-3px); }
+        .btn-secondary { background: linear-gradient(135deg, rgba(139,92,246,0.25), rgba(59,130,246,0.15)); border: 2px solid rgba(168,85,247,0.5); color: #c084fc; }
+        .btn-secondary:hover { border-color: rgba(168,85,247,0.7); }
+        .btn-danger { background: linear-gradient(135deg, rgba(239,68,68,0.25), rgba(220,38,38,0.15)); border: 2px solid rgba(252,165,165,0.5); color: #fca5a5; padding: 10px 20px; width: auto; }
+        .divider { text-align: center; color: #7dd3fc; font-size: 12px; margin: 15px 0; opacity: 0.7; }
+        .info { background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(59,130,246,0.05)); border: 1px solid rgba(168,85,247,0.2); border-radius: 12px; padding: 12px; font-size: 12px; color: #bae6fd; line-height: 1.6; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #c084fc; font-size: 14px; }
+        input, textarea { width: 100%; padding: 12px 16px; background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)); border: 2px solid rgba(139,92,246,0.3); border-radius: 10px; color: #f8fafc; font-family: inherit; font-size: 14px; transition: all 0.3s; }
+        input:focus, textarea:focus { outline: none; border-color: #a78bfa; background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.08)); box-shadow: 0 0 20px rgba(168,85,247,0.3); }
+        textarea { min-height: 100px; resize: vertical; }
+        .form-actions { display: flex; gap: 10px; }
+        .form-actions button { flex: 1; }
+        .logout-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(10,5,21,0.95); backdrop-filter: blur(30px); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 15px; }
+        .modal-overlay.show { display: flex; }
+        .modal { max-width: 500px; width: 100%; }
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(150px); background: rgba(10,11,14,0.95); border: 2px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 16px; z-index: 999; transition: all 0.4s; max-width: 90%; backdrop-filter: blur(20px); }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+    </style>
+</head>
+<body>
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+    <div class="container">
+        <div class="glass">
+            <div id="authScreen">
                 <div class="header">
-                    <div class="header-content">
-                        <div class="logo-wrapper">
-                            <div class="logo">
-                                <img src="./logo.jpg" alt="SHERZAD Logo" />
-                            </div>
-                        </div>
-                        <div>
-                            <h1>د ورځني حساب فورم</h1>
-                            <p class="subtitle">
-                                ✨ مهرباني وکړئ ورځني معلومات صحیح ډک کړئ
-                            </p>
-                        </div>
-                    </div>
-                    <button
-                        type="button"
-                        class="logout-btn"
-                        onclick="logoutUser()"
-                    >
-                        <span>🚪 خروج</span>
-                    </button>
+                    <h1>🔐 د 2026 کال فورم</h1>
+                    <p>✨ لاګ ان یا نیو اکاؤنٹ</p>
                 </div>
-
-                <form id="trailerForm" class="form-grid">
-                    <div class="input-group full-width">
-                        <label for="date">📅 نېټه (2026)</label>
-                        <input
-                            type="date"
-                            id="date"
-                            name="date"
-                            min="2026-01-01"
-                            max="2026-12-31"
-                            value="2026-01-01"
-                            required
-                        />
-                        <p class="hint">⭐ یوازې د 2026 کال نیټې منل کیږي</p>
+                <div class="btn-group">
+                    <button class="btn-primary" onclick="handleLogin()">🔓 لاګ ان</button>
+                    <button class="btn-secondary" onclick="handleSignup()">📝 نیو اکاؤنٹ</button>
+                </div>
+                <div class="divider">━━━ محفوظ سیستم ━━━</div>
+                <div class="info">✨ Netlify محفوظ سیستم - تمام ڈیٹا محفوظ دی</div>
+            </div>
+            <div id="formScreen">
+                <div class="logout-header">
+                    <div class="header" style="margin: 0; text-align: right; flex: 1;">
+                        <h1 style="font-size: 24px;">📋 حساب</h1>
                     </div>
-
-                    <div class="input-group">
-                        <label for="income">💰 عائد</label>
-                        <input
-                            type="number"
-                            id="income"
-                            name="income"
-                            min="0"
-                            placeholder="په دقیقه توګه عائد ولیکئ"
-                        />
+                    <button class="btn-danger" onclick="handleLogout()">🚪 خروج</button>
+                </div>
+                <form id="accountForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label>📅 نېټه</label>
+                        <input type="date" id="date" min="2026-01-01" max="2026-12-31" value="2026-01-01" required>
                     </div>
-
-                    <div class="input-group">
-                        <label for="expense">💸 مصارف</label>
-                        <input
-                            type="number"
-                            id="expense"
-                            name="expense"
-                            min="0"
-                            placeholder="په دقیقه توګه مصارف ولیکئ"
-                        />
+                    <div class="form-group">
+                        <label>💰 عائد</label>
+                        <input type="number" id="income" min="0">
                     </div>
-
-                    <div class="input-group full-width">
-                        <label for="detail">📝 د کار تفصیل</label>
-                        <input
-                            type="text"
-                            id="detail"
-                            name="detail"
-                            placeholder="تفصیل ولیکئ..."
-                        />
+                    <div class="form-group">
+                        <label>💸 مصارف</label>
+                        <input type="number" id="expense" min="0">
                     </div>
-
-                    <div class="input-group full-width">
-                        <label for="note">📌 یاداښت</label>
-                        <textarea
-                            id="note"
-                            name="note"
-                            placeholder="یاداښت ولیکئ..."
-                        ></textarea>
+                    <div class="form-group">
+                        <label>📝 تفصیل</label>
+                        <input type="text" id="detail">
                     </div>
-
-                    <div class="submit-btn-wrapper full-width">
-                        <button type="submit" class="btn-primary">
-                            <span>ذخیره کول</span>
-                        </button>
+                    <div class="form-group">
+                        <label>📌 یاداښت</label>
+                        <textarea id="note"></textarea>
                     </div>
+                    <button type="submit" class="btn-primary" style="width: 100%;">✅ ذخیره</button>
                 </form>
             </div>
         </div>
-
-        <!-- Modal -->
-        <div id="modalOverlay" class="modal-overlay">
-            <div class="glass-card modal">
-                <div class="modal-header">
-                    <div class="modal-icon">⚠️</div>
-                    <div>
-                        <div class="modal-title">د معلوماتو بیا کتنه</div>
-                        <div class="modal-subtitle">
-                            ✨ د معلوماتو تصدیق وکړئ چې غلط خو ندي لیکل شوي
-                        </div>
-                    </div>
-                </div>
-
-                <div class="data-grid">
-                    <div class="data-row">
-                        <div class="data-row-grid">
-                            <div class="data-field">
-                                <span class="data-label">📅 نېټه</span>
-                                <span class="data-value" id="confirmDate"
-                                    >-</span
-                                >
-                            </div>
-                            <div class="data-field">
-                                <span class="data-label">💰 عائد</span>
-                                <span class="data-value" id="confirmIncome"
-                                    >-</span
-                                >
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="data-row">
-                        <div class="data-row-grid">
-                            <div class="data-field">
-                                <span class="data-label">💸 مصارف</span>
-                                <span class="data-value" id="confirmExpense"
-                                    >-</span
-                                >
-                            </div>
-                            <div class="data-field" style="grid-column: 1 / -1">
-                                <span class="data-label">📝 د کار تفصیل</span>
-                                <span class="data-value" id="confirmDetail"
-                                    >-</span
-                                >
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="data-row" id="noteRow" style="display: none">
-                        <div class="data-field">
-                            <span class="data-label">📌 یاداښت</span>
-                            <span class="data-value" id="confirmNote">-</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-actions">
-                    <button
-                        type="button"
-                        class="btn-secondary"
-                        onclick="closeModal()"
-                    >
-                        <span>✏️ تصحیح</span>
-                    </button>
-                    <button
-                        type="button"
-                        class="btn-success"
-                        id="confirmButton"
-                        onclick="confirmSubmit()"
-                    >
-                        <span>✓ تایید او ذخیره کړئ</span>
-                    </button>
-                </div>
+    </div>
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="glass modal">
+            <h2 style="margin-bottom: 20px; color: #c084fc;">⚠️ تصدیق</h2>
+            <div id="modalContent" style="margin-bottom: 20px; padding: 15px; background: rgba(139,92,246,0.1); border-radius: 10px;"></div>
+            <div class="form-actions">
+                <button class="btn-secondary" onclick="closeModal()">✏️ تصحیح</button>
+                <button class="btn-primary" onclick="confirmSubmit()">✓ تایید</button>
             </div>
         </div>
+    </div>
+    <div id="toast" class="toast"><div id="toastContent"></div></div>
+    <script>
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxMuzcGNbDxdvzOaOw-n1hY-Mbr2OsxYEBVDqnC2TP35baYP3lkXbo0nyF87LltSVHB/exec';
+        let formData = null;
 
-        <!-- Toast -->
-        <div id="toast" class="toast">
-            <div class="toast-title" id="toastTitle"></div>
-            <div class="toast-description" id="toastDescription"></div>
-        </div>
+        if (window.netlifyIdentity) {
+            console.log('✅ Netlify لوڈ');
+            window.netlifyIdentity.on('init', () => updateUI());
+            window.netlifyIdentity.on('login', () => { updateUI(); showToast('✨ خوش آمدید!', 'success'); });
+            window.netlifyIdentity.on('logout', () => updateUI());
+            window.netlifyIdentity.init();
+        }
 
-        <script>
-            const GOOGLE_SHEETS_URL =
-                "https://script.google.com/macros/s/AKfycbxMuzcGNbDxdvzOaOw-n1hY-Mbr2OsxYEBVDqnC2TP35baYP3lkXbo0nyF87LltSVHB/exec";
-            let formDataToSubmit = null;
-
-            // Check auth status
-            function checkAuthStatus() {
-                netlifyIdentity.ready(() => {
-                    const user = netlifyIdentity.currentUser();
-                    if (user) {
-                        document
-                            .getElementById("authScreen")
-                            .classList.add("hidden");
-                        document
-                            .getElementById("formContainer")
-                            .classList.add("show");
-                    } else {
-                        document
-                            .getElementById("authScreen")
-                            .classList.remove("hidden");
-                        document
-                            .getElementById("formContainer")
-                            .classList.remove("show");
-                    }
-                });
+        function updateUI() {
+            const user = window.netlifyIdentity?.currentUser?.();
+            if (user) {
+                document.getElementById('authScreen').classList.add('hidden');
+                document.getElementById('formScreen').classList.add('show');
+            } else {
+                document.getElementById('authScreen').classList.remove('hidden');
+                document.getElementById('formScreen').classList.remove('show');
             }
+        }
 
-            netlifyIdentity.on("login", () => {
-                checkAuthStatus();
-                showToast(
-                    "success",
-                    "✨ خوش آمدید",
-                    "آپ کامیابی سے لاگ ان ہو گئے",
-                );
-            });
+        function handleLogin() { if (window.netlifyIdentity) window.netlifyIdentity.open('login'); }
+        function handleSignup() { if (window.netlifyIdentity) window.netlifyIdentity.open('signup'); }
+        function handleLogout() { if (window.netlifyIdentity) window.netlifyIdentity.logout(); }
 
-            netlifyIdentity.on("logout", () => {
-                checkAuthStatus();
-            });
-
-            function logoutUser() {
-                netlifyIdentity.logout();
+        function handleSubmit(e) {
+            e.preventDefault();
+            const date = document.getElementById('date').value;
+            const year = new Date(date).getFullYear();
+            if (year !== 2026) {
+                showToast('❌ 2026 فقط!', 'error');
+                return;
             }
+            const dateParts = date.split('-');
+            formData = {
+                date: `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`,
+                income: document.getElementById('income').value || '0',
+                expense: document.getElementById('expense').value || '0',
+                detail: document.getElementById('detail').value || 'ندي',
+                note: document.getElementById('note').value || 'ندي'
+            };
+            showModal();
+        }
 
-            // Form submission
-            document
-                .getElementById("trailerForm")
-                .addEventListener("submit", function (e) {
-                    e.preventDefault();
+        function showModal() {
+            document.getElementById('modalContent').innerHTML = `
+                <p><strong>📅:</strong> ${formData.date}</p>
+                <p><strong>💰:</strong> ${formData.income}</p>
+                <p><strong>💸:</strong> ${formData.expense}</p>
+                <p><strong>📝:</strong> ${formData.detail}</p>
+                <p><strong>📌:</strong> ${formData.note}</p>
+            `;
+            document.getElementById('modalOverlay').classList.add('show');
+        }
 
-                    const date = document.getElementById("date").value;
-                    const income =
-                        document.getElementById("income").value || "0";
-                    const expense =
-                        document.getElementById("expense").value || "0";
-                    const detail =
-                        document.getElementById("detail").value || "";
-                    const note = document.getElementById("note").value || "";
+        function closeModal() { document.getElementById('modalOverlay').classList.remove('show'); }
 
-                    const year = new Date(date).getFullYear();
-                    if (year !== 2026) {
-                        showToast(
-                            "error",
-                            "یوازې د 2026 کال نیټې منل کېږي",
-                            "مهرباني وکړئ د 2026 کال اړوند نېټه انتخاب کړئ",
-                        );
-                        return;
-                    }
-
-                    const dateParts = date.split("-");
-                    const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
-
-                    formDataToSubmit = {
-                        date,
-                        formattedDate,
-                        income,
-                        expense,
-                        detail,
-                        note,
-                    };
-                    showModal();
-                });
-
-            function showModal() {
-                document.getElementById("confirmDate").textContent =
-                    formDataToSubmit.formattedDate;
-                document.getElementById("confirmIncome").textContent =
-                    formDataToSubmit.income;
-                document.getElementById("confirmExpense").textContent =
-                    formDataToSubmit.expense || "ندي لیکل شوی";
-                document.getElementById("confirmDetail").textContent =
-                    formDataToSubmit.detail || "ندي لیکل شوی";
-
-                if (formDataToSubmit.note) {
-                    document.getElementById("confirmNote").textContent =
-                        formDataToSubmit.note;
-                    document.getElementById("noteRow").style.display = "block";
-                } else {
-                    document.getElementById("noteRow").style.display = "none";
+        async function confirmSubmit() {
+            try {
+                const params = new URLSearchParams({date: formData.date, income: formData.income, expense: formData.expense, detail: formData.detail, note: formData.note});
+                const response = await fetch(`${GOOGLE_SHEETS_URL}?${params}`);
+                const result = await response.text();
+                if (result.includes('OK:')) {
+                    showToast('✨ محفوظ!', 'success');
+                    document.getElementById('accountForm').reset();
+                    document.getElementById('date').value = '2026-01-01';
+                    closeModal();
                 }
+            } catch(e) { showToast('❌ خرابی', 'error'); }
+        }
 
-                document.getElementById("modalOverlay").classList.add("active");
-            }
+        function showToast(msg, type) {
+            const t = document.getElementById('toast');
+            document.getElementById('toastContent').textContent = msg;
+            t.className = `toast ${type} show`;
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
 
-            function closeModal() {
-                document
-                    .getElementById("modalOverlay")
-                    .classList.remove("active");
-            }
-
-            async function confirmSubmit() {
-                const confirmButton = document.getElementById("confirmButton");
-                const oldText = confirmButton.textContent;
-
-                confirmButton.disabled = true;
-                confirmButton.textContent = "⏳ ...ثبتېږي";
-
-                try {
-                    const queryParams = new URLSearchParams({
-                        date: formDataToSubmit.formattedDate,
-                        income: formDataToSubmit.income,
-                        expense: formDataToSubmit.expense,
-                        detail: formDataToSubmit.detail,
-                        note: formDataToSubmit.note,
-                    });
-
-                    const finalURL = `${GOOGLE_SHEETS_URL}?${queryParams.toString()}`;
-                    const response = await fetch(finalURL);
-                    const result = await response.text();
-
-                    if (result.includes("OK:")) {
-                        showToast(
-                            "success",
-                            "✨ معلومات بریالی ولیکل شو",
-                            "ډېره مننه حساب ذخیره شو",
-                        );
-                        document.getElementById("trailerForm").reset();
-                        document.getElementById("date").value = "2026-01-01";
-                        closeModal();
-                    } else {
-                        throw new Error(result);
-                    }
-                } catch (error) {
-                    console.error("Error:", error);
-                    showToast("error", "❌ د معلوماتو ستونزه", "بیا هڅه وکړئ");
-                } finally {
-                    confirmButton.disabled = false;
-                    confirmButton.textContent = oldText;
-                }
-            }
-
-            function showToast(type, title, description = "") {
-                const toast = document.getElementById("toast");
-                document.getElementById("toastTitle").textContent = title;
-                document.getElementById("toastDescription").textContent =
-                    description;
-                toast.className = `toast ${type}`;
-                toast.classList.add("show");
-                setTimeout(() => toast.classList.remove("show"), 5000);
-            }
-
-            document.addEventListener("keydown", (e) => {
-                if (e.key === "Escape") closeModal();
-            });
-
-            document
-                .getElementById("modalOverlay")
-                .addEventListener("click", (e) => {
-                    if (e.target.id === "modalOverlay") closeModal();
-                });
-
-            // Initialize
-            checkAuthStatus();
-        </script>
-    </body>
+        updateUI();
+    </script>
+</body>
 </html>
