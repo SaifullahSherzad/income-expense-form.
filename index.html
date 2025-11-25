@@ -41,7 +41,6 @@
             overflow: auto;
         }
 
-        /* Animated Background Elements */
         .bg-orbs {
             position: fixed;
             inset: 0;
@@ -96,7 +95,6 @@
             75% { transform: translate(40px, 20px); }
         }
 
-        /* Glass Morphism */
         .glass {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
             border: 1px solid rgba(255, 255, 255, 0.15);
@@ -159,7 +157,6 @@
             }
         }
 
-        /* Netlify Auth Screen */
         #passwordScreen {
             position: fixed;
             inset: 0;
@@ -346,7 +343,6 @@
             animation: fadeInUp 0.6s ease-out 0.6s both;
         }
 
-        /* Header */
         .header {
             display: flex;
             align-items: center;
@@ -487,7 +483,6 @@
             }
         }
 
-        /* Form */
         .form-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -717,7 +712,6 @@
             100% { transform: translateX(100%); }
         }
 
-        /* Modal */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -925,7 +919,6 @@
                 inset -1px -1px 20px rgba(255, 255, 255, 0.3);
         }
 
-        /* Toast */
         .toast {
             position: fixed;
             bottom: 20px;
@@ -1018,7 +1011,6 @@
         <div class="orb orb-3"></div>
     </div>
 
-    <!-- Netlify Auth Screen -->
     <div id="passwordScreen">
         <div class="glass-card password-card">
             <div class="password-header">
@@ -1030,8 +1022,8 @@
             </div>
 
             <div class="auth-buttons">
-                <button class="auth-btn btn-login" onclick="handleLogin()">🔓 لاګ ان</button>
-                <button class="auth-btn btn-signup" onclick="handleSignup()">📝 نیو اکاؤنٹ</button>
+                <button type="button" class="auth-btn btn-login" onclick="openAuth('login')">🔓 لاګ ان</button>
+                <button type="button" class="auth-btn btn-signup" onclick="openAuth('signup')">📝 نیو اکاؤنٹ</button>
             </div>
 
             <div class="auth-info">
@@ -1041,7 +1033,6 @@
         </div>
     </div>
 
-    <!-- Main Form Container -->
     <div class="container hidden" id="formContainer">
         <div class="glass-card">
             <div class="header">
@@ -1060,7 +1051,7 @@
                 <div class="input-group full-width">
                     <label for="date">📅 نېټه (2026)</label>
                     <input type="date" id="date" name="date" min="2026-01-01" max="2026-12-31" value="2026-01-01" required>
-                    <p class="hint">⭐  یوازې د 2026 کال نیټې منل کیږي</p>
+                    <p class="hint">⭐ یوازې د 2026 کال نیټې منل کیږي</p>
                 </div>
 
                 <div class="input-group">
@@ -1092,7 +1083,6 @@
         </div>
     </div>
 
-    <!-- Modal -->
     <div id="modalOverlay" class="modal-overlay">
         <div class="glass-card modal">
             <div class="modal-header">
@@ -1149,7 +1139,6 @@
         </div>
     </div>
 
-    <!-- Toast -->
     <div id="toast" class="toast">
         <div class="toast-title" id="toastTitle"></div>
         <div class="toast-description" id="toastDescription"></div>
@@ -1160,25 +1149,28 @@
         let formDataToSubmit = null;
 
         // Netlify Identity Setup
-        if (window.netlifyIdentity) {
-            window.netlifyIdentity.on('init', (user) => {
-                updateUI();
-            });
+        function setupAuth() {
+            if (window.netlifyIdentity) {
+                window.netlifyIdentity.on('init', function(user) {
+                    updateAuthUI();
+                });
 
-            window.netlifyIdentity.on('login', (user) => {
-                updateUI();
-                showToast('success', '✨ پخیر راغلې!', 'تاسو په کامیابئ سره لاګ ان شوئ');
-            });
+                window.netlifyIdentity.on('login', function(user) {
+                    updateAuthUI();
+                    showToast('success', '✨ خوش آمدید!', 'تاسو کامیابی سره لاګ ان شوئ');
+                });
 
-            window.netlifyIdentity.on('logout', () => {
-                updateUI();
-            });
+                window.netlifyIdentity.on('logout', function() {
+                    updateAuthUI();
+                    showToast('success', 'لاګ آؤٹ شوئ', '');
+                });
 
-            window.netlifyIdentity.init();
+                window.netlifyIdentity.init();
+            }
         }
 
-        function updateUI() {
-            const user = window.netlifyIdentity?.currentUser?.();
+        function updateAuthUI() {
+            const user = window.netlifyIdentity ? window.netlifyIdentity.currentUser() : null;
             const authScreen = document.getElementById('passwordScreen');
             const formContainer = document.getElementById('formContainer');
 
@@ -1191,15 +1183,9 @@
             }
         }
 
-        function handleLogin() {
+        function openAuth(method) {
             if (window.netlifyIdentity) {
-                window.netlifyIdentity.open('login');
-            }
-        }
-
-        function handleSignup() {
-            if (window.netlifyIdentity) {
-                window.netlifyIdentity.open('signup');
+                window.netlifyIdentity.open(method);
             }
         }
 
@@ -1300,7 +1286,8 @@
             if (e.target.id === 'modalOverlay') closeModal();
         });
 
-        updateUI();
+        // Initialize on page load
+        setupAuth();
     </script>
 </body>
 </html>
