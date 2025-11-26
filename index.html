@@ -1247,7 +1247,9 @@
     </div>
 
     <script>
-        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxMuzcGNbDxdvzOaOw-n1hY-Mbr2OsxYEBVDqnC2TP35baYP3lkXbo0nyF87LltSVHB/exec';
+        // ✅✅✅ ستاسو Apps Script Web App URL ✅✅✅
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxFcrvtMWU8oEY0GkTo55rYP90UT-AOej9ZMf5iaEQd4acSy7ILolUwpN9rwlw9TGpT/exec';
+        // دا URL د Apps Script خپرولو وروسته ترلاسه کیږي
         
         const JOBS = [
             { id: 'saudi', name: 'سعودي حساب', password: 'saudi123', icon: '🕌', desc: 'د سعودي کار' },
@@ -1346,35 +1348,28 @@
             document.getElementById('modalOverlay').classList.remove('active');
         }
 
+        // ✅✅✅ دا فنکشن په بشپړه توګه اصلاح شوی ✅✅✅
         async function confirmSubmit() {
             const btn = document.getElementById('confirmButton');
             btn.disabled = true;
-
             try {
                 const params = new URLSearchParams({
-                    date: formDataToSubmit.formattedDate,
-                    job: currentJob.name,
-                    income: formDataToSubmit.income,
-                    expense: formDataToSubmit.expense,
-                    detail: formDataToSubmit.detail,
-                    note: formDataToSubmit.note
+                    date: formDataToSubmit.formattedDate,  // Format: 15-01-2026
+                    workType: currentJob.id,               // e.g., 'saudi', 'brooklyn'
+                    income: formDataToSubmit.income || '0',
+                    expense: formDataToSubmit.expense || '0',
+                    detail: formDataToSubmit.detail || '',
+                    note: formDataToSubmit.note || ''
                 });
-
-                const response = await fetch(GOOGLE_SHEETS_URL + '?' + params.toString());
-                if (response.ok) {
-                    showToast('success', '✨ معلومات بریالی ولیکل شو', 'ډېره مننه حساب ذخیره شو');
-                    document.getElementById('trailerForm').reset();
-                    const today = new Date().toISOString().split('T')[0];
-                    document.getElementById('date').value = today;
-                    closeModal();
-                } else {
-                    throw new Error('error');
-                }
+                await fetch(GOOGLE_SHEETS_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
+                showToast('success', '✨ معلومات بریالی ولیکل شو', 'ډېره مننه حساب ذخیره شو');
+                document.getElementById('trailerForm').reset();
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('date').value = today;
+                closeModal();
             } catch (error) {
-                showToast('error', '❌ د معلوماتو ستونزه', 'بیا هڅه وکړئ');
-            } finally {
-                btn.disabled = false;
-            }
+                showToast('error', '❌ د معلوماتو ستونزه', 'بیا هڅه وکړئ یا انټرنیټ چیک کړئ');
+            } finally { btn.disabled = false; }
         }
 
         function showToast(type, title, desc = '') {
