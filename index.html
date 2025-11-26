@@ -1248,7 +1248,7 @@
 
     <script>
         // ✅✅✅ ستاسو Apps Script Web App URL ✅✅✅
-        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxFcrvtMWU8oEY0GkTo55rYP90UT-AOej9ZMf5iaEQd4acSy7ILolUwpN9rwlw9TGpT/exec';
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbydlrtcNJFRnmQFuCYJjM5wcsWByo3SaTX9z4QqROD8m9NYj6rNgjGAs11VwDOmFT9T/exec';
         
         const JOBS = [
             { id: 'saudi', name: 'سعودي حساب', password: 'saudi123', icon: '🕌', desc: 'د سعودي کار' },
@@ -1347,12 +1347,16 @@
             document.getElementById('modalOverlay').classList.remove('active');
         }
 
-        // ✅✅✅ دا فنکشن په بشپړه توګه اصلاح شوی ✅✅✅
         async function confirmSubmit() {
             const btn = document.getElementById('confirmButton');
             btn.disabled = true;
             try {
-                // د URL جوړول
+                // ✅ DEBUG INFO
+                console.log('=== CONFIRM SUBMIT DEBUG ===');
+                console.log('currentJob object:', currentJob);
+                console.log('currentJob.id:', currentJob ? currentJob.id : 'NULL!');
+                console.log('workType to send:', currentJob ? currentJob.id : 'NOT_FOUND');
+                
                 const url = new URL(GOOGLE_SHEETS_URL);
                 url.searchParams.append('date', formDataToSubmit.formattedDate);
                 url.searchParams.append('workType', currentJob.id);
@@ -1361,8 +1365,9 @@
                 url.searchParams.append('detail', formDataToSubmit.detail || '');
                 url.searchParams.append('note', formDataToSubmit.note || '');
                 
-                console.log('د لیږلو URL:', url.toString()); // د دیباګ لپاره
-                console.log('د کار ډول:', currentJob.id); // د دیباګ لپاره
+                console.log('Full URL:', url.toString());
+                console.log('Work Type param:', url.searchParams.get('workType'));
+                console.log('=== END DEBUG ===');
                 
                 await fetch(url.toString(), { method: 'GET', mode: 'no-cors' });
                 
@@ -1372,8 +1377,8 @@
                 document.getElementById('date').value = today;
                 closeModal();
             } catch (error) {
-                console.error('ستونزه:', error);
-                showToast('error', '❌ د معلوماتو ستونزه', 'بیا هڅه وکړئ یا انټرنیټ چیک کړئ');
+                console.error('Fetch error:', error);
+                showToast('error', '❌ د معلوماتو ستونزه', error.message);
             } finally { btn.disabled = false; }
         }
 
