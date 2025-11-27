@@ -294,6 +294,8 @@
             max-width: 550px;
             width: 100%;
             animation: modalPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
         .job-header {
@@ -599,6 +601,18 @@
         .btn-primary:hover {
             transform: translateY(-4px) scale(1.02);
             box-shadow: 0 25px 60px rgba(139, 92, 246, 0.6), inset -1px -1px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-2px) scale(0.98);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4), inset -1px -1px 20px rgba(255, 255, 255, 0.2);
+            animation: buttonPress 0.2s ease-out;
+        }
+
+        @keyframes buttonPress {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(2px) scale(0.96); }
+            100% { transform: translateY(-2px) scale(0.98); }
         }
 
         .btn-back {
@@ -1210,14 +1224,14 @@
             
             let hasError = false;
 
-            if (!income || parseInt(income) === 0) {
+            if (!income || income.trim() === '') {
                 incomeError.classList.add('show');
                 hasError = true;
             } else {
                 incomeError.classList.remove('show');
             }
 
-            if (!expense || parseInt(expense) === 0) {
+            if (!expense || expense.trim() === '') {
                 expenseError.classList.add('show');
                 hasError = true;
             } else {
