@@ -790,6 +790,7 @@
             z-index: 10000;
             padding: 16px;
             overflow-y: auto;
+            max-height: 100vh;
         }
 
         .modal-overlay.active {
@@ -800,6 +801,8 @@
             max-width: 600px;
             width: 100%;
             animation: modalPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-height: 75vh;
+            overflow-y: auto;
         }
 
         .modal-header {
@@ -1275,6 +1278,7 @@
         async function confirmSubmit() {
             const btn = document.getElementById('confirmButton');
             btn.disabled = true;
+            btn.textContent = '✓ ثبتیږي....';
             try {
                 const url = new URL(GOOGLE_SHEETS_URL);
                 url.searchParams.append('date', formDataToSubmit.formattedDate);
@@ -1294,7 +1298,10 @@
             } catch (error) {
                 console.error('Fetch error:', error);
                 showToast('error', '❌ د معلوماتو ستونزه', error.message);
-            } finally { btn.disabled = false; }
+            } finally { 
+                btn.disabled = false;
+                btn.textContent = '✓ تایید و ذخیره کړئ';
+            }
         }
 
         function showToast(type, title, desc = '') {
