@@ -648,8 +648,8 @@
         .form-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 12px;
-            margin-bottom: 4px;
+            gap: 18px;
+            margin-bottom: 8px;
         }
 
         @media (min-width: 768px) {
@@ -1194,7 +1194,6 @@
                 <div>
                     <h1>د ورځني حساب فورم</h1>
                     <p class="subtitle">✨ مهرباني وکړئ ورځني معلومات صحیح ډک کړئ</p>
-                    <p id="jobIndicator" class="subtitle" style="margin-top: 4px; color: #10b981; font-size: 11px;">📍 <span id="currentJobName">-</span></p>
                 </div>
             </div>
 
@@ -1339,9 +1338,9 @@
             if (password === currentPassword) {
                 document.getElementById('passwordScreen').classList.add('hidden');
                 document.getElementById('formContainer').classList.remove('hidden');
-                document.getElementById('currentJobName').textContent = currentJob.name;
                 const dateInput = document.getElementById('date');
-                dateInput.value = '2026-01-01';
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.value = today;
                 errorDiv.style.display = 'none';
             } else {
                 errorDiv.style.display = 'block';
@@ -1355,45 +1354,24 @@
 
         document.getElementById('trailerForm').addEventListener('submit', e => {
             e.preventDefault();
-            const submitBtn = document.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = '⏳ ثبتیږی...';
-            submitBtn.disabled = true;
-
             const date = document.getElementById('date').value;
-            const income = document.getElementById('income').value.trim();
-            const expense = document.getElementById('expense').value.trim();
+            const income = document.getElementById('income').value || '0';
+            const expense = document.getElementById('expense').value || '0';
             const detail = document.getElementById('detail').value || '';
             const note = document.getElementById('note').value || '';
 
             const year = new Date(date).getFullYear();
             if (year !== 2026) {
                 showToast('error', 'یوازې د 2026 کال نیټې منل کېږي', 'مهرباني وکړئ د 2026 کال نیټه انتخاب کړئ');
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
                 return;
             }
 
-            if ((income === '' || Number(income) === 0) && (expense === '' || Number(expense) === 0)) {
-                showToast('error', '❌ حق نه دی', 'مهرباني وکړئ عائد یا مصارف لیکئ');
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                return;
-            }
-
-            const dateParts = date.split('-');
-            const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
-            formDataToSubmit = { date, formattedDate, income: income || '0', expense: expense || '0', detail, note };
-            
-            setTimeout(() => {
-                showModal();
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }, 1500);
+            formDataToSubmit = { date, income, expense, detail, note };
+            showModal();
         });
 
         function showModal() {
-            document.getElementById('confirmDate').textContent = formDataToSubmit.formattedDate;
+            document.getElementById('confirmDate').textContent = formDataToSubmit.date;
             document.getElementById('confirmIncome').textContent = formDataToSubmit.income || '0';
             document.getElementById('confirmExpense').textContent = formDataToSubmit.expense || '0';
             document.getElementById('confirmDetail').textContent = formDataToSubmit.detail || 'ندي لیکل شوی';
@@ -1413,31 +1391,25 @@
         async function confirmSubmit() {
             const btn = document.getElementById('confirmButton');
             btn.disabled = true;
-
             try {
-                const params = new URLSearchParams({
-                    date: formDataToSubmit.formattedDate,
-                    job: currentJob.name,
-                    income: formDataToSubmit.income,
-                    expense: formDataToSubmit.expense,
-                    detail: formDataToSubmit.detail,
-                    note: formDataToSubmit.note
-                });
-
-                const response = await fetch(GOOGLE_SHEETS_URL + '?' + params.toString());
-                if (response.ok) {
-                    showToast('success', '✨ معلومات بریالی ولیکل شو', 'ډېره مننه حساب ذخیره شو');
-                    document.getElementById('trailerForm').reset();
-                    document.getElementById('date').value = '2026-01-01';
-                    closeModal();
-                } else {
-                    throw new Error('error');
-                }
+                const url = new URL(GOOGLE_SHEETS_URL);
+                url.searchParams.append('date', formDataToSubmit.date);
+                url.searchParams.append('workType', currentJob.id);
+                url.searchParams.append('income', formDataToSubmit.income || '0');
+                url.searchParams.append('expense', formDataToSubmit.expense || '0');
+                url.searchParams.append('detail', formDataToSubmit.detail || '');
+                url.searchParams.append('note', formDataToSubmit.note || '');
+                
+                await fetch(url.toString(), { method: 'GET', mode: 'no-cors' });
+                
+                showToast('success', '✨ معلومات بریالی ولیکل شو', 'ډېره مننه حساب ذخیره شو');
+                document.getElementById('trailerForm').reset();
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('date').value = today;
+                closeModal();
             } catch (error) {
-                showToast('error', '❌ د معلوماتو ستونزه', 'بیا هڅه وکړئ');
-            } finally {
-                btn.disabled = false;
-            }
+                showToast('error', '❌ د معلوماتو ستونزه', error.message);
+            } finally { btn.disabled = false; }
         }
 
         function showToast(type, title, desc = '') {
