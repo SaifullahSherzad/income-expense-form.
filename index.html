@@ -120,9 +120,9 @@
             padding: 14px 20px 24px 20px;
         }
 
-        @media (min-width: 768px) {
+        @media (min-width: 768px) and (max-width: 1023px) {
             .glass-card {
-                padding: 14px 20px 24px 20px;
+                padding: 10px 14px 16px 14px;
             }
         }
 
@@ -201,7 +201,16 @@
             }
         }
 
-        @media (min-width: 1024px) {
+        @media (min-width: 768px) and (max-height: 900px) {
+            .container {
+                padding: 10px 16px 16px 16px;
+                max-height: calc(100vh - 10px);
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+        }
+
+        @media (min-width: 1024px) and (min-height: 900px) {
             .container {
                 padding: 30px 50px;
                 max-height: none;
@@ -228,12 +237,12 @@
             flex-shrink: 0;
         }
 
-        @media (min-width: 768px) {
+        @media (min-width: 768px) and (max-width: 1023px) {
             .logo {
-                width: 60px;
-                height: 60px;
-                font-size: 28px;
-                border-radius: 14px;
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+                border-radius: 12px;
             }
         }
 
@@ -288,9 +297,9 @@
             line-height: 1.1;
         }
 
-        @media (min-width: 768px) {
+        @media (min-width: 768px) and (max-width: 1023px) {
             h1 {
-                font-size: 22px;
+                font-size: 18px;
             }
         }
 
@@ -308,10 +317,10 @@
             letter-spacing: 0.5px;
         }
 
-        @media (min-width: 768px) {
+        @media (min-width: 768px) and (max-width: 1023px) {
             .subtitle {
-                font-size: 11px;
-                margin-top: 2px;
+                font-size: 9px;
+                margin-top: 0px;
             }
         }
 
@@ -1228,6 +1237,9 @@
                 </div>
 
                 <div class="data-row">
+                    <div style="text-align: center; margin-bottom: 16px;">
+                        <span class="data-label" style="display: block; margin-bottom: 12px; color: #f472b6; font-size: 12px;">⏰ نوی معلومات</span>
+                    </div>
                     <div class="data-row-grid">
                         <div class="data-field">
                             <span class="data-label">📅 نېټه</span>
