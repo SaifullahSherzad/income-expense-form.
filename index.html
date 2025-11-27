@@ -171,17 +171,15 @@
         .container {
             width: 100%;
             max-width: 750px;
-            padding: 12px 16px 40px 16px;
+            padding: 20px 16px 16px 16px;
             z-index: 10;
             animation: slideInDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
-            margin-top: 160px;
         }
 
         @media (min-width: 768px) {
             .container {
                 padding: 30px 50px;
-                margin-top: 0;
             }
         }
 
@@ -281,16 +279,6 @@
             padding: 16px;
             flex-direction: column;
             gap: 30px;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        @media (max-width: 768px) {
-            #jobSelectionScreen {
-                justify-content: flex-start;
-                padding-top: 80px;
-                padding-bottom: 80px;
-            }
         }
 
         #jobSelectionScreen.hidden {
@@ -511,40 +499,16 @@
             position: relative;
             margin-bottom: 20px;
             animation: fadeInUp 0.6s ease-out 0.4s both;
-            padding-top: 18px;
-        }
-
-        @media (min-width: 768px) {
-            .password-input-group {
-                padding-top: 28px;
-            }
         }
 
         .password-input-label {
-            position: absolute;
-            top: -12px;
-            right: 0;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(59, 130, 246, 0.15));
-            padding: 5px 11px;
-            font-size: 10px;
+            display: block;
+            font-size: 12px;
             font-weight: 700;
             color: #c084fc;
-            z-index: 10;
-            border-radius: 50px;
-            border: 1px solid rgba(192, 132, 252, 0.4);
-            backdrop-filter: blur(12px);
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-
-        @media (min-width: 768px) {
-            .password-input-label {
-                top: -14px;
-                padding: 6px 14px;
-                font-size: 11px;
-            }
         }
 
         .password-input {
@@ -665,13 +629,7 @@
         .input-group {
             position: relative;
             animation: fadeInUp 0.6s ease-out forwards;
-            padding-top: 18px;
-        }
-
-        @media (min-width: 768px) {
-            .input-group {
-                padding-top: 28px;
-            }
+            padding-top: 28px;
         }
 
         .input-group:nth-child(1) { animation-delay: 0.25s; }
@@ -682,7 +640,7 @@
 
         label {
             position: absolute;
-            top: -12px;
+            top: 0;
             right: 0;
             background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(59, 130, 246, 0.15));
             padding: 5px 11px;
@@ -701,7 +659,6 @@
 
         @media (min-width: 768px) {
             label {
-                top: -14px;
                 padding: 6px 14px;
                 font-size: 11px;
             }
@@ -1290,13 +1247,14 @@
     </div>
 
     <script>
-        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxMuzcGNbDxdvzOaOw-n1hY-Mbr2OsxYEBVDqnC2TP35baYP3lkXbo0nyF87LltSVHB/exec';
+        // ✅✅✅ ستاسو Apps Script Web App URL ✅✅✅
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbydlrtcNJFRnmQFuCYJjM5wcsWByo3SaTX9z4QqROD8m9NYj6rNgjGAs11VwDOmFT9T/exec';
         
         const JOBS = [
             { id: 'saudi', name: 'سعودي حساب', password: 'saudi123', icon: '🕌', desc: 'د سعودي کار' },
-            { id: 'brooklyn', name: 'بوکلین حساب', password: 'brooklyn123', icon: '🏗️', desc: 'د بوکلین کار' },
+            { id: 'brooklyn', name: 'بوکلین حساب', password: 'boklyn123', icon: '🗽', desc: 'د بوکلین کار' },
             { id: 'mobile', name: 'موبایل حساب', password: 'mobile123', icon: '📱', desc: 'د موبایلونو کار' },
-            { id: 'home', name: 'کور مصارف', password: 'home123', icon: '🏠', desc: 'د کور ورځني' }
+            { id: 'home', name: 'کور مصارف', password: 'home123', icon: '🏠', desc: ' د کور ورځنئ خرڅه' }
         ];
 
         let currentJob = null;
@@ -1317,7 +1275,6 @@
         function selectJob(jobId, jobName, password) {
             currentJob = { id: jobId, name: jobName };
             currentPassword = password;
-            document.getElementById('passwordInput').value = '';
             document.getElementById('jobSelectionScreen').classList.add('hidden');
             document.getElementById('passwordScreen').classList.remove('hidden');
             setTimeout(() => document.getElementById('passwordInput').focus(), 100);
@@ -1366,12 +1323,14 @@
                 return;
             }
 
-            formDataToSubmit = { date, income, expense, detail, note };
+            const dateParts = date.split('-');
+            const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+            formDataToSubmit = { date, formattedDate, income, expense, detail, note };
             showModal();
         });
 
         function showModal() {
-            document.getElementById('confirmDate').textContent = formDataToSubmit.date;
+            document.getElementById('confirmDate').textContent = formDataToSubmit.formattedDate;
             document.getElementById('confirmIncome').textContent = formDataToSubmit.income || '0';
             document.getElementById('confirmExpense').textContent = formDataToSubmit.expense || '0';
             document.getElementById('confirmDetail').textContent = formDataToSubmit.detail || 'ندي لیکل شوی';
@@ -1392,13 +1351,23 @@
             const btn = document.getElementById('confirmButton');
             btn.disabled = true;
             try {
+                // ✅ DEBUG INFO
+                console.log('=== CONFIRM SUBMIT DEBUG ===');
+                console.log('currentJob object:', currentJob);
+                console.log('currentJob.id:', currentJob ? currentJob.id : 'NULL!');
+                console.log('workType to send:', currentJob ? currentJob.id : 'NOT_FOUND');
+                
                 const url = new URL(GOOGLE_SHEETS_URL);
-                url.searchParams.append('date', formDataToSubmit.date);
+                url.searchParams.append('date', formDataToSubmit.formattedDate);
                 url.searchParams.append('workType', currentJob.id);
                 url.searchParams.append('income', formDataToSubmit.income || '0');
                 url.searchParams.append('expense', formDataToSubmit.expense || '0');
                 url.searchParams.append('detail', formDataToSubmit.detail || '');
                 url.searchParams.append('note', formDataToSubmit.note || '');
+                
+                console.log('Full URL:', url.toString());
+                console.log('Work Type param:', url.searchParams.get('workType'));
+                console.log('=== END DEBUG ===');
                 
                 await fetch(url.toString(), { method: 'GET', mode: 'no-cors' });
                 
@@ -1408,6 +1377,7 @@
                 document.getElementById('date').value = today;
                 closeModal();
             } catch (error) {
+                console.error('Fetch error:', error);
                 showToast('error', '❌ د معلوماتو ستونزه', error.message);
             } finally { btn.disabled = false; }
         }
