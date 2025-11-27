@@ -665,7 +665,7 @@
 
         label {
             position: absolute;
-            top: 0;
+            top: -12px;
             right: 0;
             background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(59, 130, 246, 0.15));
             padding: 5px 11px;
@@ -684,6 +684,7 @@
 
         @media (min-width: 768px) {
             label {
+                top: -14px;
                 padding: 6px 14px;
                 font-size: 11px;
             }
@@ -1343,8 +1344,8 @@
             submitBtn.disabled = true;
 
             const date = document.getElementById('date').value;
-            const income = document.getElementById('income').value || '0';
-            const expense = document.getElementById('expense').value || '0';
+            const income = document.getElementById('income').value.trim();
+            const expense = document.getElementById('expense').value.trim();
             const detail = document.getElementById('detail').value || '';
             const note = document.getElementById('note').value || '';
 
@@ -1356,9 +1357,16 @@
                 return;
             }
 
+            if ((income === '' || Number(income) === 0) && (expense === '' || Number(expense) === 0)) {
+                showToast('error', '❌ حق نه دی', 'مهرباني وکړئ عائد یا مصارف لیکئ');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                return;
+            }
+
             const dateParts = date.split('-');
             const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
-            formDataToSubmit = { date, formattedDate, income, expense, detail, note };
+            formDataToSubmit = { date, formattedDate, income: income || '0', expense: expense || '0', detail, note };
             
             setTimeout(() => {
                 showModal();
