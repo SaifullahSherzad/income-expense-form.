@@ -1123,8 +1123,8 @@
             <div class="job-header">
                 <div class="logo"><img src="./logo.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 16px;"></div>
                 <div>
-                    <h2>د ورځني حساب</h2>
-                    <p class="job-header-subtitle">کار انتخاب کړئ</p>
+                    <h2>ورځني حسابونه</h2>
+                    <p class="job-header-subtitle">حساب انتخاب کړئ</p>
                 </div>
             </div>
             <div class="job-grid" id="jobGrid"></div>
@@ -1161,7 +1161,7 @@
                 <div class="logo"><img src="./logo.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 16px;"></div>
                 <div>
                     <h1>د ورځني حساب فورم</h1>
-                    <p class="subtitle">✨ مهرباني وکړئ ورځني معلومات صحیح ډک کړئ</p>
+                    <p class="subtitle">✨ مهرباني وکړئ معلومات په دقیقه توګه ډک کړئ</p>
                 </div>
             </div>
 
@@ -1180,13 +1180,13 @@
                 <div class="input-group">
                     <label for="income">💰 عائد</label>
                     <input type="number" id="income" name="income" min="0" placeholder="عائد ولیکئ">
-                    <p class="error-message" id="incomeError">❌ عائد لازم دی (صفر نه کیدی)</p>
+                    <p class="error-message" id="incomeError">❌ عائد لیکل لازم دی (صفر یا لوړ عدد ولیکئ)</p>
                 </div>
 
                 <div class="input-group">
                     <label for="expense">💸 مصارف</label>
                     <input type="number" id="expense" name="expense" min="0" placeholder="مصارف ولیکئ">
-                    <p class="error-message" id="expenseError">❌ مصارف لازم دی (صفر نه کیدی)</p>
+                    <p class="error-message" id="expenseError">❌ مصارف لیکل لازم دی (صفر یا لوړ عدد ولیکئ)</p>
                 </div>
 
                 <div class="input-group full-width">
@@ -1213,14 +1213,14 @@
                 <div class="modal-icon">⚠️</div>
                 <div>
                     <div class="modal-title">د معلوماتو بیا کتنه</div>
-                    <div class="modal-subtitle">✨ د معلوماتو تصدیق وکړئ</div>
+                    <div class="modal-subtitle">✨ د معلوماتو تصدیق وکړئ چی غلط نوی لیکل شوی </div>
                 </div>
             </div>
 
             <div class="data-grid">
                 <div class="data-row" id="lastSaveRow" style="display: none; border-bottom: 2px solid rgba(139, 92, 246, 0.3); padding-bottom: 20px; margin-bottom: 20px;">
                     <div style="text-align: center; margin-bottom: 16px;">
-                        <span class="data-label" style="display: block; margin-bottom: 12px; color: #f472b6; font-size: 12px;">⏰ آخری بار ذخیره شوی معلومات</span>
+                        <span class="data-label" style="display: block; margin-bottom: 12px; color: #f472b6; font-size: 12px;">⏰ مخکني ځل ذخیره شوي معلومات</span>
                     </div>
                     <div class="data-row-grid">
                         <div class="data-field">
@@ -1242,7 +1242,7 @@
                     </div>
                     <div class="data-row" id="lastSaveNoteRow" style="display: none; margin-top: 16px;">
                         <div class="data-field">
-                            <span class="data-label">📌 یاداشت</span>
+                            <span class="data-label">📌 یاداښت</span>
                             <span class="data-value" id="lastSaveNote">-</span>
                         </div>
                     </div>
@@ -1250,7 +1250,7 @@
 
                 <div class="data-row">
                     <div style="text-align: center; margin-bottom: 16px;">
-                        <span class="data-label" style="display: block; margin-bottom: 12px; color: #f472b6; font-size: 12px;">⏰ نوی معلومات</span>
+                        <span class="data-label" style="display: block; margin-bottom: 12px; color: #f472b6; font-size: 12px;">⏰ نوي لیکل شوي معلومات</span>
                     </div>
                     <div class="data-row-grid">
                         <div class="data-field">
@@ -1287,7 +1287,7 @@
 
             <div class="modal-actions">
                 <button type="button" class="btn-secondary" onclick="closeModal()">✏️ تصحیح</button>
-                <button type="button" class="btn-success" id="confirmButton" onclick="confirmSubmit()">✓ تایید و ذخیره کړئ</button>
+                <button type="button" class="btn-success" id="confirmButton" onclick="confirmSubmit()">✓ معلومات تایید او ذخیره کړئ </button>
             </div>
         </div>
     </div>
@@ -1476,7 +1476,7 @@
                     note: formDataToSubmit.note || ''
                 };
                 localStorage.setItem('lastSaveData', JSON.stringify(lastSaveData));
-                showToast('success', '✨ معلومات بریالی ولیکل شو', 'ډېره مننه حساب ذخیره شو');
+                showToast('success', '✨ معلومات بریالي ولیکل شول', 'نړئ مننه حساب ذخیره شو');
                 document.getElementById('trailerForm').reset();
                 const today = new Date().toISOString().split('T')[0];
                 document.getElementById('date').value = today;
@@ -1486,7 +1486,7 @@
                 showToast('error', '❌ د معلوماتو ستونزه', error.message);
             } finally { 
                 btn.disabled = false;
-                btn.textContent = '✓ تایید و ذخیره کړئ';
+                btn.textContent = '✓ معلومات تایید او ذخیره کړئ';
             }
         }
 
