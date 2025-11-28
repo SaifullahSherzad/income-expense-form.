@@ -1431,7 +1431,8 @@
             } else {
                 document.getElementById('noteRow').style.display = 'none';
             }
-            const lastSaveData = localStorage.getItem('lastSaveData');
+            const jobSpecificKey = `lastSaveData_${currentJob.id}`;
+            const lastSaveData = localStorage.getItem(jobSpecificKey);
             if (lastSaveData) {
                 const data = JSON.parse(lastSaveData);
                 document.getElementById('lastSaveDate').textContent = data.date;
@@ -1477,7 +1478,8 @@
                     detail: formDataToSubmit.detail || '',
                     note: formDataToSubmit.note || ''
                 };
-                localStorage.setItem('lastSaveData', JSON.stringify(lastSaveData));
+                const jobSpecificKey = `lastSaveData_${currentJob.id}`;
+                localStorage.setItem(jobSpecificKey, JSON.stringify(lastSaveData));
                 showToast('success', '✨ معلومات بریالي ولیکل شول', 'نړئ مننه حساب ذخیره شو');
                 document.getElementById('trailerForm').reset();
                 const today = new Date().toISOString().split('T')[0];
