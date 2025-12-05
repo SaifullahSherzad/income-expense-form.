@@ -20,7 +20,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+
+    <link rel="manifest" href="manifest.json">
+
     <style>
         * {
             margin: 0;
@@ -190,11 +192,6 @@
                 transform: translateY(-10px) rotateZ(2deg);
                 box-shadow: 0 25px 60px rgba(139, 92, 246, 0.7);
             }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
         }
 
         .container {
@@ -471,6 +468,11 @@
             }
         }
 
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
         .job-card:nth-child(1) .job-icon { animation-delay: 0s; }
         .job-card:nth-child(2) .job-icon { animation-delay: 0.2s; }
         .job-card:nth-child(3) .job-icon { animation-delay: 0.4s; }
@@ -503,43 +505,6 @@
             .job-desc {
                 font-size: 13px;
             }
-        }
-
-        /* Style for trailer images */
-        .job-image {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 12px;
-            animation: float 3s ease-in-out infinite;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .job-card:nth-child(1) .job-image { animation-delay: 0s; }
-        .job-card:nth-child(2) .job-image { animation-delay: 0.2s; }
-
-        .job-image-error {
-            display: none;
-            font-size: 48px;
-        }
-
-        #saudiSubAccountScreen {
-            position: fixed;
-            inset: 0;
-            background: rgba(10, 5, 21, 0.98);
-            backdrop-filter: blur(30px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            padding: 16px;
-            flex-direction: column;
-            gap: 30px;
-            overflow-y: auto;
-        }
-
-        #saudiSubAccountScreen.hidden {
-            display: none;
         }
 
         #passwordScreen {
@@ -1146,21 +1111,6 @@
         }
 
         .hidden { display: none !important; }
-
-        /* Back button positioning */
-        .back-button-container {
-            position: absolute;
-            left: 20px;
-            top: 20px;
-            z-index: 10;
-        }
-
-        @media (max-width: 767px) {
-            .back-button-container {
-                left: 16px;
-                top: 16px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -1170,7 +1120,6 @@
         <div class="orb orb-3"></div>
     </div>
 
-    <!-- Main Job Selection Screen -->
     <div id="jobSelectionScreen">
         <div class="glass-card job-selection-card">
             <div class="job-header">
@@ -1184,24 +1133,6 @@
         </div>
     </div>
 
-    <!-- Saudi Sub-Account Selection Screen -->
-    <div id="saudiSubAccountScreen" class="hidden">
-        <div class="glass-card job-selection-card">
-            <div class="back-button-container">
-                <button type="button" class="btn-back" onclick="backFromSaudiSubAccount()" style="padding: 10px 20px; font-size: 12px;">شاته</button>
-            </div>
-            <div class="job-header">
-                <div class="logo"><img src="./logo.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 16px;"></div>
-                <div>
-                    <h2>سعودي حسابونه</h2>
-                    <p class="job-header-subtitle">فرعي حساب انتخاب کړئ</p>
-                </div>
-            </div>
-            <div class="job-grid" id="saudiSubAccountGrid"></div>
-        </div>
-    </div>
-
-    <!-- Password Screen -->
     <div id="passwordScreen" class="hidden">
         <div class="glass-card password-card">
             <div class="password-header">
@@ -1226,7 +1157,6 @@
         </div>
     </div>
 
-    <!-- Main Form Container -->
     <div class="container hidden" id="formContainer">
         <div class="glass-card">
             <div class="header">
@@ -1279,7 +1209,6 @@
         </div>
     </div>
 
-    <!-- Confirmation Modal -->
     <div id="modalOverlay" class="modal-overlay">
         <div class="glass-card modal">
             <div class="modal-header">
@@ -1365,7 +1294,6 @@
         </div>
     </div>
 
-    <!-- Toast Notification -->
     <div id="toast" class="toast">
         <div class="toast-title" id="toastTitle"></div>
         <div class="toast-description" id="toastDescription"></div>
@@ -1381,12 +1309,6 @@
             { id: 'home', name: 'کور مصارف', password: 'home123', icon: '🏠', desc: ' د کور ورځنئ خرڅه' }
         ];
 
-        // Saudi Sub-Accounts Data - Updated with new names and optional image support
-        const SAUDI_SUB_ACCOUNTS = [
-            { id: 'saudi', name: '12 ماډل ترېله 3125 نمبر', password: 'saudi123', icon: '🚛', image: './images/trailer_3125.jpg', desc: '12 ماډل ترېله' },
-            { id: 'saudi_14module', name: '14 ماډل ترېله 6437 نمبر', password: 'saudi123', icon: '🚚', image: './images/trailer_6437.jpg', desc: '14 ماډل ترېله' }
-        ];
-
         let currentJob = null;
         let currentPassword = null;
         let formDataToSubmit = null;
@@ -1394,7 +1316,7 @@
         function initJobSelector() {
             const container = document.getElementById('jobGrid');
             container.innerHTML = JOBS.map(job => `
-                <div class="job-card" onclick="selectJob('${job.id}', '${job.name}', '${job.password}', '${job.icon}')">
+                <div class="job-card" onclick="selectJob('${job.id}', '${job.name}', '${job.password}')">
                     <div class="job-icon">${job.icon}</div>
                     <div class="job-name">${job.name}</div>
                     <div class="job-desc">${job.desc}</div>
@@ -1402,71 +1324,26 @@
             `).join('');
         }
 
-        function initSaudiSubAccountSelector() {
-            const container = document.getElementById('saudiSubAccountGrid');
-            container.innerHTML = SAUDI_SUB_ACCOUNTS.map(account => `
-                <div class="job-card" onclick="selectSaudiSubAccount('${account.id}', '${account.name}', '${account.password}', '${account.image}')">
-                    ${account.image ? `
-                        <img src="${account.image}" alt="${account.name}" class="job-image" 
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <div class="job-icon job-image-error">${account.icon}</div>
-                    ` : `
-                        <div class="job-icon">${account.icon}</div>
-                    `}
-                    <div class="job-name">${account.name}</div>
-                    <div class="job-desc">${account.desc}</div>
-                </div>
-            `).join('');
-        }
-
-        function selectJob(jobId, jobName, password, icon) {
-            if (jobId === 'saudi') {
-                // Show Saudi sub-account menu instead of going directly to password
-                document.getElementById('jobSelectionScreen').classList.add('hidden');
-                document.getElementById('saudiSubAccountScreen').classList.remove('hidden');
-            } else {
-                // Original logic for other jobs
-                currentJob = { id: jobId, name: jobName, icon: icon };
-                currentPassword = password;
-                document.getElementById('jobSelectionScreen').classList.add('hidden');
-                document.getElementById('passwordScreen').classList.remove('hidden');
-                setTimeout(() => document.getElementById('passwordInput').focus(), 100);
-            }
-        }
-
-        function selectSaudiSubAccount(subId, subName, password, image) {
-            // Set the sub-account as current job
-            currentJob = { id: subId, name: subName, image: image };
+        function selectJob(jobId, jobName, password) {
+            currentJob = { id: jobId, name: jobName };
             currentPassword = password;
-            document.getElementById('saudiSubAccountScreen').classList.add('hidden');
+            document.getElementById('jobSelectionScreen').classList.add('hidden');
             document.getElementById('passwordScreen').classList.remove('hidden');
             setTimeout(() => document.getElementById('passwordInput').focus(), 100);
         }
 
-        function backFromSaudiSubAccount() {
-            document.getElementById('saudiSubAccountScreen').classList.add('hidden');
-            document.getElementById('jobSelectionScreen').classList.remove('hidden');
-        }
-
         function backToJobs() {
             document.getElementById('passwordScreen').classList.add('hidden');
+            document.getElementById('jobSelectionScreen').classList.remove('hidden');
             document.getElementById('passwordInput').value = '';
             document.getElementById('passwordError').style.display = 'none';
-            
-            // Check if we came from Saudi sub-account menu
-            if (currentJob && currentJob.id && currentJob.id.startsWith('saudi')) {
-                document.getElementById('saudiSubAccountScreen').classList.remove('hidden');
-            } else {
-                document.getElementById('jobSelectionScreen').classList.remove('hidden');
-                currentJob = null;
-            }
+            currentJob = null;
         }
 
         function logout() {
             document.getElementById('formContainer').classList.add('hidden');
             document.getElementById('jobSelectionScreen').classList.remove('hidden');
             document.getElementById('passwordScreen').classList.add('hidden');
-            document.getElementById('saudiSubAccountScreen').classList.add('hidden');
             document.getElementById('passwordInput').value = '';
             document.getElementById('passwordError').style.display = 'none';
             document.getElementById('trailerForm').reset();
@@ -1485,13 +1362,11 @@
                 dateInput.value = today;
                 errorDiv.style.display = 'none';
                 
-                // Display the selected job/sub-account info
-                if (currentJob.image) {
-                    document.getElementById('currentJobIcon').innerHTML = `<img src="${currentJob.image}" alt="${currentJob.name}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.3);">`;
-                } else {
-                    document.getElementById('currentJobIcon').textContent = currentJob.icon || JOBS.find(job => job.id === currentJob.id)?.icon || '🕌';
+                const currentJobData = JOBS.find(job => job.id === currentJob.id);
+                if (currentJobData) {
+                    document.getElementById('currentJobIcon').textContent = currentJobData.icon;
+                    document.getElementById('currentJobName').textContent = currentJobData.name;
                 }
-                document.getElementById('currentJobName').textContent = currentJob.name;
             } else {
                 errorDiv.style.display = 'block';
                 document.getElementById('passwordInput').value = '';
@@ -1556,7 +1431,8 @@
             } else {
                 document.getElementById('noteRow').style.display = 'none';
             }
-            const lastSaveData = localStorage.getItem('lastSaveData');
+            const jobSpecificKey = `lastSaveData_${currentJob.id}`;
+            const lastSaveData = localStorage.getItem(jobSpecificKey);
             if (lastSaveData) {
                 const data = JSON.parse(lastSaveData);
                 document.getElementById('lastSaveDate').textContent = data.date;
@@ -1602,7 +1478,8 @@
                     detail: formDataToSubmit.detail || '',
                     note: formDataToSubmit.note || ''
                 };
-                localStorage.setItem('lastSaveData', JSON.stringify(lastSaveData));
+                const jobSpecificKey = `lastSaveData_${currentJob.id}`;
+                localStorage.setItem(jobSpecificKey, JSON.stringify(lastSaveData));
                 showToast('success', '✨ معلومات بریالي ولیکل شول', 'نړئ مننه حساب ذخیره شو');
                 document.getElementById('trailerForm').reset();
                 const today = new Date().toISOString().split('T')[0];
@@ -1626,9 +1503,18 @@
             setTimeout(() => toast.classList.remove('show'), 5000);
         }
 
-        // Initialize both selectors
         initJobSelector();
-        initSaudiSubAccountSelector();
     </script>
+
+    <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js')
+        .then(reg => console.log('Service Worker registered:', reg.scope))
+        .catch(err => console.error('SW registration failed:', err));
+    });
+  }
+</script>
+
 </body>
 </html>
