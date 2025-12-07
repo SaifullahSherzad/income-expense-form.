@@ -5,24 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="شېرزاد حسابونه - Premium Edition">
     <title>شېرزاد حسابونه</title>
-
+    
     <!-- Favicon for browser tab - Icon file -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-
+    
     <!-- iOS home screen icon - PNG file -->
     <link rel="apple-touch-icon" href="favicon.png">
-
+    
     <!-- iOS web app configuration -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="شېرزاد حسابونه">
-
+          
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <link rel="manifest" href="manifest.json">
-
+    
     <style>
         * {
             margin: 0;
@@ -194,6 +192,11 @@
             }
         }
 
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
         .container {
             width: 100%;
             max-width: 750px;
@@ -280,24 +283,21 @@
 
         .header {
             display: flex;
-            flex-direction: column;
             align-items: center;
             gap: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
         @media (min-width: 768px) {
             .header {
-                flex-direction: column;
                 gap: 12px;
-                margin-bottom: 20px;
+                margin-bottom: 12px;
             }
         }
 
         @media (min-width: 1024px) {
             .header {
-                flex-direction: column;
                 gap: 20px;
                 margin-bottom: 28px;
             }
@@ -404,14 +404,10 @@
         }
 
         .job-grid {
-            display: grid !important;
+            display: grid;
             grid-template-columns: 1fr;
             gap: 14px;
             animation: fadeInUp 0.8s ease-out 0.4s both;
-            visibility: visible !important;
-            opacity: 1 !important;
-            width: 100%;
-            max-width: 100%;
         }
 
         @media (min-width: 768px) {
@@ -427,17 +423,13 @@
             border: 2px solid rgba(139, 92, 246, 0.25);
             border-radius: 16px;
             cursor: pointer;
-            -webkit-user-select: none;
-            user-select: none;
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             text-align: right;
             position: relative;
             overflow: hidden;
-            display: flex !important;
+            display: flex;
             flex-direction: column;
             gap: 10px;
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
         }
 
         @media (min-width: 768px) {
@@ -479,11 +471,6 @@
             }
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
         .job-card:nth-child(1) .job-icon { animation-delay: 0s; }
         .job-card:nth-child(2) .job-icon { animation-delay: 0.2s; }
         .job-card:nth-child(3) .job-icon { animation-delay: 0.4s; }
@@ -516,6 +503,43 @@
             .job-desc {
                 font-size: 13px;
             }
+        }
+
+        /* Style for trailer images */
+        .job-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 12px;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .job-card:nth-child(1) .job-image { animation-delay: 0s; }
+        .job-card:nth-child(2) .job-image { animation-delay: 0.2s; }
+
+        .job-image-error {
+            display: none;
+            font-size: 48px;
+        }
+
+        #saudiSubAccountScreen {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 5, 21, 0.98);
+            backdrop-filter: blur(30px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 16px;
+            flex-direction: column;
+            gap: 30px;
+            overflow-y: auto;
+        }
+
+        #saudiSubAccountScreen.hidden {
+            display: none;
         }
 
         #passwordScreen {
@@ -705,148 +729,88 @@
         }
 
         .btn-back {
-            background: linear-gradient(135deg, rgba(234, 88, 12, 0.25), rgba(239, 68, 68, 0.15));
-            border: 2px solid rgba(251, 146, 60, 0.5);
-            color: #fed7aa;
-            box-shadow: 0 8px 20px rgba(234, 88, 12, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .btn-back:hover {
-            background: linear-gradient(135deg, rgba(234, 88, 12, 0.35), rgba(239, 68, 68, 0.25));
-            border-color: rgba(251, 146, 60, 0.7);
-            box-shadow: 0 15px 40px rgba(234, 88, 12, 0.35);
-            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
         }
 
         .form-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 14px;
-            margin-bottom: 6px;
+            gap: 16px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
         }
 
         @media (min-width: 768px) {
             .form-grid {
                 grid-template-columns: 1fr 1fr;
-                gap: 16px;
-            }
-            .full-width {
-                grid-column: 1 / -1;
+                gap: 20px;
             }
         }
 
         .input-group {
             position: relative;
-            animation: fadeInUp 0.6s ease-out forwards;
         }
 
-        .input-group:nth-child(1) { animation-delay: 0.2s; }
-        .input-group:nth-child(2) { animation-delay: 0.25s; }
-        .input-group:nth-child(3) { animation-delay: 0.3s; }
-        .input-group:nth-child(4) { animation-delay: 0.35s; }
-        .input-group:nth-child(5) { animation-delay: 0.4s; }
+        .input-group.full-width {
+            grid-column: 1 / -1;
+        }
 
         label {
             display: block;
-            font-size: 11px;
+            margin-bottom: 8px;
+            font-size: 13px;
             font-weight: 700;
             color: #c084fc;
-            margin-bottom: 6px;
             text-transform: uppercase;
-            letter-spacing: 0.4px;
+            letter-spacing: 0.5px;
         }
 
-        @media (min-width: 768px) {
-            label {
-                font-size: 11px;
-                margin-bottom: 8px;
-            }
-        }
-
-        input, textarea {
+        input, select, textarea {
             width: 100%;
-            padding: 12px 14px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
-            border: 1.5px solid rgba(139, 92, 246, 0.3);
-            border-radius: 12px;
+            padding: 14px 16px;
+            background: rgba(10, 5, 21, 0.6);
+            border: 2px solid rgba(139, 92, 246, 0.2);
+            border-radius: 14px;
             color: #f8fafc;
-            font-size: 14px;
+            font-size: 15px;
             font-family: inherit;
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            backdrop-filter: blur(12px);
-            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2), 0 4px 15px rgba(139, 92, 246, 0.1);
-            position: relative;
-            z-index: 1;
-            min-height: 52px;
-            display: flex;
-            align-items: center;
+            transition: all 0.3s ease;
         }
 
-        @media (min-width: 768px) {
-            input, textarea {
-                padding: 16px 20px;
-                border-radius: 16px;
-                font-size: 16px;
-            }
-        }
-
-        input:hover, textarea:hover {
-            border-color: rgba(168, 85, 247, 0.6);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
-            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2), 0 8px 30px rgba(139, 92, 246, 0.25);
-            transform: translateY(-3px);
-        }
-
-        input:focus, textarea:focus {
+        input:focus, select:focus, textarea:focus {
             outline: none;
             border-color: #a78bfa;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
-            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2), 0 0 40px rgba(168, 85, 247, 0.4), inset 0 0 20px rgba(139, 92, 246, 0.1);
+            background: rgba(10, 5, 21, 0.8);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
         }
 
         textarea {
-            min-height: 52px;
-            resize: none;
-            align-items: flex-start;
-            padding-top: 12px;
-        }
-
-        @media (min-width: 768px) {
-            textarea {
-                min-height: 52px;
-            }
-        }
-
-        input::placeholder, textarea::placeholder {
-            color: #4a5568;
-        }
-
-        input[type="date"] {
-            width: 96%;
-            min-width: 100%;
-            box-sizing: border-box;
-            padding: 12px !important;
-            font-size: 14px;
-        }
-
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            cursor: pointer;
-            color: #a78bfa;
+            min-height: 100px;
+            resize: vertical;
         }
 
         .hint {
-            font-size: 12px;
-            color: #7dd3fc;
-            margin-top: 8px;
-            font-weight: 500;
+            font-size: 11px;
+            color: #94a3b8;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .error-message {
-            font-size: 12px;
             color: #fca5a5;
+            font-size: 11px;
             margin-top: 6px;
-            font-weight: 600;
             display: none;
+            animation: shake 0.4s ease-in-out;
+            font-weight: 600;
         }
 
         .error-message.show {
@@ -854,102 +818,103 @@
         }
 
         .submit-btn-wrapper {
+            margin-top: 24px;
             display: flex;
             gap: 12px;
-            margin-top: 20px;
-            animation: fadeInUp 0.6s ease-out 0.75s both;
-        }
-
-        @media (min-width: 768px) {
-            .submit-btn-wrapper {
-                gap: 14px;
-                margin-top: 24px;
-            }
         }
 
         .btn-secondary {
-            padding: 13px 32px;
-            border: 2px solid rgba(251, 146, 60, 0.5);
-            color: #fed7aa;
-            background: linear-gradient(135deg, rgba(234, 88, 12, 0.25), rgba(239, 68, 68, 0.15));
+            padding: 14px 24px;
+            border: none;
             border-radius: 14px;
-            font-weight: 800;
+            font-size: 14px;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: rgba(255, 255, 255, 0.08);
+            color: #e2e8f0;
+            transition: all 0.3s ease;
             font-family: inherit;
         }
 
         .btn-secondary:hover {
-            background: linear-gradient(135deg, rgba(234, 88, 12, 0.35), rgba(239, 68, 68, 0.25));
-            border-color: rgba(251, 146, 60, 0.7);
-            box-shadow: 0 15px 40px rgba(234, 88, 12, 0.35);
-            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            transform: translateY(-2px);
         }
 
+        /* Modal Styles */
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(10, 5, 21, 0.98);
-            backdrop-filter: blur(30px);
-            display: none;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             padding: 16px;
-            overflow-y: auto;
-            max-height: 100vh;
         }
 
         .modal-overlay.active {
-            display: flex;
+            opacity: 1;
+            pointer-events: all;
         }
 
         .modal {
             max-width: 600px;
             width: 100%;
-            animation: modalPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            max-height: 75vh;
+            transform: scale(0.9) translateY(20px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-height: 90vh;
             overflow-y: auto;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1) translateY(0);
+            opacity: 1;
         }
 
         .modal-header {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 16px;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
         }
 
         .modal-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, #f59e0b, #f97316, #ef4444);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: rgba(245, 158, 11, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
+            font-size: 24px;
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.3);
             flex-shrink: 0;
         }
 
         .modal-title {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 800;
-            background: linear-gradient(to left, #c084fc, #f472b6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #f8fafc;
+            margin-bottom: 4px;
         }
 
         .modal-subtitle {
-            color: #7dd3fc;
-            font-size: 12px;
-            margin-top: 6px;
-            font-weight: 500;
+            font-size: 13px;
+            color: #94a3b8;
         }
 
         .data-grid {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.05));
-            border: 1px solid rgba(139, 92, 246, 0.2);
+            background: rgba(0, 0, 0, 0.2);
             border-radius: 16px;
             padding: 20px;
             margin-bottom: 24px;
@@ -1126,226 +1091,19 @@
 
         .hidden { display: none !important; }
 
-        /* Dark Mode Styles */
-        body.dark-mode {
-            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 40%, #16213e 100%);
+        /* Back button positioning */
+        .back-button-container {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            z-index: 10;
         }
 
-        body.dark-mode .glass {
-            background: linear-gradient(135deg, rgba(30, 30, 50, 0.8), rgba(20, 20, 40, 0.6));
-        }
-
-        .theme-toggle, .export-btn, .stats-btn {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(59, 130, 246, 0.15));
-            border: 2px solid rgba(139, 92, 246, 0.3);
-            border-radius: 12px;
-            padding: 8px 16px;
-            color: #f8fafc;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 13px;
-            transition: all 0.3s ease;
-            font-family: inherit;
-            display: inline-block;
-        }
-
-        .theme-toggle:hover, .export-btn:hover, .stats-btn:hover {
-            border-color: rgba(139, 92, 246, 0.6);
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.35), rgba(59, 130, 246, 0.25));
-        }
-
-        .export-btn {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(34, 197, 94, 0.15));
-            border-color: rgba(16, 185, 129, 0.3);
-            color: #86efac;
-        }
-
-        .export-btn:hover {
-            border-color: rgba(16, 185, 129, 0.6);
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(34, 197, 94, 0.25));
-        }
-
-        .auto-save-indicator {
-            font-size: 12px;
-            color: #7dd3fc;
-            margin-top: 4px;
-            font-weight: 600;
-        }
-
-        .auto-save-indicator.saving {
-            color: #fbbf24;
-        }
-
-        .auto-save-indicator.saved {
-            color: #86efac;
-        }
-
-        .header-controls {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-            align-items: center;
-        }
-
-        .tabs-container {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 14px;
-            flex-wrap: wrap;
-            animation: fadeInUp 0.6s ease-out 0.2s both;
-            justify-content: center;
-        }
-
-        .tab-btn {
-            padding: 6px 12px;
-            background: rgba(139, 92, 246, 0.2);
-            border: 1.5px solid rgba(139, 92, 246, 0.3);
-            border-radius: 8px;
-            color: #f8fafc;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 10px;
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
-
-        @media (min-width: 768px) {
-            .tab-btn {
-                padding: 7px 14px;
-                font-size: 11px;
-                font-weight: 700;
+        @media (max-width: 767px) {
+            .back-button-container {
+                left: 16px;
+                top: 16px;
             }
-        }
-
-        .tab-btn.active {
-            background: rgba(139, 92, 246, 0.5);
-            border-color: rgba(139, 92, 246, 0.8);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeInUp 0.3s ease-out;
-        }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(59, 130, 246, 0.06));
-            border: 1.5px solid rgba(139, 92, 246, 0.25);
-            border-radius: 12px;
-            padding: 14px;
-            text-align: center;
-        }
-
-        .stat-label {
-            color: #7dd3fc;
-            font-size: 10px;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-
-        .stat-value {
-            font-size: 16px;
-            font-weight: 800;
-            background: linear-gradient(to left, #c084fc, #60a5fa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .budget-section {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(59, 130, 246, 0.06));
-            border: 1.5px solid rgba(139, 92, 246, 0.25);
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 16px;
-        }
-
-        .budget-bar {
-            background: rgba(0,0,0,0.3);
-            border-radius: 8px;
-            height: 24px;
-            overflow: hidden;
-            margin: 10px 0;
-        }
-
-        .budget-progress {
-            background: linear-gradient(to right, #10b981, #6366f1);
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 11px;
-            transition: width 0.3s;
-        }
-
-        .recurring-item {
-            background: rgba(139, 92, 246, 0.1);
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .alert-box {
-            background: rgba(248, 113, 113, 0.15);
-            border-left: 4px solid #ef4444;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 16px;
-            color: #fca5a5;
-            font-size: 12px;
-            font-weight: 600;
-            display: none;
-        }
-
-        .alert-box.show {
-            display: block;
-        }
-
-        .chart-container {
-            background: rgba(139, 92, 246, 0.1);
-            border: 2px solid rgba(139, 92, 246, 0.2);
-            border-radius: 14px;
-            padding: 16px;
-            margin-bottom: 20px;
-        }
-
-        .chart-title {
-            font-size: 14px;
-            font-weight: 800;
-            color: #c084fc;
-            margin-bottom: 12px;
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, rgba(234, 88, 12, 0.25), rgba(239, 68, 68, 0.15));
-            border: 2px solid rgba(251, 146, 60, 0.5);
-            color: #fed7aa;
-        }
-
-        .btn-danger:hover {
-            background: linear-gradient(135deg, rgba(234, 88, 12, 0.35), rgba(239, 68, 68, 0.25));
-            border-color: rgba(251, 146, 60, 0.7);
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
         }
     </style>
 </head>
@@ -1356,6 +1114,7 @@
         <div class="orb orb-3"></div>
     </div>
 
+    <!-- Main Job Selection Screen -->
     <div id="jobSelectionScreen">
         <div class="glass-card job-selection-card">
             <div class="job-header">
@@ -1369,13 +1128,31 @@
         </div>
     </div>
 
+    <!-- Saudi Sub-Account Selection Screen -->
+    <div id="saudiSubAccountScreen" class="hidden">
+        <div class="glass-card job-selection-card">
+            <div class="back-button-container">
+                <button type="button" class="btn-back" onclick="backFromSaudiSubAccount()" style="padding: 10px 20px; font-size: 12px;">شاته</button>
+            </div>
+            <div class="job-header">
+                <div class="logo"><img src="./logo.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 16px;"></div>
+                <div>
+                    <h2>سعودي حسابونه</h2>
+                    <p class="job-header-subtitle">فرعي حساب انتخاب کړئ</p>
+                </div>
+            </div>
+            <div class="job-grid" id="saudiSubAccountGrid"></div>
+        </div>
+    </div>
+
+    <!-- Password Screen -->
     <div id="passwordScreen" class="hidden">
         <div class="glass-card password-card">
             <div class="password-header">
                 <div class="lock-icon">🔒</div>
                 <div>
                     <div class="password-title">د 2026 کال فورم</div>
-                    <p class="password-subtitle">✨ پاسورډ ولیکئ</p>
+                    <p class="password-subtitle">✨ پاسورډ داخل کړئ</p>
                 </div>
             </div>
 
@@ -1393,38 +1170,15 @@
         </div>
     </div>
 
+    <!-- Main Form Container -->
     <div class="container hidden" id="formContainer">
         <div class="glass-card">
             <div class="header">
                 <div class="logo"><img src="./logo.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 16px;"></div>
-                <div style="flex: 1;">
+                <div>
                     <h1>د ورځني حساب فورم</h1>
-                    <p class="subtitle">✨ ✨ مهرباني وکړئ معلومات په دقیقه توګه ډک کړئ</p>
+                    <p class="subtitle">✨ مهرباني وکړئ معلومات په دقیقه توګه ډک کړئ</p>
                 </div>
-                <div class="header-controls">
-                    <select id="currencySelect" onchange="changeCurrency()" style="padding: 8px 12px; background: rgba(139, 92, 246, 0.2); border: 2px solid rgba(139, 92, 246, 0.3); color: #f8fafc; border-radius: 8px; font-weight: 700; cursor: pointer;">
-                        <option value="AFN">AFN (افغانی)</option>
-                        <option value="SAR">SAR (ریال)</option>
-                        <option value="USD">USD (امریکایی ڈالر)</option>
-                    </select>
-                    <button type="button" class="theme-toggle" onclick="toggleTheme()">🌙</button>
-                    <button type="button" class="export-btn" onclick="createBackup()" title="ڈیٹا ذخیره کول">💾 بیک اپ</button>
-                    <button type="button" class="export-btn" onclick="exportData()">📥 CSV</button>
-                </div>
-            </div>
-
-            <!-- TABS -->
-            <div class="tabs-container">
-                <button type="button" class="tab-btn active" onclick="switchTab('form-tab', this)">📝 فارم</button>
-                <button type="button" class="tab-btn" onclick="switchTab('history-tab', this)">📋 تاریخ</button>
-                <button type="button" class="tab-btn" onclick="switchTab('summary-tab', this)">📧 خلاصہ</button>
-                <button type="button" class="tab-btn" onclick="switchTab('comparison-tab', this)">📊 موازنہ</button>
-                <button type="button" class="tab-btn" onclick="switchTab('dashboard-tab', this)">📊 ډیش بورڈ</button>
-                <button type="button" class="tab-btn" onclick="switchTab('budget-tab', this)">💰 بجٹ</button>
-                <button type="button" class="tab-btn" onclick="switchTab('goals-tab', this)">🏆 مقصد</button>
-                <button type="button" class="tab-btn" onclick="switchTab('notifications-tab', this)">📱 SMS</button>
-                <button type="button" class="tab-btn" onclick="switchTab('categories-tab', this)">📊 کیٹ</button>
-                <button type="button" class="tab-btn" onclick="switchTab('trends-tab', this)">📈 رجحان</button>
             </div>
 
             <div style="text-align: center; padding: 16px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(59, 130, 246, 0.06)); border: 2px solid rgba(139, 92, 246, 0.25); border-radius: 16px; margin-bottom: 24px;">
@@ -1432,319 +1186,44 @@
                 <div style="font-size: 16px; font-weight: 800; background: linear-gradient(to left, #c084fc, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;" id="currentJobName"></div>
             </div>
 
-            <!-- FORM TAB -->
-            <div id="form-tab" class="tab-content active">
-                <div class="alert-box" id="budgetAlert">⚠️ بجٹ ختم ہو رہا ہے!</div>
-                <form id="trailerForm" class="form-grid">
-                    <div class="input-group full-width">
-                        <label for="date">📅 نېټه (2026)</label>
-                        <input type="date" id="date" name="date" min="2026-01-01" max="2026-12-31" required>
-                        <p class="hint">⭐ یوازې د 2026 کال نیټې منل کیږي</p>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="income">💰 عائد</label>
-                        <input type="number" id="income" name="income" min="0" placeholder="عائد ولیکئ">
-                        <p class="error-message" id="incomeError">❌ عائد لیکل لازم دی (صفر یا لوړ عدد ولیکئ)</p>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="expense">💸 مصارف</label>
-                        <input type="number" id="expense" name="expense" min="0" placeholder="مصارف ولیکئ">
-                        <p class="error-message" id="expenseError">❌ مصارف لیکل لازم دی (صفر یا لوړ عدد ولیکئ)</p>
-                    </div>
-
-                    <div class="input-group full-width">
-                        <label for="detail">📝 د کار تفصیل</label>
-                        <input type="text" id="detail" name="detail" placeholder="تفصیل ولیکئ...">
-                    </div>
-
-                    <div class="input-group full-width">
-                        <label for="note">📌 یاداښت</label>
-                        <textarea id="note" name="note" placeholder="یاداښت ولیکئ..."></textarea>
-                    </div>
-
-                    <div class="input-group full-width">
-                        <label for="receipt">📸 رسید/ثبوت کی تصویر</label>
-                        <input type="file" id="receipt" name="receipt" accept="image/*" onchange="previewReceipt()">
-                        <p class="hint">✓ تصویر upload کریں (اختیاری)</p>
-                        <div id="receiptPreview" style="margin-top: 10px; display: none;">
-                            <img id="receiptImage" style="max-width: 100%; max-height: 200px; border-radius: 8px; border: 2px solid rgba(139, 92, 246, 0.3);">
-                            <button type="button" class="btn-danger" onclick="clearReceipt()" style="margin-top: 8px; width: 100%; padding: 6px;">❌ تصویر ہٹائیں</button>
-                        </div>
-                    </div>
-
-                    <div class="submit-btn-wrapper full-width">
-                        <button type="button" class="btn-secondary" onclick="logout()">خروج</button>
-                        <button type="submit" class="btn-primary" style="flex: 1;">ذخیره کول</button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- MONTHLY SUMMARY TAB -->
-            <div id="summary-tab" class="tab-content">
-                <div class="chart-container">
-                    <div class="chart-title">📊 ماہانہ خلاصہ</div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
-                        <div style="background: rgba(59, 130, 246, 0.1); border: 2px solid rgba(59, 130, 246, 0.25); padding: 16px; border-radius: 12px;">
-                            <div style="color: #7dd3fc; font-size: 12px; font-weight: 700; margin-bottom: 12px;">📅 اس ماہ (موجودہ)</div>
-                            <div id="currentMonthSummary"></div>
-                        </div>
-                        
-                        <div style="background: rgba(139, 92, 246, 0.1); border: 2px solid rgba(139, 92, 246, 0.25); padding: 16px; border-radius: 12px;">
-                            <div style="color: #c084fc; font-size: 12px; font-weight: 700; margin-bottom: 12px;">📅 پچھلا ماہ</div>
-                            <div id="previousMonthSummary"></div>
-                        </div>
-                    </div>
-                    
-                    <div style="background: rgba(16, 185, 129, 0.1); border: 2px solid rgba(16, 185, 129, 0.25); padding: 16px; border-radius: 12px; margin-bottom: 20px;">
-                        <div style="color: #86efac; font-size: 12px; font-weight: 700; margin-bottom: 12px;">📈 موازنہ</div>
-                        <div id="comparisonSummary"></div>
-                    </div>
-                    
-                    <div style="display: flex; gap: 8px; margin-bottom: 16px;">
-                        <button type="button" class="export-btn" onclick="loadMonthlySummary()" style="flex: 1;">🔄 تازہ کریں</button>
-                        <button type="button" class="export-btn" onclick="shareViaEmail()" style="flex: 1;">📧 Email بھیجیں</button>
-                    </div>
-                    
-                    <div id="emailSection" style="background: rgba(139, 92, 246, 0.1); border: 2px solid rgba(139, 92, 246, 0.25); padding: 16px; border-radius: 12px; display: none;">
-                        <div style="color: #c084fc; font-size: 12px; font-weight: 700; margin-bottom: 12px;">📬 Email کے لیے</div>
-                        <input type="email" id="emailAddress" placeholder="ای میل درج کریں..." style="width: 100%; padding: 10px; background: rgba(139, 92, 246, 0.2); border: 1px solid rgba(139, 92, 246, 0.3); color: #f8fafc; border-radius: 8px; margin-bottom: 8px; font-size: 13px;">
-                        <button type="button" class="export-btn" onclick="sendEmailReport()" style="width: 100%;">✓ بھیجیں</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ACCOUNT COMPARISON TAB -->
-            <div id="comparison-tab" class="tab-content">
-                <div class="chart-container">
-                    <div class="chart-title">📊 تمام حسابات کا موازنہ</div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 20px;" id="comparisonList"></div>
-                    
-                    <div style="background: rgba(139, 92, 246, 0.1); border: 2px solid rgba(139, 92, 246, 0.25); padding: 16px; border-radius: 12px; margin-bottom: 16px;">
-                        <div style="color: #c084fc; font-size: 12px; font-weight: 700; margin-bottom: 12px;">🏆 مجموعی موازنہ</div>
-                        <div id="totalComparison"></div>
-                    </div>
-                    
-                    <button type="button" class="export-btn" onclick="loadComparison()" style="width: 100%;">🔄 تازہ کریں</button>
-                </div>
-            </div>
-
-            <!-- TRANSACTION HISTORY TAB -->
-            <div id="history-tab" class="tab-content">
-                <div class="chart-container">
-                    <div class="chart-title">📋 تمام ریکارڈز</div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 16px;">
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <label style="font-size: 13px; color: #a78bfa; font-weight: 700;">📅 تاریخ سے</label>
-                            <input type="date" id="filterFromDate" style="width: 95%; padding: 10px 12px; background: rgba(139, 92, 246, 0.2); border: 2px solid rgba(139, 92, 246, 0.3); color: #f8fafc; border-radius: 10px; font-size: 13px; transition: all 0.3s; box-sizing: border-box;">
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <label style="font-size: 13px; color: #a78bfa; font-weight: 700;">📅 تاریخ تک</label>
-                            <input type="date" id="filterToDate" style="width: 95%; padding: 10px 12px; background: rgba(139, 92, 246, 0.2); border: 2px solid rgba(139, 92, 246, 0.3); color: #f8fafc; border-radius: 10px; font-size: 13px; transition: all 0.3s; box-sizing: border-box;">
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <label style="font-size: 13px; color: #a78bfa; font-weight: 700;">💰 رقم تلاش</label>
-                            <input type="number" id="filterAmount" placeholder="رقم..." style="width: 100%; padding: 10px 12px; background: rgba(139, 92, 246, 0.2); border: 2px solid rgba(139, 92, 246, 0.3); color: #f8fafc; border-radius: 10px; font-size: 13px; transition: all 0.3s; box-sizing: border-box;">
-                        </div>
-                    </div>
-                    
-                    <div style="display: flex; gap: 8px; margin-bottom: 16px;">
-                        <button type="button" class="export-btn" onclick="filterHistory()">🔍 فلٹر کریں</button>
-                        <button type="button" class="export-btn" onclick="loadHistory()">🔄 صاف کریں</button>
-                    </div>
-                    
-                    <div id="historyList" style="max-height: 500px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;"></div>
-                </div>
-            </div>
-
-            <!-- DASHBOARD TAB -->
-            <div id="dashboard-tab" class="tab-content">
-                <div class="dashboard-grid">
-                    <div class="stat-card">
-                        <div class="stat-label">کل عائد</div>
-                        <div class="stat-value" id="totalIncome">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">کل مصارف</div>
-                        <div class="stat-value" id="totalExpense">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">بچایا گیا</div>
-                        <div class="stat-value" id="totalSavings">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">بچت ہدف</div>
-                        <div class="stat-value" id="savingsGoal">0</div>
-                    </div>
+            <form id="trailerForm" class="form-grid">
+                <div class="input-group full-width">
+                    <label for="date">📅 نېټه (2026)</label>
+                    <input type="date" id="date" name="date" min="2026-01-01" max="2026-12-31" required>
+                    <p class="hint">⭐ یوازې د 2026 کال نیټې منل کیږي</p>
                 </div>
 
-                <div class="chart-container">
-                    <div class="chart-title">📈 ہفتہ وار</div>
-                    <div id="weeklyChart" style="height: 120px; display: flex; align-items: flex-end; gap: 4px;"></div>
+                <div class="input-group">
+                    <label for="income">💰 عائد</label>
+                    <input type="number" id="income" name="income" min="0" placeholder="عائد ولیکئ">
+                    <p class="error-message" id="incomeError">❌ عائد لیکل لازم دی (صفر یا لوړ عدد ولیکئ)</p>
                 </div>
 
-                <div class="chart-container">
-                    <div class="chart-title">📉 ماہانہ موازنہ</div>
-                    <div id="comparisonChart" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center;">
-                        <div><div style="color: #7dd3fc; font-size: 11px; margin-bottom: 8px;">پچھلا</div><div style="font-size: 18px; font-weight: 800; color: #a78bfa;" id="prevMonth">0</div></div>
-                        <div><div style="color: #7dd3fc; font-size: 11px; margin-bottom: 8px;">یہ</div><div style="font-size: 18px; font-weight: 800; color: #60a5fa;" id="thisMonth">0</div></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BUDGET TAB -->
-            <div id="budget-tab" class="tab-content">
-                <div class="budget-section">
-                    <div class="chart-title">💰 ماہانہ بجٹ</div>
-                    <input type="number" id="budgetAmount" placeholder="بجٹ درج کریں" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 10px; border: 2px solid rgba(139, 92, 246, 0.3); background: rgba(255,255,255,0.05); color: #f8fafc;" onchange="updateBudget()">
-                    <div class="budget-bar"><div class="budget-progress" id="budgetBar" style="width: 0%">0%</div></div>
-                    <div style="font-size: 12px; color: #7dd3fc;">استعمال: <span id="budgetUsed">0</span> / <span id="budgetTotal">0</span></div>
+                <div class="input-group">
+                    <label for="expense">💸 مصارف</label>
+                    <input type="number" id="expense" name="expense" min="0" placeholder="مصارف ولیکئ">
+                    <p class="error-message" id="expenseError">❌ مصارف لیکل لازم دی (صفر یا لوړ عدد ولیکئ)</p>
                 </div>
 
-                <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(34, 197, 94, 0.1)); border: 2px solid rgba(16, 185, 129, 0.3); border-radius: 14px; padding: 16px;">
-                    <div class="chart-title" style="color: #86efac; margin-bottom: 12px;">🏆 بچت ہدف</div>
-                    <input type="number" id="savingsGoalAmount" placeholder="ہدف درج کریں" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 10px; border: 2px solid rgba(16, 185, 129, 0.3); background: rgba(255,255,255,0.05); color: #f8fafc;" onchange="updateSavingsGoal()">
-                    <div class="budget-bar"><div class="budget-progress" id="savingsBar" style="width: 0%; background: linear-gradient(to right, #10b981, #34d399);">0%</div></div>
-                    <div style="font-size: 12px; color: #86efac;">بچایا: <span id="saved">0</span> / <span id="goal">0</span></div>
-                </div>
-            </div>
-
-            <!-- NOTIFICATIONS TAB -->
-            <div id="notifications-tab" class="tab-content">
-                <div class="budget-section">
-                    <div class="chart-title">📱 موبائل اطلاعات</div>
-                    <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
-                        <div>
-                            <label style="color: #c084fc; font-weight: 700; font-size: 12px; display: block; margin-bottom: 8px;">📞 فون نمبر</label>
-                            <input type="tel" id="phoneNumber" placeholder="+93 7*********" style="width: 100%; padding: 10px; border-radius: 10px; border: 2px solid rgba(139, 92, 246, 0.3); background: rgba(255,255,255,0.05); color: #f8fafc;">
-                            <p style="font-size: 11px; color: #7dd3fc; margin-top: 6px;">✓ صحیح country code کے ساتھ</p>
-                        </div>
-                        <div>
-                            <label style="color: #c084fc; font-weight: 700; font-size: 13px; display: block; margin-bottom: 12px;">🔔 کب SMS بھیجیں؟</label>
-                            <div style="display: grid; grid-template-columns: 1fr; gap: 10px; background: rgba(139, 92, 246, 0.08); padding: 14px; border-radius: 10px; border: 1px solid rgba(139, 92, 246, 0.2);">
-                                <label style="display: flex; align-items: center; gap: 12px; color: #e0d4ff; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s;">
-                                    <input type="checkbox" id="smsOnSubmit" checked style="width: 18px; height: 18px; cursor: pointer; accent-color: #a78bfa;"> 
-                                    <span>ہر submit پر</span>
-                                </label>
-                                <label style="display: flex; align-items: center; gap: 12px; color: #e0d4ff; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s;">
-                                    <input type="checkbox" id="smsOnBudgetAlert" checked style="width: 18px; height: 18px; cursor: pointer; accent-color: #a78bfa;"> 
-                                    <span>بجٹ الرٹ پر</span>
-                                </label>
-                                <label style="display: flex; align-items: center; gap: 12px; color: #e0d4ff; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s;">
-                                    <input type="checkbox" id="smsDaily" style="width: 18px; height: 18px; cursor: pointer; accent-color: #a78bfa;"> 
-                                    <span>روزانہ رپورٹ</span>
-                                </label>
-                                <label style="display: flex; align-items: center; gap: 12px; color: #e0d4ff; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s;">
-                                    <input type="checkbox" id="smsWeekly" style="width: 18px; height: 18px; cursor: pointer; accent-color: #a78bfa;"> 
-                                    <span>ہفتہ وار رپورٹ</span>
-                                </label>
-                            </div>
-                        </div>
-                        <button type="button" class="export-btn" onclick="saveSmsPreferences()" style="width: 100%;">✓ Preferences ذخیره کول</button>
-                    </div>
+                <div class="input-group full-width">
+                    <label for="detail">📝 د کار تفصیل</label>
+                    <input type="text" id="detail" name="detail" placeholder="تفصیل ولیکئ...">
                 </div>
 
-                <div class="budget-section" style="margin-top: 16px;">
-                    <div class="chart-title">🔔 آخری SMS</div>
-                    <div id="lastSmsStatus" style="background: rgba(139, 92, 246, 0.1); padding: 12px; border-radius: 10px; color: #7dd3fc; font-size: 13px; text-align: center;">
-                        ابھی کوئی SMS نہیں بھیجا گیا
-                    </div>
+                <div class="input-group full-width">
+                    <label for="note">📌 یاداښت</label>
+                    <textarea id="note" name="note" placeholder="یاداښت ولیکئ..."></textarea>
                 </div>
-            </div>
 
-            <!-- RECURRING TAB -->
-            <div id="recurring-tab" class="tab-content">
-                <div class="budget-section">
-                    <div class="chart-title">🔄 معمول کے اخراجات</div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
-                        <input type="text" id="recurringName" placeholder="نام" style="padding: 10px; border-radius: 10px; border: 2px solid rgba(139, 92, 246, 0.3); background: rgba(255,255,255,0.05); color: #f8fafc;">
-                        <input type="number" id="recurringAmount" placeholder="رقم" style="padding: 10px; border-radius: 10px; border: 2px solid rgba(139, 92, 246, 0.3); background: rgba(255,255,255,0.05); color: #f8fafc;">
-                    </div>
-                    <button type="button" class="export-btn" onclick="addRecurring()" style="width: 100%; margin-bottom: 16px;">➕ شامل</button>
-                    <div id="recurringList"></div>
+                <div class="submit-btn-wrapper full-width">
+                    <button type="button" class="btn-secondary" onclick="logout()">خروج</button>
+                    <button type="submit" class="btn-primary" style="flex: 1;">ذخیره کول</button>
                 </div>
-            </div>
-
-            <!-- GOALS TAB (NEW) -->
-            <div id="goals-tab" class="tab-content">
-                <div class="budget-section">
-                    <div class="chart-title">🏆 بچت کے مقاصد</div>
-                    <div style="display: grid; gap: 12px;">
-                        <div>
-                            <label style="color: #c084fc; font-weight: 700; font-size: 12px;">مقصد کا نام (مثال: گھر، گاڑی)</label>
-                            <input type="text" id="goalName" placeholder="مقصد کا نام درج کریں" style="width: 100%; padding: 10px; margin-top: 6px; border-radius: 10px; border: 2px solid rgba(139, 92, 246, 0.3); background: rgba(255,255,255,0.05); color: #f8fafc;">
-                        </div>
-                        <div>
-                            <label style="color: #c084fc; font-weight: 700; font-size: 12px;">کل رقم</label>
-                            <input type="number" id="goalAmount" placeholder="کل رقم" style="width: 100%; padding: 10px; margin-top: 6px; border-radius: 10px; border: 2px solid rgba(139, 92, 246, 0.3); background: rgba(255,255,255,0.05); color: #f8fafc;">
-                        </div>
-                        <button type="button" class="export-btn" onclick="addGoal()" style="width: 100%;">➕ نیا مقصد شامل کریں</button>
-                    </div>
-                </div>
-                <div id="goalsList" style="margin-top: 16px;"></div>
-            </div>
-
-            <!-- CATEGORIES TAB (NEW) -->
-            <div id="categories-tab" class="tab-content">
-                <div class="budget-section">
-                    <div class="chart-title">📊 کیٹ کی تفصیل</div>
-                    <div style="display: grid; gap: 8px; margin-bottom: 16px;">
-                        <div style="background: rgba(139, 92, 246, 0.1); padding: 12px; border-radius: 10px;">
-                            <label style="color: #c084fc; font-weight: 700; font-size: 12px;">🍕 کھانا:</label>
-                            <input type="text" id="categoryFood" placeholder="مصارف درج کریں" style="width: 100%; margin-top: 6px; padding: 8px; border-radius: 10px; border: 2px solid rgba(139, 92, 246, 0.3); background: rgba(255,255,255,0.05); color: #f8fafc;">
-                        </div>
-                        <div style="background: rgba(59, 130, 246, 0.1); padding: 12px; border-radius: 10px;">
-                            <label style="color: #7dd3fc; font-weight: 700; font-size: 12px;">🚗 سفر:</label>
-                            <input type="text" id="categoryTravel" placeholder="مصارف درج کریں" style="width: 100%; margin-top: 6px; padding: 8px; border-radius: 10px; border: 2px solid rgba(59, 130, 246, 0.3); background: rgba(255,255,255,0.05); color: #f8fafc;">
-                        </div>
-                        <div style="background: rgba(16, 185, 129, 0.1); padding: 12px; border-radius: 10px;">
-                            <label style="color: #86efac; font-weight: 700; font-size: 12px;">👗 کپڑے:</label>
-                            <input type="text" id="categoryClothes" placeholder="مصارف درج کریں" style="width: 100%; margin-top: 6px; padding: 8px; border-radius: 10px; border: 2px solid rgba(16, 185, 129, 0.3); background: rgba(255,255,255,0.05); color: #f8fafc;">
-                        </div>
-                    </div>
-                    <button type="button" class="export-btn" onclick="saveCategoryBreakdown()" style="width: 100%;">✓ ذخیره کول</button>
-                </div>
-                <div class="budget-section" style="margin-top: 16px;">
-                    <div id="categoryChart" style="text-align: center; color: #7dd3fc; padding: 20px;">📊 گراف یہاں دکھائی دے گا</div>
-                </div>
-            </div>
-
-            <!-- TRENDS TAB (NEW) -->
-            <div id="trends-tab" class="tab-content">
-                <div class="budget-section">
-                    <div class="chart-title">📈 اخراجات کے رجحانات</div>
-                    <div style="display: grid; gap: 12px;">
-                        <div style="background: rgba(139, 92, 246, 0.1); padding: 12px; border-radius: 10px;">
-                            <div style="color: #c084fc; font-weight: 700; font-size: 12px; margin-bottom: 8px;">📊 ہفتہ وار خرچ</div>
-                            <div id="weeklyTrend" style="color: #f8fafc; font-size: 13px; line-height: 1.8;"></div>
-                        </div>
-                        <div style="background: rgba(59, 130, 246, 0.1); padding: 12px; border-radius: 10px;">
-                            <div style="color: #7dd3fc; font-weight: 700; font-size: 12px; margin-bottom: 8px;">🎯 ماہانہ ٹریکنگ</div>
-                            <div id="monthlyTrend" style="color: #f8fafc; font-size: 13px; line-height: 1.8;"></div>
-                        </div>
-                        <div style="background: rgba(16, 185, 129, 0.1); padding: 12px; border-radius: 10px;">
-                            <div style="color: #86efac; font-weight: 700; font-size: 12px; margin-bottom: 8px;">💡 AI پیشن گوئی</div>
-                            <div id="aiPrediction" style="color: #f8fafc; font-size: 13px; line-height: 1.8;"></div>
-                        </div>
-                    </div>
-                    <button type="button" class="export-btn" onclick="updateTrends()" style="width: 100%; margin-top: 16px;">🔄 تازہ کریں</button>
-                </div>
-            </div>
-
-            <!-- REPORTS TAB -->
-            <div id="reports-tab" class="tab-content">
-                <div class="chart-container">
-                    <div class="chart-title">📊 رپورٹیں</div>
-                    <div id="reportsList"></div>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 
+    <!-- Confirmation Modal -->
     <div id="modalOverlay" class="modal-overlay">
         <div class="glass-card modal">
             <div class="modal-header">
@@ -1830,6 +1309,7 @@
         </div>
     </div>
 
+    <!-- Toast Notification -->
     <div id="toast" class="toast">
         <div class="toast-title" id="toastTitle"></div>
         <div class="toast-description" id="toastDescription"></div>
@@ -1837,64 +1317,100 @@
 
     <script>
         const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwzTAjnhkes9er_pKGfBop1q6qsMLn8S0-CscVqMjjf8NIBZ1HGYvyLpKqu0lmGJV9WOg/exec';
-
+        
         const JOBS = [
             { id: 'saudi', name: 'سعودي حساب', password: 'saudi123', icon: '🕌', desc: 'د سعودي کار' },
-            { id: 'brooklyn', name: 'بوکلین حساب', password: 'boklyn123', icon: '🏗️', desc: 'د بوکلین کار' },
+            { id: 'boklyn', name: 'بوکلین حساب', password: 'boklyn123', icon: '🏗️', desc: 'د بوکلین کار' },
             { id: 'mobile', name: 'موبایل حساب', password: 'mobile123', icon: '📱', desc: 'د موبایلونو کار' },
             { id: 'home', name: 'کور مصارف', password: 'home123', icon: '🏠', desc: ' د کور ورځنئ خرڅه' }
+        ];
+
+        // Saudi Sub-Accounts Data - Updated with new names and optional image support
+        const SAUDI_SUB_ACCOUNTS = [
+            { id: 'saudi_12module', name: '12 ماډل ترېله 3125 نمبر', password: 'saudi123', icon: '🚛', image: './trailer_3125.jpg', desc: '12 ماډل ترېله' },
+            { id: 'saudi_14module', name: '14 ماډل ترېله 6437 نمبر', password: 'saudi123', icon: '🚚', image: './trailer_6437.jpg', desc: '14 ماډل ترېله' }
         ];
 
         let currentJob = null;
         let currentPassword = null;
         let formDataToSubmit = null;
-        let receiptImageData = null;
 
         function initJobSelector() {
             const container = document.getElementById('jobGrid');
-            if (!container) {
-                console.error('jobGrid container not found!');
-                return;
-            }
             container.innerHTML = JOBS.map(job => `
-                <div class="job-card" onclick="selectJob('${job.id}', '${job.name}', '${job.password}')" ontouchend="selectJob('${job.id}', '${job.name}', '${job.password}')">
+                <div class="job-card" onclick="selectJob('${job.id}', '${job.name}', '${job.password}', '${job.icon}')">
                     <div class="job-icon">${job.icon}</div>
                     <div class="job-name">${job.name}</div>
                     <div class="job-desc">${job.desc}</div>
                 </div>
             `).join('');
-            console.log('Job selector initialized with', JOBS.length, 'jobs');
-            container.style.display = 'grid';
-            container.style.visibility = 'visible';
         }
 
-        function selectJob(jobId, jobName, password) {
-            currentJob = { id: jobId, name: jobName };
-            currentPassword = password;
-            const jobScreen = document.getElementById('jobSelectionScreen');
-            const pwScreen = document.getElementById('passwordScreen');
-            if (jobScreen) jobScreen.classList.add('hidden');
-            if (pwScreen) {
-                pwScreen.classList.remove('hidden');
-                setTimeout(() => {
-                    const pwInput = document.getElementById('passwordInput');
-                    if (pwInput) pwInput.focus();
-                }, 100);
+        function initSaudiSubAccountSelector() {
+            const container = document.getElementById('saudiSubAccountGrid');
+            container.innerHTML = SAUDI_SUB_ACCOUNTS.map(account => `
+                <div class="job-card" onclick="selectSaudiSubAccount('${account.id}', '${account.name}', '${account.password}', '${account.image}')">
+                    ${account.image ? `
+                        <img src="${account.image}" alt="${account.name}" class="job-image" 
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="job-icon job-image-error">${account.icon}</div>
+                    ` : `
+                        <div class="job-icon">${account.icon}</div>
+                    `}
+                    <div class="job-name">${account.name}</div>
+                    <div class="job-desc">${account.desc}</div>
+                </div>
+            `).join('');
+        }
+
+        function selectJob(jobId, jobName, password, icon) {
+            if (jobId === 'saudi') {
+                // Show Saudi sub-account menu instead of going directly to password
+                document.getElementById('jobSelectionScreen').classList.add('hidden');
+                document.getElementById('saudiSubAccountScreen').classList.remove('hidden');
+            } else {
+                // Original logic for other jobs
+                currentJob = { id: jobId, name: jobName, icon: icon };
+                currentPassword = password;
+                document.getElementById('jobSelectionScreen').classList.add('hidden');
+                document.getElementById('passwordScreen').classList.remove('hidden');
+                setTimeout(() => document.getElementById('passwordInput').focus(), 100);
             }
+        }
+
+        function selectSaudiSubAccount(subId, subName, password, image) {
+            // Set the sub-account as current job
+            currentJob = { id: subId, name: subName, image: image };
+            currentPassword = password;
+            document.getElementById('saudiSubAccountScreen').classList.add('hidden');
+            document.getElementById('passwordScreen').classList.remove('hidden');
+            setTimeout(() => document.getElementById('passwordInput').focus(), 100);
+        }
+
+        function backFromSaudiSubAccount() {
+            document.getElementById('saudiSubAccountScreen').classList.add('hidden');
+            document.getElementById('jobSelectionScreen').classList.remove('hidden');
         }
 
         function backToJobs() {
             document.getElementById('passwordScreen').classList.add('hidden');
-            document.getElementById('jobSelectionScreen').classList.remove('hidden');
             document.getElementById('passwordInput').value = '';
             document.getElementById('passwordError').style.display = 'none';
-            currentJob = null;
+            
+            // Check if we came from Saudi sub-account menu
+            if (currentJob && currentJob.id && currentJob.id.startsWith('saudi')) {
+                document.getElementById('saudiSubAccountScreen').classList.remove('hidden');
+            } else {
+                document.getElementById('jobSelectionScreen').classList.remove('hidden');
+                currentJob = null;
+            }
         }
 
         function logout() {
             document.getElementById('formContainer').classList.add('hidden');
             document.getElementById('jobSelectionScreen').classList.remove('hidden');
             document.getElementById('passwordScreen').classList.add('hidden');
+            document.getElementById('saudiSubAccountScreen').classList.add('hidden');
             document.getElementById('passwordInput').value = '';
             document.getElementById('passwordError').style.display = 'none';
             document.getElementById('trailerForm').reset();
@@ -1912,24 +1428,14 @@
                 const today = new Date().toISOString().split('T')[0];
                 dateInput.value = today;
                 errorDiv.style.display = 'none';
-
-                const currentJobData = JOBS.find(job => job.id === currentJob.id);
-                if (currentJobData) {
-                    document.getElementById('currentJobIcon').textContent = currentJobData.icon;
-                    document.getElementById('currentJobName').textContent = currentJobData.name;
+                
+                // Display the selected job/sub-account info
+                if (currentJob.image) {
+                    document.getElementById('currentJobIcon').innerHTML = `<img src="${currentJob.image}" alt="${currentJob.name}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.3);">`;
+                } else {
+                    document.getElementById('currentJobIcon').textContent = currentJob.icon || JOBS.find(job => job.id === currentJob.id)?.icon || '🕌';
                 }
-
-                // LOAD ADVANCED FEATURES
-                setTimeout(() => {
-                    if (currentJob && currentJob.id) {
-                        updateDashboard();
-                        loadRecurring();
-                        const budget = localStorage.getItem(`budget_${currentJob.id}`);
-                        if (budget) document.getElementById('budgetAmount').value = budget;
-                        const goal = localStorage.getItem(`savingsGoal_${currentJob.id}`);
-                        if (goal) document.getElementById('savingsGoalAmount').value = goal;
-                    }
-                }, 100);
+                document.getElementById('currentJobName').textContent = currentJob.name;
             } else {
                 errorDiv.style.display = 'block';
                 document.getElementById('passwordInput').value = '';
@@ -1950,7 +1456,7 @@
 
             const incomeError = document.getElementById('incomeError');
             const expenseError = document.getElementById('expenseError');
-
+            
             let hasError = false;
 
             if (!income || income.trim() === '') {
@@ -1971,15 +1477,16 @@
                 return;
             }
 
-            const year = new Date(date).getFullYear();
-            if (year !== 2026) {
-                showToast('error', 'یوازې د 2026 کال نیټې منل کېږي', 'مهرباني وکړئ د 2026 کال نیټه انتخاب کړئ');
-                return;
-            }
+// 2026 check disabled for debugging
+            // const year = new Date(date).getFullYear();
+            // if (year !== 2026) {
+            //    showToast('error', 'یوازې د 2026 کال نیټې منل کېږي', 'مهرباني وکړئ د 2026 کال نیټه انتخاب کړئ');
+            //    return;
+            // }
 
             const dateParts = date.split('-');
             const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
-            formDataToSubmit = { date, formattedDate, income, expense, detail, note, receipt: receiptImageData };
+            formDataToSubmit = { date, formattedDate, income, expense, detail, note };
             showModal();
         });
 
@@ -1994,8 +1501,7 @@
             } else {
                 document.getElementById('noteRow').style.display = 'none';
             }
-            const jobSpecificKey = `lastSaveData_${currentJob.id}`;
-            const lastSaveData = localStorage.getItem(jobSpecificKey);
+            const lastSaveData = localStorage.getItem('lastSaveData');
             if (lastSaveData) {
                 const data = JSON.parse(lastSaveData);
                 document.getElementById('lastSaveDate').textContent = data.date;
@@ -2031,9 +1537,14 @@
                 url.searchParams.append('expense', formDataToSubmit.expense || '0');
                 url.searchParams.append('detail', formDataToSubmit.detail || '');
                 url.searchParams.append('note', formDataToSubmit.note || '');
-
-                await fetch(url.toString(), { method: 'GET', mode: 'no-cors' });
-
+                
+                const response = await fetch(url.toString(), { method: 'GET' });
+                const text = await response.text();
+                
+                if (text.includes("ERROR")) {
+                    throw new Error(text);
+                }
+                
                 const lastSaveData = {
                     date: formDataToSubmit.formattedDate,
                     income: formDataToSubmit.income || '0',
@@ -2041,32 +1552,9 @@
                     detail: formDataToSubmit.detail || '',
                     note: formDataToSubmit.note || ''
                 };
-                const jobSpecificKey = `lastSaveData_${currentJob.id}`;
-                localStorage.setItem(jobSpecificKey, JSON.stringify(lastSaveData));
-                
-                // SAVE TO TRANSACTION HISTORY
-                const history = JSON.parse(localStorage.getItem(`history_${currentJob.id}`) || '[]');
-                history.push({
-                    id: Date.now(),
-                    date: formDataToSubmit.formattedDate,
-                    income: parseFloat(formDataToSubmit.income) || 0,
-                    expense: parseFloat(formDataToSubmit.expense) || 0,
-                    detail: formDataToSubmit.detail || '',
-                    note: formDataToSubmit.note || '',
-                    receipt: formDataToSubmit.receipt || null,
-                    timestamp: new Date().getTime()
-                });
-                localStorage.setItem(`history_${currentJob.id}`, JSON.stringify(history));
-
-                // SEND SMS NOTIFICATION
-                const smsOnSubmit = document.getElementById('smsOnSubmit');
-                if (smsOnSubmit && smsOnSubmit.checked) {
-                    sendSmsNotification('submit', formDataToSubmit);
-                }
-
+                localStorage.setItem('lastSaveData', JSON.stringify(lastSaveData));
                 showToast('success', '✨ معلومات بریالي ولیکل شول', 'نړئ مننه حساب ذخیره شو');
                 document.getElementById('trailerForm').reset();
-                clearReceipt();
                 const today = new Date().toISOString().split('T')[0];
                 document.getElementById('date').value = today;
                 closeModal();
@@ -2088,861 +1576,9 @@
             setTimeout(() => toast.classList.remove('show'), 5000);
         }
 
-        // ===== ADVANCED FEATURES - TAB SWITCHING =====
-        function switchTab(tabId, event) {
-            if (event && event.preventDefault) event.preventDefault();
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            const tab = document.getElementById(tabId);
-            if (tab) {
-                tab.classList.add('active');
-                const btn = event && event.target ? event.target : document.querySelector(`[onclick*="${tabId}"]`);
-                if (btn) btn.classList.add('active');
-                if (tabId === 'dashboard-tab' && currentJob) updateDashboard();
-            }
-        }
-
-        // ===== DARK MODE =====
-        function toggleTheme() {
-            const isDark = document.body.classList.toggle('dark-mode');
-            localStorage.setItem('darkMode', isDark);
-        }
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.body.classList.add('dark-mode');
-        }
-
-        // ===== BACKUP & RESTORE =====
-        function createBackup() {
-            try {
-                let backup = {
-                    timestamp: new Date().toLocaleString('ur-PK'),
-                    jobs: JOBS.map(j => j.id),
-                    data: {}
-                };
-
-                // Backup all jobs data
-                JOBS.forEach(job => {
-                    backup.data[job.id] = {
-                        lastSave: localStorage.getItem(`lastSaveData_${job.id}`),
-                        budget: localStorage.getItem(`budget_${job.id}`),
-                        savingsGoal: localStorage.getItem(`savingsGoal_${job.id}`),
-                        recurring: localStorage.getItem(`recurring_${job.id}`),
-                        categories: localStorage.getItem(`categories_${job.id}`),
-                        goals: localStorage.getItem(`goals_${job.id}`),
-                        phone: localStorage.getItem(`phone_${job.id}`),
-                        currency: localStorage.getItem(`currency_${job.id}`),
-                        history: localStorage.getItem(`history_${job.id}`)
-                    };
-                });
-
-                const link = document.createElement('a');
-                link.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(backup, null, 2));
-                link.download = `AllAccounts_Backup_${new Date().toISOString().split('T')[0]}.json`;
-                link.click();
-                showToast('success', '✓ کامیاب', 'تمام ڈیٹا backup ہو گیا!');
-            } catch (e) {
-                showToast('error', 'خرابی', 'Backup میں خرابی: ' + e.message);
-            }
-        }
-
-        function restoreBackup(file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const backup = JSON.parse(e.target.result);
-                    Object.keys(backup.data).forEach(jobId => {
-                        const jobData = backup.data[jobId];
-                        if (jobData.lastSave) localStorage.setItem(`lastSaveData_${jobId}`, jobData.lastSave);
-                        if (jobData.budget) localStorage.setItem(`budget_${jobId}`, jobData.budget);
-                        if (jobData.savingsGoal) localStorage.setItem(`savingsGoal_${jobId}`, jobData.savingsGoal);
-                        if (jobData.recurring) localStorage.setItem(`recurring_${jobId}`, jobData.recurring);
-                        if (jobData.categories) localStorage.setItem(`categories_${jobId}`, jobData.categories);
-                        if (jobData.goals) localStorage.setItem(`goals_${jobId}`, jobData.goals);
-                        if (jobData.phone) localStorage.setItem(`phone_${jobId}`, jobData.phone);
-                        if (jobData.currency) localStorage.setItem(`currency_${jobId}`, jobData.currency);
-                        if (jobData.history) localStorage.setItem(`history_${jobId}`, jobData.history);
-                    });
-                    showToast('success', '✓ کامیاب', 'Backup restore ہو گیا!');
-                    location.reload();
-                } catch (err) {
-                    showToast('error', 'خرابی', 'Backup restore میں خرابی');
-                }
-            };
-            reader.readAsText(file);
-        }
-
-        // ===== EXPORT DATA TO CSV =====
-        function exportData() {
-            if (!currentJob || !currentJob.id) {
-                showToast('error', 'خرابی', 'پہلے حساب منتخب کریں!');
-                return;
-            }
-            const key = `lastSaveData_${currentJob.id}`;
-            const data = JSON.parse(localStorage.getItem(key) || '{}');
-            const recurring = JSON.parse(localStorage.getItem(`recurring_${currentJob.id}`) || '[]');
-
-            let csv = 'نیٹہ,عائد,مصارف,تفصیل,نوٹ\n';
-            csv += `"${data.date || ''}","${data.income || ''}","${data.expense || ''}","${data.detail || ''}","${data.note || ''}"\n\n`;
-            csv += 'معمول کے خرچے:\nنام,رقم\n';
-            recurring.forEach(r => csv += `"${r.name}","${r.amount}"\n`);
-
-            const link = document.createElement('a');
-            link.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-            link.download = `Accounts_${currentJob.id}_${new Date().toISOString().split('T')[0]}.csv`;
-            link.click();
-            showToast('success', '✓ کامیاب', 'ڈیٹا export ہو گیا!');
-        }
-
-        // ===== BUDGET MANAGEMENT =====
-        function updateBudget() {
-            if (!currentJob || !currentJob.id) return;
-            const budget = parseFloat(document.getElementById('budgetAmount').value) || 0;
-            localStorage.setItem(`budget_${currentJob.id}`, budget);
-            const key = `lastSaveData_${currentJob.id}`;
-            const data = JSON.parse(localStorage.getItem(key) || '{}');
-            const expense = parseFloat(data.expense) || 0;
-
-            const percent = budget > 0 ? Math.min(100, (expense / budget) * 100) : 0;
-            const bar = document.getElementById('budgetBar');
-            if (bar) {
-                bar.style.width = percent + '%';
-                bar.textContent = Math.round(percent) + '%';
-            }
-            const used = document.getElementById('budgetUsed');
-            const total = document.getElementById('budgetTotal');
-            if (used) used.textContent = expense;
-            if (total) total.textContent = budget;
-
-            checkBudgetAlert();
-        }
-
-        function checkBudgetAlert() {
-            const budget = parseFloat(localStorage.getItem(`budget_${currentJob.id}`)) || 0;
-            const key = `lastSaveData_${currentJob.id}`;
-            const data = JSON.parse(localStorage.getItem(key) || '{}');
-            const expense = parseFloat(data.expense) || 0;
-
-            const alert = document.getElementById('budgetAlert');
-            if (alert) {
-                if (budget > 0 && expense > budget * 0.8) {
-                    alert.classList.add('show');
-                } else {
-                    alert.classList.remove('show');
-                }
-            }
-        }
-
-        // ===== SAVINGS GOAL =====
-        function updateSavingsGoal() {
-            const goal = parseFloat(document.getElementById('savingsGoalAmount').value) || 0;
-            localStorage.setItem(`savingsGoal_${currentJob.id}`, goal);
-            updateDashboard();
-        }
-
-        // ===== RECURRING TRANSACTIONS =====
-        function addRecurring() {
-            const name = document.getElementById('recurringName').value.trim();
-            const amount = document.getElementById('recurringAmount').value.trim();
-
-            if (!name || !amount) {
-                showToast('error', '❌ خرابی', 'نام اور رقم درج کریں!');
-                return;
-            }
-
-            const recurring = JSON.parse(localStorage.getItem(`recurring_${currentJob.id}`) || '[]');
-            recurring.push({ name, amount: parseFloat(amount), active: true });
-            localStorage.setItem(`recurring_${currentJob.id}`, JSON.stringify(recurring));
-
-            document.getElementById('recurringName').value = '';
-            document.getElementById('recurringAmount').value = '';
-            loadRecurring();
-            showToast('success', '✓ کامیاب', 'معمول کا خرچ شامل ہوا!');
-        }
-
-        function loadRecurring() {
-            const list = document.getElementById('recurringList');
-            if (!list) return;
-
-            const recurring = JSON.parse(localStorage.getItem(`recurring_${currentJob.id}`) || '[]');
-
-            if (recurring.length === 0) {
-                list.innerHTML = '<div style="text-align: center; color: #7dd3fc; padding: 20px;">کوئی معمول کا خرچ نہیں</div>';
-                return;
-            }
-
-            list.innerHTML = recurring.map((item, i) => `
-                <div class="recurring-item">
-                    <div style="flex: 1;">
-                        <div style="color: #f8fafc; font-weight: 700; margin-bottom: 4px;">${item.name}</div>
-                        <div style="color: #7dd3fc; font-size: 12px;">${parseFloat(item.amount).toLocaleString()}</div>
-                    </div>
-                    <button type="button" class="btn-danger" onclick="removeRecurring(${i})" style="padding: 6px 12px; font-size: 12px; border: none;">❌</button>
-                </div>
-            `).join('');
-        }
-
-        function removeRecurring(index) {
-            if (confirm('کیا آپ یہ معمول کا خرچ ہٹانا چاہتے ہیں؟')) {
-                const recurring = JSON.parse(localStorage.getItem(`recurring_${currentJob.id}`) || '[]');
-                recurring.splice(index, 1);
-                localStorage.setItem(`recurring_${currentJob.id}`, JSON.stringify(recurring));
-                loadRecurring();
-            }
-        }
-
-        // ===== DASHBOARD ANALYTICS =====
-        function updateDashboard() {
-            const key = `lastSaveData_${currentJob.id}`;
-            const data = JSON.parse(localStorage.getItem(key) || '{}');
-            const income = parseFloat(data.income) || 0;
-            const expense = parseFloat(data.expense) || 0;
-            const savings = income - expense;
-            const goal = parseFloat(localStorage.getItem(`savingsGoal_${currentJob.id}`)) || 0;
-
-            const incomeEl = document.getElementById('totalIncome');
-            const expenseEl = document.getElementById('totalExpense');
-            const savingsEl = document.getElementById('totalSavings');
-            const goalEl = document.getElementById('savingsGoal');
-
-            if (incomeEl) incomeEl.textContent = income.toLocaleString();
-            if (expenseEl) expenseEl.textContent = expense.toLocaleString();
-            if (savingsEl) savingsEl.textContent = savings.toLocaleString();
-            if (goalEl) goalEl.textContent = goal.toLocaleString();
-
-            const savingsPercent = goal > 0 ? Math.min(100, (savings / goal) * 100) : 0;
-            const savingsBar = document.getElementById('savingsBar');
-            if (savingsBar) {
-                savingsBar.style.width = savingsPercent + '%';
-                savingsBar.textContent = Math.round(savingsPercent) + '%';
-            }
-            const savedEl = document.getElementById('saved');
-            const goalElText = document.getElementById('goal');
-            if (savedEl) savedEl.textContent = savings.toLocaleString();
-            if (goalElText) goalElText.textContent = goal.toLocaleString();
-
-            updateBudget();
-            createWeeklyChart();
-            createComparisonChart();
-            loadReports();
-        }
-
-        function createWeeklyChart() {
-            const chart = document.getElementById('weeklyChart');
-            if (!chart) return;
-
-            chart.innerHTML = '';
-            const days = ['ش', 'ی', 'د', 'ت', 'ج', 'پ', 'ج'];
-
-            days.forEach((day) => {
-                const randomHeight = Math.random() * 100 + 30;
-                const bar = document.createElement('div');
-                bar.style.flex = '1';
-                bar.style.height = randomHeight + 'px';
-                bar.style.background = 'linear-gradient(to top, #8b5cf6, #3b82f6)';
-                bar.style.borderRadius = '5px';
-                bar.title = day;
-                chart.appendChild(bar);
-            });
-        }
-
-        function createComparisonChart() {
-            const prev = Math.random() * 500 + 100;
-            const current = Math.random() * 500 + 150;
-            const prevEl = document.getElementById('prevMonth');
-            const thisEl = document.getElementById('thisMonth');
-            if (prevEl) prevEl.textContent = Math.round(prev).toLocaleString();
-            if (thisEl) thisEl.textContent = Math.round(current).toLocaleString();
-        }
-
-        // ===== SMS NOTIFICATIONS =====
-        function sendSmsNotification(type, data) {
-            const phoneNumber = localStorage.getItem(`phone_${currentJob.id}`);
-            if (!phoneNumber) return;
-
-            let message = '';
-
-            if (type === 'submit') {
-                message = `ورځني حسابونه: عائد ${data.income} ، مصارف ${data.expense} ، بچایا ${data.income - data.expense}`;
-            } else if (type === 'budget_alert') {
-                message = `خرابی: آپ کا بجٹ ختم ہو رہا ہے! مصارف 80% سے تجاوز ہو گئے۔`;
-            }
-
-            if (message) {
-                fetch('/api/send-sms', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ phoneNumber, message })
-                }).then(res => {
-                    if (res.ok) {
-                        const now = new Date().toLocaleString('ur-PK');
-                        document.getElementById('lastSmsStatus').innerHTML = `✓ آخری SMS: ${now}<br>${message}`;
-                        localStorage.setItem(`lastSms_${currentJob.id}`, JSON.stringify({ time: now, message }));
-                    }
-                }).catch(err => console.log('SMS send failed (offline mode):', err));
-            }
-        }
-
-        function saveSmsPreferences() {
-            const phone = document.getElementById('phoneNumber').value.trim();
-            if (!phone) {
-                showToast('error', 'خرابی', 'فون نمبر درج کریں!');
-                return;
-            }
-
-            localStorage.setItem(`phone_${currentJob.id}`, phone);
-            localStorage.setItem(`smsOnSubmit_${currentJob.id}`, document.getElementById('smsOnSubmit').checked);
-            localStorage.setItem(`smsOnBudgetAlert_${currentJob.id}`, document.getElementById('smsOnBudgetAlert').checked);
-
-            showToast('success', '✓ کامیاب', 'SMS Preferences محفوظ ہو گئے!');
-        }
-
-        // ===== CATEGORY BREAKDOWN =====
-        function saveCategoryBreakdown() {
-            const categories = {
-                food: document.getElementById('categoryFood').value || '0',
-                travel: document.getElementById('categoryTravel').value || '0',
-                clothes: document.getElementById('categoryClothes').value || '0'
-            };
-            localStorage.setItem(`categories_${currentJob.id}`, JSON.stringify(categories));
-            showToast('success', '✓ کامیاب', 'Categories محفوظ ہو گئے!');
-            loadCategoryChart();
-        }
-
-        function loadCategoryChart() {
-            const categories = JSON.parse(localStorage.getItem(`categories_${currentJob.id}`) || '{"food":"0","travel":"0","clothes":"0"}');
-            const food = parseFloat(categories.food) || 0;
-            const travel = parseFloat(categories.travel) || 0;
-            const clothes = parseFloat(categories.clothes) || 0;
-            const total = food + travel + clothes || 1;
-
-            const foodPct = Math.round((food / total) * 100) || 0;
-            const travelPct = Math.round((travel / total) * 100) || 0;
-            const clothesPct = Math.round((clothes / total) * 100) || 0;
-
-            document.getElementById('categoryChart').innerHTML = `
-                <div style="text-align: left; color: #f8fafc;">
-                    <div style="margin-bottom: 12px;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px;">
-                            <span>🍕 کھانا</span>
-                            <span style="color: #fbbf24;">${food.toLocaleString()} (${foodPct}%)</span>
-                        </div>
-                        <div style="background: rgba(0,0,0,0.3); height: 16px; border-radius: 8px; overflow: hidden;">
-                            <div style="background: linear-gradient(to right, #fbbf24, #f97316); height: 100%; width: ${foodPct}%;"></div>
-                        </div>
-                    </div>
-                    <div style="margin-bottom: 12px;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px;">
-                            <span>🚗 سفر</span>
-                            <span style="color: #60a5fa;">${travel.toLocaleString()} (${travelPct}%)</span>
-                        </div>
-                        <div style="background: rgba(0,0,0,0.3); height: 16px; border-radius: 8px; overflow: hidden;">
-                            <div style="background: linear-gradient(to right, #60a5fa, #3b82f6); height: 100%; width: ${travelPct}%;"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px;">
-                            <span>👗 کپڑے</span>
-                            <span style="color: #86efac;">${clothes.toLocaleString()} (${clothesPct}%)</span>
-                        </div>
-                        <div style="background: rgba(0,0,0,0.3); height: 16px; border-radius: 8px; overflow: hidden;">
-                            <div style="background: linear-gradient(to right, #10b981, #34d399); height: 100%; width: ${clothesPct}%;"></div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(139, 92, 246, 0.3); color: #c084fc; font-weight: 700;">
-                        کل: ${total.toLocaleString()}
-                    </div>
-                </div>
-            `;
-        }
-
-        // ===== REPORTS =====
-        function loadReports() {
-            const list = document.getElementById('reportsList');
-            if (!list || !currentJob || !currentJob.id) return;
-
-            const key = `lastSaveData_${currentJob.id}`;
-            const data = JSON.parse(localStorage.getItem(key) || '{}');
-            const recurring = JSON.parse(localStorage.getItem(`recurring_${currentJob.id}`) || '[]');
-
-            let recurringTotal = 0;
-            recurring.forEach(r => recurringTotal += parseFloat(r.amount) || 0);
-
-            list.innerHTML = `
-                <div style="background: rgba(139, 92, 246, 0.1); padding: 12px; border-radius: 10px;">
-                    <div style="color: #c084fc; font-weight: 700; margin-bottom: 10px;">📋 آخری ریکارڈ</div>
-                    <div style="font-size: 13px; color: #f8fafc; line-height: 1.7;">
-                        <div>📅 نیٹہ: <strong>${data.date || 'نہیں'}</strong></div>
-                        <div>💰 عائد: <strong>${parseFloat(data.income || 0).toLocaleString()}</strong></div>
-                        <div>💸 مصارف: <strong>${parseFloat(data.expense || 0).toLocaleString()}</strong></div>
-                        <div>🏆 بچایا گیا: <strong>${(parseFloat(data.income || 0) - parseFloat(data.expense || 0)).toLocaleString()}</strong></div>
-                        ${recurringTotal > 0 ? `<div>🔄 معمول خرچے: <strong>${recurringTotal.toLocaleString()}</strong></div>` : ''}
-                    </div>
-                </div>
-                <div style="background: rgba(59, 130, 246, 0.1); padding: 12px; border-radius: 10px; margin-top: 12px;">
-                    <div style="color: #7dd3fc; font-weight: 700; margin-bottom: 8px;">💡 Smart Suggestions</div>
-                    <div style="font-size: 12px; color: #f8fafc; line-height: 1.6;">
-                        ${generateSmartSuggestions(data)}
-                    </div>
-                </div>
-            `;
-        }
-
-        function generateSmartSuggestions(data) {
-            const income = parseFloat(data.income) || 0;
-            const expense = parseFloat(data.expense) || 0;
-            const saved = income - expense;
-            let suggestions = '';
-
-            if (expense > income * 0.9) {
-                suggestions += '⚠️ آپ کا 90% سے زیادہ خرچ ہو رہا ہے<br>';
-            }
-            if (saved > 0) {
-                const savingPct = Math.round((saved / income) * 100);
-                suggestions += `✓ آپ ${savingPct}% بچا رہے ہیں - بہترین!<br>`;
-            }
-            if (expense < income * 0.5) {
-                suggestions += `💰 آپ بہت کم خرچ کر رہے ہیں - مزید بچت کریں!`;
-            }
-            if (!suggestions) {
-                suggestions = '📊 ڈیٹا ابھی شامل کریں';
-            }
-            return suggestions;
-        }
-
-        // ===== MULTI-CURRENCY SUPPORT =====
-        function changeCurrency() {
-            const currency = document.getElementById('currencySelect').value;
-            localStorage.setItem(`currency_${currentJob.id}`, currency);
-            showToast('success', '✓ کامیاب', `Currency: ${currency}`);
-        }
-
-        function getCurrencySymbol(currency) {
-            const symbols = { AFN: '؋', SAR: '﷼', USD: '$' };
-            return symbols[currency] || '؋';
-        }
-
-        // ===== GOALS & MILESTONES =====
-        function addGoal() {
-            const name = document.getElementById('goalName').value.trim();
-            const amount = parseFloat(document.getElementById('goalAmount').value) || 0;
-
-            if (!name || amount <= 0) {
-                showToast('error', 'خرابی', 'صحیح معلومات درج کریں!');
-                return;
-            }
-
-            const goals = JSON.parse(localStorage.getItem(`goals_${currentJob.id}`) || '[]');
-            goals.push({ id: Date.now(), name, amount, created: new Date().toLocaleDateString('ur-PK') });
-            localStorage.setItem(`goals_${currentJob.id}`, JSON.stringify(goals));
-            document.getElementById('goalName').value = '';
-            document.getElementById('goalAmount').value = '';
-            loadGoals();
-            showToast('success', '✓ کامیاب', 'مقصد شامل ہو گیا!');
-        }
-
-        function loadGoals() {
-            const goalsList = document.getElementById('goalsList');
-            if (!goalsList) return;
-
-            const goals = JSON.parse(localStorage.getItem(`goals_${currentJob.id}`) || '[]');
-            if (goals.length === 0) {
-                goalsList.innerHTML = '<div style="text-align: center; color: #7dd3fc; padding: 20px;">ابھی کوئی مقصد نہیں شامل کیا گیا</div>';
-                return;
-            }
-
-            goalsList.innerHTML = goals.map((goal, i) => `
-                <div style="background: rgba(139, 92, 246, 0.1); padding: 12px; border-radius: 10px; margin-bottom: 8px;">
-                    <div style="display: flex; justify-content: space-between; align-items: start;">
-                        <div style="flex: 1;">
-                            <div style="color: #c084fc; font-weight: 700;">${goal.name}</div>
-                            <div style="font-size: 13px; color: #7dd3fc; margin-top: 6px;">
-                                ہدف: <strong>${getCurrencySymbol(localStorage.getItem(`currency_${currentJob.id}`) || 'PKR')} ${parseFloat(goal.amount).toLocaleString()}</strong>
-                            </div>
-                            <div style="font-size: 11px; color: #adb8c5; margin-top: 4px;">شامل: ${goal.created}</div>
-                        </div>
-                        <button type="button" onclick="removeGoal(${goal.id})" style="padding: 6px 12px; background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5; border-radius: 6px; cursor: pointer; font-size: 12px;">❌</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function removeGoal(id) {
-            let goals = JSON.parse(localStorage.getItem(`goals_${currentJob.id}`) || '[]');
-            goals = goals.filter(g => g.id !== id);
-            localStorage.setItem(`goals_${currentJob.id}`, JSON.stringify(goals));
-            loadGoals();
-        }
-
-        // ===== MONTHLY SUMMARY =====
-        // ===== ACCOUNT COMPARISON =====
-        function loadComparison() {
-            let html = '';
-            let totalAllIncome = 0;
-            let totalAllExpense = 0;
-            let totalAllSavings = 0;
-            
-            JOBS.forEach(job => {
-                const history = JSON.parse(localStorage.getItem(`history_${job.id}`) || '[]');
-                const totalIncome = history.reduce((sum, t) => sum + (t.income || 0), 0);
-                const totalExpense = history.reduce((sum, t) => sum + (t.expense || 0), 0);
-                const totalSavings = totalIncome - totalExpense;
-                
-                totalAllIncome += totalIncome;
-                totalAllExpense += totalExpense;
-                totalAllSavings += totalSavings;
-                
-                const colors = {
-                    'saudi': { bg: 'rgba(59, 130, 246, 0.1)', border: 'rgba(59, 130, 246, 0.25)', text: '#7dd3fc', icon: '🕌' },
-                    'brooklyn': { bg: 'rgba(139, 92, 246, 0.1)', border: 'rgba(139, 92, 246, 0.25)', text: '#c084fc', icon: '🏗️' },
-                    'mobile': { bg: 'rgba(16, 185, 129, 0.1)', border: 'rgba(16, 185, 129, 0.25)', text: '#86efac', icon: '📱' },
-                    'home': { bg: 'rgba(239, 68, 68, 0.1)', border: 'rgba(239, 68, 68, 0.25)', text: '#fca5a5', icon: '🏠' }
-                };
-                
-                const color = colors[job.id] || colors.saudi;
-                
-                html += `
-                    <div style="background: ${color.bg}; border: 2px solid ${color.border}; padding: 16px; border-radius: 12px;">
-                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                            <span style="font-size: 20px;">${color.icon}</span>
-                            <div style="color: ${color.text}; font-weight: 700; font-size: 13px;">${job.name}</div>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px;">
-                            <div style="display: flex; justify-content: space-between;">
-                                <span style="color: #86efac;">💰 عائد:</span>
-                                <span style="font-weight: 700; color: #86efac;">${totalIncome.toLocaleString()}</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between;">
-                                <span style="color: #fca5a5;">💸 خرچ:</span>
-                                <span style="font-weight: 700; color: #fca5a5;">${totalExpense.toLocaleString()}</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; border-top: 1px solid ${color.border}; padding-top: 8px; margin-top: 8px;">
-                                <span style="color: ${color.text};">🏆 بچت:</span>
-                                <span style="font-weight: 700; color: ${color.text};">${totalSavings.toLocaleString()}</span>
-                            </div>
-                            <div style="font-size: 11px; color: #a78bfa; margin-top: 4px;">📊 کل لین دین: ${history.length}</div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            document.getElementById('comparisonList').innerHTML = html;
-            
-            // Display total comparison
-            document.getElementById('totalComparison').innerHTML = `
-                <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px;">
-                    <div style="display: flex; justify-content: space-between;"><span style="color: #86efac;">💰 کل عائد:</span><span style="font-weight: 700; color: #86efac;">${totalAllIncome.toLocaleString()}</span></div>
-                    <div style="display: flex; justify-content: space-between;"><span style="color: #fca5a5;">💸 کل خرچ:</span><span style="font-weight: 700; color: #fca5a5;">${totalAllExpense.toLocaleString()}</span></div>
-                    <div style="display: flex; justify-content: space-between; border-top: 1px solid rgba(139, 92, 246, 0.2); padding-top: 8px; margin-top: 8px;"><span style="color: #c084fc;">🏆 کل بچت:</span><span style="font-weight: 700; color: #c084fc;">${totalAllSavings.toLocaleString()}</span></div>
-                    <div style="font-size: 11px; color: #a78bfa; margin-top: 8px;">✨ ${totalAllSavings > 0 ? 'مجموعی طور پر بہترین کارکردگی!' : 'خرچ میں بہتری کی ضرورت ہے'}</div>
-                </div>
-            `;
-        }
-
-        function loadMonthlySummary() {
-            if (!currentJob || !currentJob.id) return;
-            const history = JSON.parse(localStorage.getItem(`history_${currentJob.id}`) || '[]');
-            const today = new Date();
-            const currentMonth = today.getMonth();
-            const currentYear = today.getFullYear();
-            
-            // Current month transactions
-            const currentMonthData = history.filter(t => {
-                const tDate = new Date(t.date.split('-').reverse().join('-'));
-                return tDate.getMonth() === currentMonth && tDate.getFullYear() === currentYear;
-            });
-            
-            // Previous month transactions
-            const prevDate = new Date(currentYear, currentMonth - 1);
-            const prevMonth = prevDate.getMonth();
-            const prevYear = prevDate.getFullYear();
-            const previousMonthData = history.filter(t => {
-                const tDate = new Date(t.date.split('-').reverse().join('-'));
-                return tDate.getMonth() === prevMonth && tDate.getFullYear() === prevYear;
-            });
-            
-            // Calculate totals
-            const currentIncome = currentMonthData.reduce((sum, t) => sum + (t.income || 0), 0);
-            const currentExpense = currentMonthData.reduce((sum, t) => sum + (t.expense || 0), 0);
-            const currentSavings = currentIncome - currentExpense;
-            
-            const prevIncome = previousMonthData.reduce((sum, t) => sum + (t.income || 0), 0);
-            const prevExpense = previousMonthData.reduce((sum, t) => sum + (t.expense || 0), 0);
-            const prevSavings = prevIncome - prevExpense;
-            
-            // Display current month
-            document.getElementById('currentMonthSummary').innerHTML = `
-                <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px;">
-                    <div style="display: flex; justify-content: space-between;"><span style="color: #86efac;">💰 عائد:</span><span style="font-weight: 700; color: #86efac;">${currentIncome.toLocaleString()}</span></div>
-                    <div style="display: flex; justify-content: space-between;"><span style="color: #fca5a5;">💸 خرچ:</span><span style="font-weight: 700; color: #fca5a5;">${currentExpense.toLocaleString()}</span></div>
-                    <div style="display: flex; justify-content: space-between; border-top: 1px solid rgba(59, 130, 246, 0.2); padding-top: 8px; margin-top: 8px;"><span style="color: #7dd3fc;">🏆 بچت:</span><span style="font-weight: 700; color: #7dd3fc;">${currentSavings.toLocaleString()}</span></div>
-                    <div style="font-size: 11px; color: #a78bfa; margin-top: 8px;">📊 کل رقوم: ${currentMonthData.length}</div>
-                </div>
-            `;
-            
-            // Display previous month
-            document.getElementById('previousMonthSummary').innerHTML = `
-                <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px;">
-                    <div style="display: flex; justify-content: space-between;"><span style="color: #86efac;">💰 عائد:</span><span style="font-weight: 700; color: #86efac;">${prevIncome.toLocaleString()}</span></div>
-                    <div style="display: flex; justify-content: space-between;"><span style="color: #fca5a5;">💸 خرچ:</span><span style="font-weight: 700; color: #fca5a5;">${prevExpense.toLocaleString()}</span></div>
-                    <div style="display: flex; justify-content: space-between; border-top: 1px solid rgba(139, 92, 246, 0.2); padding-top: 8px; margin-top: 8px;"><span style="color: #c084fc;">🏆 بچت:</span><span style="font-weight: 700; color: #c084fc;">${prevSavings.toLocaleString()}</span></div>
-                    <div style="font-size: 11px; color: #a78bfa; margin-top: 8px;">📊 کل رقوم: ${previousMonthData.length}</div>
-                </div>
-            `;
-            
-            // Display comparison
-            const incomeDiff = currentIncome - prevIncome;
-            const expenseDiff = currentExpense - prevExpense;
-            const savingsDiff = currentSavings - prevSavings;
-            
-            document.getElementById('comparisonSummary').innerHTML = `
-                <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px;">
-                    <div style="display: flex; justify-content: space-between;"><span>💰 عائد میں تبدیلی:</span><span style="font-weight: 700; color: ${incomeDiff >= 0 ? '#86efac' : '#fca5a5'};">${incomeDiff >= 0 ? '+' : ''}${incomeDiff.toLocaleString()}</span></div>
-                    <div style="display: flex; justify-content: space-between;"><span>💸 خرچ میں تبدیلی:</span><span style="font-weight: 700; color: ${expenseDiff <= 0 ? '#86efac' : '#fca5a5'};">${expenseDiff >= 0 ? '+' : ''}${expenseDiff.toLocaleString()}</span></div>
-                    <div style="display: flex; justify-content: space-between; border-top: 1px solid rgba(16, 185, 129, 0.2); padding-top: 8px; margin-top: 8px;"><span>🏆 بچت میں تبدیلی:</span><span style="font-weight: 700; color: ${savingsDiff >= 0 ? '#86efac' : '#fca5a5'};">${savingsDiff >= 0 ? '+' : ''}${savingsDiff.toLocaleString()}</span></div>
-                    <div style="font-size: 11px; color: #a78bfa; margin-top: 8px;">✨ ${savingsDiff >= 0 ? 'آپ بہتر بچت کر رہے ہیں!' : 'خرچ میں اضافہ ہوا ہے'}</div>
-                </div>
-            `;
-        }
-        
-        function shareViaEmail() {
-            document.getElementById('emailSection').style.display = document.getElementById('emailSection').style.display === 'none' ? 'block' : 'none';
-        }
-        
-        function sendEmailReport() {
-            const email = document.getElementById('emailAddress').value.trim();
-            if (!email) {
-                showToast('error', 'خرابی', 'ای میل درج کریں!');
-                return;
-            }
-            
-            const history = JSON.parse(localStorage.getItem(`history_${currentJob.id}`) || '[]');
-            const today = new Date();
-            const currentMonth = today.toLocaleString('ur-PK', { month: 'long', year: 'numeric' });
-            
-            // Generate email content
-            let emailContent = `شېرزاد حسابونه - ماہانہ رپورٹ\n`;
-            emailContent += `═════════════════════════\n\n`;
-            emailContent += `📊 حساب: ${currentJob.name}\n`;
-            emailContent += `📅 ماہ: ${currentMonth}\n`;
-            emailContent += `⏰ تیار: ${new Date().toLocaleString('ur-PK')}\n\n`;
-            
-            const currentMonthData = history.filter(t => {
-                const tDate = new Date(t.date.split('-').reverse().join('-'));
-                const cDate = new Date();
-                return tDate.getMonth() === cDate.getMonth() && tDate.getFullYear() === cDate.getFullYear();
-            });
-            
-            const totalIncome = currentMonthData.reduce((sum, t) => sum + (t.income || 0), 0);
-            const totalExpense = currentMonthData.reduce((sum, t) => sum + (t.expense || 0), 0);
-            const totalSavings = totalIncome - totalExpense;
-            
-            emailContent += `💰 کل عائد: ${totalIncome.toLocaleString()}\n`;
-            emailContent += `💸 کل خرچ: ${totalExpense.toLocaleString()}\n`;
-            emailContent += `🏆 کل بچت: ${totalSavings.toLocaleString()}\n\n`;
-            
-            emailContent += `📋 لین دین: ${currentMonthData.length}\n\n`;
-            emailContent += `═════════════════════════\n`;
-            emailContent += `یہ خودکار رپورٹ ہے۔\n`;
-            emailContent += `شکریہ - شېرزاد حسابونه`;
-            
-            // Create mailto link
-            const mailto = `mailto:${email}?subject=ماہانہ حساب رپورٹ - ${currentMonth}&body=${encodeURIComponent(emailContent)}`;
-            window.location.href = mailto;
-            
-            showToast('success', '✓ کامیاب', 'Email تیار ہو گیا!');
-            setTimeout(() => {
-                document.getElementById('emailSection').style.display = 'none';
-                document.getElementById('emailAddress').value = '';
-            }, 2000);
-        }
-
-        // ===== TRANSACTION HISTORY =====
-        function loadHistory() {
-            if (!currentJob || !currentJob.id) return;
-            const history = JSON.parse(localStorage.getItem(`history_${currentJob.id}`) || '[]');
-            displayHistory(history);
-        }
-        
-        function displayHistory(transactions) {
-            const list = document.getElementById('historyList');
-            if (!list) return;
-            
-            if (transactions.length === 0) {
-                list.innerHTML = '<div style="text-align: center; color: #7dd3fc; padding: 20px;">کوئی لین دین نہیں</div>';
-                return;
-            }
-            
-            list.innerHTML = transactions.sort((a, b) => b.timestamp - a.timestamp).map(t => `
-                <div style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); padding: 12px; border-radius: 10px;">
-                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
-                        <div>
-                            <div style="color: #c084fc; font-weight: 700; font-size: 13px;">${t.detail || 'بغیر تفصیل'}</div>
-                            <div style="color: #7dd3fc; font-size: 11px; margin-top: 4px;">📅 ${t.date}</div>
-                        </div>
-                        <button type="button" class="btn-danger" onclick="removeTransaction(${t.id})" style="padding: 4px 8px; font-size: 11px; border: none;">حذف</button>
-                    </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px;">
-                        ${t.income > 0 ? `<div style="color: #86efac;">💰 عائد: ${t.income.toLocaleString()}</div>` : ''}
-                        ${t.expense > 0 ? `<div style="color: #fca5a5;">💸 خرچ: ${t.expense.toLocaleString()}</div>` : ''}
-                    </div>
-                    ${t.note ? `<div style="color: #a78bfa; font-size: 11px; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(139, 92, 246, 0.2);">📌 ${t.note}</div>` : ''}
-                    ${t.receipt ? `<div style="margin-top: 8px;"><img src="${t.receipt}" style="max-width: 100%; max-height: 150px; border-radius: 6px; border: 1px solid rgba(139, 92, 246, 0.3); cursor: pointer;" onclick="viewImage('${t.receipt}')"></div>` : `<div style="color: #a78bfa; font-size: 11px; margin-top: 8px;">📸 کوئی تصویر نہیں</div>`}
-                </div>
-            `).join('');
-        }
-        
-        function filterHistory() {
-            if (!currentJob || !currentJob.id) return;
-            const history = JSON.parse(localStorage.getItem(`history_${currentJob.id}`) || '[]');
-            
-            const fromDate = document.getElementById('filterFromDate').value;
-            const toDate = document.getElementById('filterToDate').value;
-            const amount = parseFloat(document.getElementById('filterAmount').value) || 0;
-            
-            let filtered = history;
-            
-            if (fromDate) {
-                filtered = filtered.filter(t => t.date >= fromDate);
-            }
-            if (toDate) {
-                filtered = filtered.filter(t => t.date <= toDate);
-            }
-            if (amount > 0) {
-                filtered = filtered.filter(t => t.expense === amount || t.income === amount);
-            }
-            
-            displayHistory(filtered);
-        }
-        
-        function removeTransaction(id) {
-            if (confirm('کیا یہ لین دین حذف کرنا ہے؟')) {
-                const history = JSON.parse(localStorage.getItem(`history_${currentJob.id}`) || '[]');
-                const updated = history.filter(t => t.id !== id);
-                localStorage.setItem(`history_${currentJob.id}`, JSON.stringify(updated));
-                loadHistory();
-            }
-        }
-        
-        function viewImage(src) {
-            const modal = document.createElement('div');
-            modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 9999;';
-            modal.onclick = () => modal.remove();
-            const img = document.createElement('img');
-            img.src = src;
-            img.style.cssText = 'max-width: 90%; max-height: 90%; border-radius: 8px;';
-            modal.appendChild(img);
-            document.body.appendChild(modal);
-        }
-
-        // ===== SPENDING TRENDS =====
-        function updateTrends() {
-            const data = JSON.parse(localStorage.getItem(`lastSaveData_${currentJob.id}`) || '{}');
-            const expense = parseFloat(data.expense) || 0;
-
-            // Weekly trend
-            let weeklyHTML = '📊 اس ہفتے خرچ شدہ: ';
-            if (expense > 10000) weeklyHTML += '⚠️ بہت زیادہ';
-            else if (expense > 5000) weeklyHTML += '⚡ درمیانی';
-            else weeklyHTML += '✓ کم';
-
-            document.getElementById('weeklyTrend').innerHTML = weeklyHTML;
-
-            // Monthly trend
-            let monthlyHTML = '📈 ماہانہ اوسط: ';
-            monthlyHTML += Math.round(expense / 30).toLocaleString();
-
-            document.getElementById('monthlyTrend').innerHTML = monthlyHTML;
-
-            // AI Prediction
-            let aiHTML = '🤖 اگلے 30 دن میں خرچ: ~' + Math.round(expense * 1.1).toLocaleString();
-
-            document.getElementById('aiPrediction').innerHTML = aiHTML;
-        }
-
-        // ===== SAFETY CHECKS =====
-        function validateDashboardAccess() {
-            return currentJob && currentJob.id;
-        }
-
-        // Update all functions to check currentJob
-        const originalUpdateDashboard = updateDashboard;
-        updateDashboard = function() {
-            if (validateDashboardAccess()) {
-                return originalUpdateDashboard();
-            }
-        };
-
-        // LOAD ALL DATA ON PASSWORD CHECK
-        const originalCheckPassword = checkPassword;
-        checkPassword = function() {
-            originalCheckPassword();
-            setTimeout(() => {
-                if (currentJob && currentJob.id) {
-                    // Load SMS preferences
-                    const phoneEl = document.getElementById('phoneNumber');
-                    if (phoneEl) {
-                        const phone = localStorage.getItem(`phone_${currentJob.id}`);
-                        if (phone) phoneEl.value = phone;
-                    }
-                    const smsSubmitEl = document.getElementById('smsOnSubmit');
-                    const smsAlertEl = document.getElementById('smsOnBudgetAlert');
-                    if (smsSubmitEl) smsSubmitEl.checked = localStorage.getItem(`smsOnSubmit_${currentJob.id}`) !== 'false';
-                    if (smsAlertEl) smsAlertEl.checked = localStorage.getItem(`smsOnBudgetAlert_${currentJob.id}`) !== 'false';
-
-                    // Load categories
-                    const categories = JSON.parse(localStorage.getItem(`categories_${currentJob.id}`) || '{"food":"","travel":"","clothes":""}');
-                    const catFoodEl = document.getElementById('categoryFood');
-                    const catTravelEl = document.getElementById('categoryTravel');
-                    const catClothesEl = document.getElementById('categoryClothes');
-                    if (catFoodEl) catFoodEl.value = categories.food || '';
-                    if (catTravelEl) catTravelEl.value = categories.travel || '';
-                    if (catClothesEl) catClothesEl.value = categories.clothes || '';
-                    loadCategoryChart();
-
-                    // Load currency
-                    const currencyEl = document.getElementById('currencySelect');
-                    if (currencyEl) {
-                        const currency = localStorage.getItem(`currency_${currentJob.id}`) || 'AFN';
-                        currencyEl.value = currency;
-                    }
-
-                    // Load goals
-                    loadGoals();
-
-                    // Load trends
-                    updateTrends();
-                    
-                    // Load history
-                    loadHistory();
-                    
-                    // Load monthly summary
-                    loadMonthlySummary();
-                    
-                    // Load comparison
-                    loadComparison();
-                }
-            }, 100);
-        };
-
-
-        // Ensure initialization happens on page load
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initJobSelector);
-        } else {
-            initJobSelector();
-        }
-
+        // Initialize both selectors
+        initJobSelector();
+        initSaudiSubAccountSelector();
     </script>
-
-    <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./service-worker.js')
-        .then(reg => console.log('Service Worker registered:', reg.scope))
-        .catch(err => console.error('SW registration failed:', err));
-    });
-  }
-</script>
-
 </body>
 </html>
