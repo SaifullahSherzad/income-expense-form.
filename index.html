@@ -1466,13 +1466,27 @@
                 </div>
 
                 <div class="input-group full-width">
-                    <label for="billImage">📷 د بیل/فاتورې عکس (اختیاري)</label>
-                    <div style="background: rgba(255, 255, 255, 0.05); border: 2px dashed rgba(139, 92, 246, 0.3); border-radius: 14px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s;" onclick="document.getElementById('billImage').click()" id="billImageArea">
-                        <div style="font-size: 32px; margin-bottom: 8px;">📸</div>
-                        <div style="font-size: 14px; color: #a78bfa; font-weight: 600;">دلته کلیک وکړئ یا عکس راکش کړئ</div>
-                        <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">د بیل عکس یا سکین اپلوډ کړئ</div>
+                    <label>📷 د بیل/فاتورې عکس (اختیاري)</label>
+                    <!-- Main Container Box -->
+                    <div id="billImageArea" style="background: rgba(255, 255, 255, 0.05); border: 2px dashed rgba(139, 92, 246, 0.3); border-radius: 14px; padding: 15px; transition: all 0.3s;">
+                        
+                        <!-- Inner Flex Container (Single Option) -->
+                        <div style="display: flex; justify-content: center; align-items: center;">
+                            
+                            <!-- Option 1: Gallery (Standard Image) -->
+                            <div onclick="document.getElementById('billImageGallery').click()" style="text-align: center; cursor: pointer; width: 100%; padding: 10px; border-radius: 10px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
+                                <div style="font-size: 28px; margin-bottom: 4px;">📸</div>
+                                <div style="font-size: 13px; color: #a78bfa; font-weight: 600;">ګالري / فایل</div>
+                                <div style="font-size: 10px; color: #94a3b8;">له فایلونو څخه</div>
+                            </div>
+
+                        </div>
                     </div>
-                    <input type="file" id="billImage" name="billImage" accept="image/*" capture="environment" style="display: none;" onchange="handleImageSelect(this)">
+
+                    <!-- Hidden Inputs -->
+                    <input type="file" id="billImageGallery" name="billImageGallery" accept="image/*" style="display: none;" onchange="handleImageSelect(this)">
+
+                    <!-- Preview Area -->
                     <div id="imagePreview" style="display: none; margin-top: 12px; position: relative;">
                         <img id="previewImg" src="" style="width: 100%; max-height: 200px; object-fit: contain; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);">
                         <button type="button" onclick="removeImage()" style="position: absolute; top: 10px; right: 10px; background: rgba(239, 68, 68, 0.9); color: white; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-weight: bold;">✕</button>
@@ -1674,6 +1688,7 @@
 
     <script>
         const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwzTAjnhkes9er_pKGfBop1q6qsMLn8S0-CscVqMjjf8NIBZ1HGYvyLpKqu0lmGJV9WOg/exec';
+        const DRIVE_FOLDER_URL = 'https://drive.google.com/drive/folders/1I5FZzH-exwNCoFTMsfMnjS31ep8MX8RX';
         
         const JOBS = [
             { id: 'saudi', name: 'سعودي حساب', password: 'saudi123', icon: '🕌', desc: 'د سعودي کار' },
@@ -1814,7 +1829,9 @@
         }
 
         function removeImage() {
-            document.getElementById('billImage').value = '';
+            if(document.getElementById('billImageGallery')) document.getElementById('billImageGallery').value = '';
+            if(document.getElementById('billImageCamera')) document.getElementById('billImageCamera').value = '';
+            
             selectedImageFile = null;
             document.getElementById('imagePreview').style.display = 'none';
             document.getElementById('billImageArea').style.borderColor = 'rgba(139, 92, 246, 0.3)';
@@ -2064,25 +2081,64 @@
                 localStorage.setItem('stats_' + currentJob.id, JSON.stringify(stats));
                 // ***************************************************************
 
-                const url = new URL(GOOGLE_SHEETS_URL);
-                url.searchParams.append('date', formDataToSubmit.formattedDate);
-                url.searchParams.append('workType', currentJob.id); // Keeping ID for backend
-                url.searchParams.append('income', formDataToSubmit.income || '0');
-                url.searchParams.append('expense', formDataToSubmit.expense || '0');
-                url.searchParams.append('detail', formDataToSubmit.detail || '');
-                url.searchParams.append('note', formDataToSubmit.note || '');
-                // ADDED CATEGORY PARAMETER
-                url.searchParams.append('category', formDataToSubmit.category || '');
-                
-                // NOTE: In a real implementation with backend, we would upload 'selectedImageFile' here
-                // Since this is a prototype/frontend-only, we are just noting that it was selected.
-                // You would typically use FormData and POST request for file uploads.
+                let url = new URL(GOOGLE_SHEETS_URL);
+                let params = {
+                    date: formDataToSubmit.formattedDate,
+                    workType: currentJob.id,
+                    income: formDataToSubmit.income || '0',
+                    expense: formDataToSubmit.expense || '0',
+                    detail: formDataToSubmit.detail || '',
+                    note: formDataToSubmit.note || '',
+                    category: formDataToSubmit.category || ''
+                };
 
-                const response = await fetch(url.toString(), { method: 'GET' });
-                const text = await response.text();
+                let method = 'GET';
+                let body = null;
+                let fetchUrl = url.toString();
+                let fetchOptions = {};
+
+                if (selectedImageFile) {
+                    // Convert image to Base64
+                    const base64Data = await new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.readAsDataURL(selectedImageFile);
+                        reader.onload = () => resolve(reader.result.split(',')[1]);
+                        reader.onerror = error => reject(error);
+                    });
+
+                    params.imageName = selectedImageFile.name;
+                    params.imageMimeType = selectedImageFile.type;
+                    params.imageData = base64Data;
+                    
+                    method = 'POST';
+                    fetchUrl = GOOGLE_SHEETS_URL;
+                    
+                    // Build form body for POST
+                    const formData = new URLSearchParams();
+                    Object.keys(params).forEach(key => formData.append(key, params[key]));
+                    
+                    fetchOptions = {
+                        method: 'POST',
+                        body: formData,
+                        // 'no-cors' mode allows sending data to Google Script without CORS errors,
+                        // but prevents reading the response text.
+                        mode: 'no-cors' 
+                    };
+                } else {
+                    // Standard GET request for text-only (Legacy behavior preserved)
+                    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+                    fetchUrl = url.toString();
+                    fetchOptions = { method: 'GET' };
+                }
+
+                const response = await fetch(fetchUrl, fetchOptions);
                 
-                if (text.includes("ERROR")) {
-                    throw new Error(text);
+                // Only check text response if NOT in no-cors mode (GET requests)
+                if (method === 'GET') {
+                    const text = await response.text();
+                    if (text.includes("ERROR")) {
+                        throw new Error(text);
+                    }
                 }
                 
                 const lastSaveData = {
@@ -2094,7 +2150,12 @@
                     category: formDataToSubmit.category || ''
                 };
                 localStorage.setItem('lastSaveData_' + currentJob.id, JSON.stringify(lastSaveData));
-                showToast('success', '✨ معلومات بریالي ولیکل شول', 'نړئ مننه حساب ذخیره شو');
+                
+                let successMsg = 'نړئ مننه حساب ذخیره شو';
+                if (selectedImageFile) {
+                    successMsg += ' او عکس ګوګل ډرایو ته ولیږل شو';
+                }
+                showToast('success', '✨ معلومات بریالي ولیکل شول', successMsg);
                 
                 // Reset Image
                 removeImage();
