@@ -542,6 +542,91 @@
             display: none;
         }
 
+        /* Home Sub-Account Screen Styles */
+        #homeSubAccountScreen {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 5, 21, 0.98);
+            backdrop-filter: blur(30px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 16px;
+            flex-direction: column;
+            gap: 30px;
+            overflow-y: auto;
+        }
+
+        #homeSubAccountScreen.hidden {
+            display: none;
+        }
+
+        /* Home sub-account card styles with different gradients */
+        .home-card-lalak {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(34, 211, 238, 0.08)) !important;
+            border-color: rgba(6, 182, 212, 0.35) !important;
+        }
+        .home-card-lalak:hover {
+            border-color: rgba(6, 182, 212, 0.7) !important;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.25), rgba(34, 211, 238, 0.15)) !important;
+            box-shadow: 0 15px 40px rgba(6, 182, 212, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+        }
+        .home-card-lalak .job-name {
+            background: linear-gradient(to left, #22d3ee, #06b6d4) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+        }
+
+        .home-card-saifullah {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(192, 132, 252, 0.08)) !important;
+            border-color: rgba(168, 85, 247, 0.35) !important;
+        }
+        .home-card-saifullah:hover {
+            border-color: rgba(168, 85, 247, 0.7) !important;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(192, 132, 252, 0.15)) !important;
+            box-shadow: 0 15px 40px rgba(168, 85, 247, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+        }
+        .home-card-saifullah .job-name {
+            background: linear-gradient(to left, #c084fc, #a855f7) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+        }
+
+        .home-card-saeedullah {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(96, 165, 250, 0.08)) !important;
+            border-color: rgba(59, 130, 246, 0.35) !important;
+        }
+        .home-card-saeedullah:hover {
+            border-color: rgba(59, 130, 246, 0.7) !important;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(96, 165, 250, 0.15)) !important;
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+        }
+        .home-card-saeedullah .job-name {
+            background: linear-gradient(to left, #60a5fa, #3b82f6) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+        }
+
+        .home-card-siddiqullah {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(244, 114, 182, 0.08)) !important;
+            border-color: rgba(236, 72, 153, 0.35) !important;
+        }
+        .home-card-siddiqullah:hover {
+            border-color: rgba(236, 72, 153, 0.7) !important;
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.25), rgba(244, 114, 182, 0.15)) !important;
+            box-shadow: 0 15px 40px rgba(236, 72, 153, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+        }
+        .home-card-siddiqullah .job-name {
+            background: linear-gradient(to left, #f472b6, #ec4899) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+        }
+
         #passwordScreen {
             position: fixed;
             inset: 0;
@@ -617,131 +702,107 @@
         }
 
         .password-input-group {
-            position: relative;
             margin-bottom: 20px;
-            animation: fadeInUp 0.6s ease-out 0.4s both;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
         }
 
         .password-input-label {
             display: block;
-            font-size: 12px;
+            margin-bottom: 8px;
+            font-size: 13px;
             font-weight: 700;
             color: #c084fc;
-            margin-bottom: 10px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .password-input {
             width: 100%;
-            padding: 14px 16px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.08);
             border: 2px solid rgba(139, 92, 246, 0.3);
-            border-radius: 14px;
-            color: #f8fafc;
-            font-size: 16px;
+            border-radius: 16px;
+            color: white;
+            font-size: 18px;
             font-family: inherit;
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            backdrop-filter: blur(12px);
-            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2), 0 4px 15px rgba(139, 92, 246, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            letter-spacing: 2px;
         }
 
         .password-input:focus {
             outline: none;
-            border-color: #a78bfa;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
-            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2), 0 0 40px rgba(168, 85, 247, 0.4), inset 0 0 20px rgba(139, 92, 246, 0.1);
-        }
-
-        .password-input::placeholder {
-            color: #4a5568;
+            border-color: #a855f7;
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+            transform: translateY(-2px);
         }
 
         .password-error {
-            color: #fca5a5;
+            color: #ef4444;
             font-size: 13px;
-            margin-top: 8px;
+            margin-top: 10px;
+            text-align: center;
             font-weight: 600;
             display: none;
-            animation: shake 0.5s ease-in-out;
+            animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+            padding: 8px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(239, 68, 68, 0.2);
         }
 
         .password-buttons {
             display: flex;
             gap: 12px;
-            animation: fadeInUp 0.6s ease-out 0.55s both;
+            margin-top: 24px;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
         }
 
         .password-button {
             flex: 1;
-            padding: 14px 32px;
-            min-height: 48px;
+            padding: 16px;
+            border-radius: 16px;
             border: none;
-            border-radius: 14px;
             font-size: 14px;
             font-weight: 800;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.3s ease;
             font-family: inherit;
-            position: relative;
-            overflow: hidden;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
-        @media (min-width: 768px) {
-            .password-button {
-                padding: 16px 40px;
-                min-height: 56px;
-                font-size: 15px;
-            }
-        }
-
-        .password-button::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
-            animation: shine 3s infinite;
+        .password-button:active {
+            transform: scale(0.98);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #ec4899 100%);
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6);
             color: white;
-            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4), inset -1px -1px 20px rgba(255, 255, 255, 0.2), inset 1px 1px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
         }
 
         .btn-primary:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 25px 60px rgba(139, 92, 246, 0.6), inset -1px -1px 20px rgba(255, 255, 255, 0.3);
-        }
-
-        .btn-primary:active {
-            transform: translateY(-2px) scale(0.98);
-            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4), inset -1px -1px 20px rgba(255, 255, 255, 0.2);
-            animation: buttonPress 0.2s ease-out;
-        }
-
-        @keyframes buttonPress {
-            0% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(2px) scale(0.96); }
-            100% { transform: translateY(-2px) scale(0.98); }
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.5);
+            transform: translateY(-2px);
         }
 
         .btn-back {
             background: rgba(255, 255, 255, 0.1);
             color: #cbd5e1;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .btn-back:hover {
             background: rgba(255, 255, 255, 0.15);
             color: white;
+            transform: translateY(-2px);
         }
 
         .form-grid {
             display: grid;
-            grid-template-columns: 1fr;
             gap: 16px;
             animation: fadeInUp 0.8s ease-out 0.4s both;
         }
@@ -749,12 +810,12 @@
         @media (min-width: 768px) {
             .form-grid {
                 grid-template-columns: 1fr 1fr;
-                gap: 20px;
             }
         }
 
         .input-group {
-            position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
         .input-group.full-width {
@@ -762,7 +823,6 @@
         }
 
         label {
-            display: block;
             margin-bottom: 8px;
             font-size: 13px;
             font-weight: 700;
@@ -779,20 +839,20 @@
             border-radius: 14px;
             color: #f8fafc;
             font-size: 15px;
-            font-family: inherit;
             transition: all 0.3s ease;
+            font-family: inherit;
         }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #a78bfa;
+            border-color: #a855f7;
             background: rgba(10, 5, 21, 0.8);
-            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+            box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.15);
         }
 
         textarea {
-            min-height: 100px;
             resize: vertical;
+            min-height: 100px;
         }
 
         .hint {
@@ -805,33 +865,65 @@
         }
 
         .error-message {
-            color: #fca5a5;
             font-size: 11px;
+            color: #ef4444;
             margin-top: 6px;
             display: none;
-            animation: shake 0.4s ease-in-out;
+            align-items: center;
+            gap: 4px;
             font-weight: 600;
+            padding: 6px 10px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 8px;
         }
 
         .error-message.show {
-            display: block;
+            display: flex;
+            animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 16px;
+            border: none;
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+            color: white;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.5);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
         }
 
         .submit-btn-wrapper {
-            margin-top: 24px;
+            margin-top: 10px;
             display: flex;
             gap: 12px;
         }
 
         .btn-secondary {
-            padding: 14px 24px;
+            padding: 16px;
+            border-radius: 16px;
             border: none;
-            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
             font-size: 14px;
             font-weight: 700;
             cursor: pointer;
-            background: rgba(255, 255, 255, 0.08);
-            color: #e2e8f0;
             transition: all 0.3s ease;
             font-family: inherit;
         }
@@ -841,41 +933,92 @@
             color: white;
             transform: translateY(-2px);
         }
-
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(8px);
-            z-index: 100;
+        
+        /* NEW STYLES FOR BALANCE */
+        .balance-section {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.05));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+            display: none; /* Hidden by default */
+        }
+        
+        .balance-label {
+            font-size: 12px;
+            color: #6ee7b7;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        
+        .balance-value {
+            font-size: 32px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            gap: 8px;
+        }
+        
+        .balance-currency {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            font-weight: 500;
+            margin-top: 8px;
+        }
+        
+        .balance-edit-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            display: none; /* Only for admin */
+        }
+        
+        .balance-edit-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 5, 21, 0.95);
+            backdrop-filter: blur(25px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
             padding: 16px;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .modal {
-            max-width: 600px;
-            width: 100%;
-            transform: scale(0.9) translateY(20px);
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            max-height: 90vh;
             overflow-y: auto;
         }
 
-        .modal-overlay.active .modal {
-            transform: scale(1) translateY(0);
-            opacity: 1;
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            max-width: 550px;
+            width: 100%;
+            animation: modalPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .modal-header {
@@ -883,227 +1026,255 @@
             align-items: center;
             gap: 16px;
             margin-bottom: 24px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 20px;
         }
 
         .modal-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            background: rgba(245, 158, 11, 0.15);
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #10b981, #059669);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            color: #f59e0b;
-            border: 1px solid rgba(245, 158, 11, 0.3);
+            font-size: 28px;
+            box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4);
             flex-shrink: 0;
         }
 
         .modal-title {
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 800;
-            color: #f8fafc;
-            margin-bottom: 4px;
+            background: linear-gradient(to left, #6ee7b7, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .modal-subtitle {
-            font-size: 13px;
-            color: #94a3b8;
+            color: #7dd3fc;
+            font-size: 12px;
+            margin-top: 6px;
+            font-weight: 600;
         }
 
-        .data-grid {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 16px;
-            padding: 20px;
+        .modal-body {
             margin-bottom: 24px;
         }
 
         .data-row {
-            margin-bottom: 20px;
-        }
-
-        .data-row:last-child {
-            margin-bottom: 0;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .data-row-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
         }
 
-        @media (min-width: 768px) {
+        @media (max-width: 400px) {
             .data-row-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 28px;
+                grid-template-columns: 1fr;
             }
         }
 
         .data-field {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 4px;
         }
 
         .data-label {
             font-size: 11px;
-            font-weight: 800;
-            color: #7dd3fc;
+            color: #94a3b8;
+            font-weight: 600;
             text-transform: uppercase;
         }
 
         .data-value {
-            font-size: 16px;
-            font-weight: 800;
-            background: linear-gradient(to left, #c084fc, #60a5fa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 15px;
+            color: #f1f5f9;
+            font-weight: 700;
         }
 
         .modal-actions {
             display: flex;
-            flex-direction: column-reverse;
             gap: 12px;
         }
 
-        @media (min-width: 768px) {
-            .modal-actions {
-                flex-direction: row;
-                gap: 14px;
-            }
-        }
-
         .btn-success {
-            padding: 13px 32px;
+            flex: 1;
+            padding: 14px 24px;
             border: none;
             border-radius: 14px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 800;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            font-family: inherit;
-            background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #10b981 100%);
+            background: linear-gradient(135deg, #10b981, #059669);
             color: white;
-            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4), inset -1px -1px 20px rgba(255, 255, 255, 0.2), inset 1px 1px 20px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-success::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
-            animation: shine 3s infinite;
+            box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4);
+            transition: all 0.3s ease;
+            font-family: inherit;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .btn-success:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 25px 60px rgba(16, 185, 129, 0.6), inset -1px -1px 20px rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 18px 40px rgba(16, 185, 129, 0.5);
         }
 
-        .btn-success:active {
-            transform: translateY(-2px) scale(0.98);
-            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4), inset -1px -1px 20px rgba(255, 255, 255, 0.2);
-            animation: buttonPress 0.2s ease-out;
+        .btn-success:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .last-save-section {
+            margin-bottom: 20px;
+            padding: 16px;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(251, 191, 36, 0.05));
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+        }
+
+        .last-save-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #fbbf24;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .toast {
             position: fixed;
             bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(200px);
-            background: rgba(10, 11, 14, 0.95);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            right: 20px;
+            padding: 16px 24px;
             border-radius: 14px;
-            padding: 16px 20px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            z-index: 1000;
-            opacity: 0;
+            z-index: 10001;
+            transform: translateX(120%);
             transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            max-width: 90%;
+            max-width: 350px;
             backdrop-filter: blur(20px);
         }
 
-        @media (min-width: 768px) {
-            .toast {
-                top: 30px;
-                bottom: auto;
-                border-radius: 16px;
-                padding: 20px 28px;
-                transform: translateX(-50%) translateY(-150px);
-            }
-        }
-
         .toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
+            transform: translateX(0);
         }
 
         .toast.success {
-            background: rgba(16, 185, 129, 0.15);
-            border-color: rgba(16, 185, 129, 0.4);
-            box-shadow: 0 20px 50px rgba(16, 185, 129, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9));
+            border: 1px solid rgba(52, 211, 153, 0.5);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
         }
 
         .toast.error {
-            background: rgba(248, 113, 113, 0.15);
-            border-color: rgba(248, 113, 113, 0.4);
-            box-shadow: 0 20px 50px rgba(248, 113, 113, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.9), rgba(220, 38, 38, 0.9));
+            border: 1px solid rgba(248, 113, 113, 0.5);
+            box-shadow: 0 15px 40px rgba(239, 68, 68, 0.4);
         }
-
-        .toast.success .toast-title {
-            color: #86efac;
-        }
-
-        .toast.error .toast-title {
-            color: #fca5a5;
+        
+        .toast.warning {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.9), rgba(217, 119, 6, 0.9));
+            border: 1px solid rgba(251, 191, 36, 0.5);
+            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.4);
         }
 
         .toast-title {
-            font-weight: 800;
-            margin-bottom: 4px;
             font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        @media (min-width: 768px) {
-            .toast-title {
-                font-size: 16px;
-                margin-bottom: 6px;
-            }
+            font-weight: 800;
+            color: white;
+            margin-bottom: 4px;
         }
 
         .toast-description {
-            font-size: 13px;
-            opacity: 0.9;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
         }
 
-        @media (min-width: 768px) {
-            .toast-description {
-                font-size: 14px;
-            }
-        }
-
-        .hidden { display: none !important; }
-
-        /* Back button positioning */
         .back-button-container {
             position: absolute;
-            left: 20px;
-            top: 20px;
+            top: 16px;
+            left: 16px;
             z-index: 10;
         }
 
         @media (max-width: 767px) {
             .back-button-container {
-                left: 16px;
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 16px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .back-button-container {
                 top: 16px;
             }
+        }
+        /* CATEGORY ICONS STYLES */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 480px) {
+            .category-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .category-btn {
+            background: rgba(10, 5, 21, 0.6);
+            border: 2px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            padding: 12px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #f8fafc;
+            font-family: inherit;
+        }
+
+        .category-btn:hover {
+            border-color: #a855f7;
+            background: rgba(139, 92, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .category-btn.active {
+            border-color: #a855f7;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(59, 130, 246, 0.2));
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+        }
+
+        .category-btn-icon {
+            font-size: 24px;
+        }
+
+        .category-btn-label {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        #customCategoryInput {
+            margin-top: 12px;
+            display: none;
+            animation: fadeInUp 0.4s ease-out;
         }
     </style>
 </head>
@@ -1132,7 +1303,7 @@
     <div id="saudiSubAccountScreen" class="hidden">
         <div class="glass-card job-selection-card">
             <div class="back-button-container">
-                <button type="button" class="btn-back" onclick="backFromSaudiSubAccount()" style="padding: 10px 20px; font-size: 12px;">شاته</button>
+                <button type="button" class="btn-back" onclick="backFromSaudiSubAccount()" style="padding: 10px 20px; font-size: 12px; border-radius: 12px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1);">شاته</button>
             </div>
             <div class="job-header">
                 <div class="logo"><img src="./logo.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 16px;"></div>
@@ -1142,6 +1313,23 @@
                 </div>
             </div>
             <div class="job-grid" id="saudiSubAccountGrid"></div>
+        </div>
+    </div>
+
+    <!-- Home Sub-Account Selection Screen -->
+    <div id="homeSubAccountScreen" class="hidden">
+        <div class="glass-card job-selection-card">
+            <div class="back-button-container">
+                <button type="button" class="btn-back" onclick="backFromHomeSubAccount()" style="padding: 10px 20px; font-size: 12px; border-radius: 12px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1);">شاته</button>
+            </div>
+            <div class="job-header">
+                <div class="logo"><img src="./logo.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 16px;"></div>
+                <div>
+                    <h2>د کور مصارف</h2>
+                    <p class="job-header-subtitle">فرعي حساب انتخاب کړئ</p>
+                </div>
+            </div>
+            <div class="job-grid" id="homeSubAccountGrid"></div>
         </div>
     </div>
 
@@ -1185,6 +1373,16 @@
                 <div style="font-size: 28px; margin-bottom: 8px;" id="currentJobIcon"></div>
                 <div style="font-size: 16px; font-weight: 800; background: linear-gradient(to left, #c084fc, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;" id="currentJobName"></div>
             </div>
+            
+            <!-- Balance Section (Only for Home Accounts) -->
+            <div id="balanceSection" class="balance-section">
+                <div class="balance-label">موجوده ګډ بیلانس</div>
+                <div class="balance-value">
+                    <span id="balanceValue">0</span>
+                    <span class="balance-currency">AFN</span>
+                </div>
+                <button id="editBalanceBtn" class="balance-edit-btn" onclick="editBalance()">✏️</button>
+            </div>
 
             <form id="trailerForm" class="form-grid">
                 <div class="input-group full-width">
@@ -1193,31 +1391,75 @@
                     <p class="hint">⭐ یوازې د 2026 کال نیټې منل کیږي</p>
                 </div>
 
-                <div class="input-group">
+                <!-- Income Field Removed/Hidden -->
+                <div class="input-group" style="display: none;">
                     <label for="income">💰 عائد</label>
                     <input type="number" id="income" name="income" min="0" placeholder="عائد ولیکئ">
                     <p class="error-message" id="incomeError">❌ عائد لیکل لازم دی (صفر یا لوړ عدد ولیکئ)</p>
                 </div>
 
-                <div class="input-group">
+                <div class="input-group full-width">
                     <label for="expense">💸 مصارف</label>
                     <input type="number" id="expense" name="expense" min="0" placeholder="مصارف ولیکئ">
                     <p class="error-message" id="expenseError">❌ مصارف لیکل لازم دی (صفر یا لوړ عدد ولیکئ)</p>
                 </div>
 
-                <div class="input-group full-width">
-                    <label for="detail">📝 د کار تفصیل</label>
-                    <input type="text" id="detail" name="detail" placeholder="تفصیل ولیکئ...">
+                <!-- Category Field (For Home Accounts) - REPLACED WITH ICONS -->
+                <div class="input-group full-width" id="categoryGroup" style="display: none;">
+                    <label>📂 کټګوري (د مصارفو لپاره)</label>
+                    <input type="hidden" id="category" name="category">
+                    
+                    <div class="category-grid">
+                        <div class="category-btn" onclick="selectCategory('خوراک', this)">
+                            <div class="category-btn-icon">🍔</div>
+                            <div class="category-btn-label">خوراک</div>
+                        </div>
+                        <div class="category-btn" onclick="selectCategory('روغتیا', this)">
+                            <div class="category-btn-icon">💊</div>
+                            <div class="category-btn-label">روغتیا</div>
+                        </div>
+                        <div class="category-btn" onclick="selectCategory('تعلیم', this)">
+                            <div class="category-btn-icon">📚</div>
+                            <div class="category-btn-label">تعلیم</div>
+                        </div>
+                        <div class="category-btn" onclick="selectCategory('تفریح', this)">
+                            <div class="category-btn-icon">🎮</div>
+                            <div class="category-btn-label">تفریح</div>
+                        </div>
+                        <div class="category-btn" onclick="selectCategory('ټرانسپورټ', this)">
+                            <div class="category-btn-icon">🚕</div>
+                            <div class="category-btn-label">ټرانسپورټ</div>
+                        </div>
+                        <div class="category-btn" onclick="selectCategory('جامې', this)">
+                            <div class="category-btn-icon">👕</div>
+                            <div class="category-btn-label">جامې</div>
+                        </div>
+                        <div class="category-btn" onclick="selectCategory('میلمه', this)">
+                            <div class="category-btn-icon">☕</div>
+                            <div class="category-btn-label">میلمه</div>
+                        </div>
+                        <div class="category-btn" onclick="selectCategory('نور', this)">
+                            <div class="category-btn-icon">➕</div>
+                            <div class="category-btn-label">نور...</div>
+                        </div>
+                    </div>
+
+                    <input type="text" id="customCategoryInput" placeholder="د کټګورۍ نوم ولیکئ..." oninput="updateCustomCategory(this.value)">
                 </div>
 
                 <div class="input-group full-width">
-                    <label for="note">📌 یاداښت</label>
-                    <textarea id="note" name="note" placeholder="یاداښت ولیکئ..."></textarea>
+                    <label for="detail">📝 د کار تفصیل</label>
+                    <textarea id="detail" name="detail" placeholder="د کار تفصیل ولیکئ..."></textarea>
+                </div>
+
+                <div class="input-group full-width" id="noteGroup">
+                    <label for="note">📌 یاداښت (اختیاري)</label>
+                    <input type="text" id="note" name="note" placeholder="یاداښت ولیکئ...">
                 </div>
 
                 <div class="submit-btn-wrapper full-width">
                     <button type="button" class="btn-secondary" onclick="logout()">خروج</button>
-                    <button type="submit" class="btn-primary" style="flex: 1;">ذخیره کول</button>
+                    <button type="submit" class="submit-btn">✓ ذخیره کول</button>
                 </div>
             </form>
         </div>
@@ -1227,70 +1469,63 @@
     <div id="modalOverlay" class="modal-overlay">
         <div class="glass-card modal">
             <div class="modal-header">
-                <div class="modal-icon">⚠️</div>
+                <div class="modal-icon">✓</div>
                 <div>
-                    <div class="modal-title">د معلوماتو بیا کتنه</div>
-                    <div class="modal-subtitle">✨ د معلوماتو تصدیق وکړئ چی غلط نوی لیکل شوی </div>
+                    <div class="modal-title">تایید</div>
+                    <p class="modal-subtitle">مهرباني وکړئ معلومات وګورئ</p>
                 </div>
             </div>
 
-            <div class="data-grid">
-                <div class="data-row" id="lastSaveRow" style="display: none; border-bottom: 2px solid rgba(139, 92, 246, 0.3); padding-bottom: 20px; margin-bottom: 20px;">
-                    <div style="text-align: center; margin-bottom: 16px;">
-                        <span class="data-label" style="display: block; margin-bottom: 12px; color: #f472b6; font-size: 12px;">⏰ مخکني ځل ذخیره شوي معلومات</span>
-                    </div>
+            <div class="modal-body">
+                <div class="last-save-section" id="lastSaveRow" style="display: none;">
+                    <div class="last-save-title">📋 وروستی ذخیره شوی</div>
                     <div class="data-row-grid">
                         <div class="data-field">
                             <span class="data-label">📅 نېټه</span>
                             <span class="data-value" id="lastSaveDate">-</span>
                         </div>
                         <div class="data-field">
-                            <span class="data-label">💰 عائد</span>
-                            <span class="data-value" id="lastSaveIncome">-</span>
-                        </div>
-                        <div class="data-field">
                             <span class="data-label">💸 مصارف</span>
                             <span class="data-value" id="lastSaveExpense">-</span>
                         </div>
-                        <div class="data-field" style="grid-column: 1 / -1;">
+                        <div class="data-field">
                             <span class="data-label">📝 تفصیل</span>
                             <span class="data-value" id="lastSaveDetail">-</span>
                         </div>
                     </div>
-                    <div class="data-row" id="lastSaveNoteRow" style="display: none; margin-top: 16px;">
-                        <div class="data-field">
-                            <span class="data-label">📌 یاداښت</span>
-                            <span class="data-value" id="lastSaveNote">-</span>
-                        </div>
+                    <div class="data-field" id="lastSaveNoteRow" style="margin-top: 12px; display: none;">
+                        <span class="data-label">📌 یاداښت</span>
+                        <span class="data-value" id="lastSaveNote">-</span>
                     </div>
                 </div>
 
                 <div class="data-row">
-                    <div style="text-align: center; margin-bottom: 16px;">
-                        <span class="data-label" style="display: block; margin-bottom: 12px; color: #f472b6; font-size: 12px;">⏰ نوي لیکل شوي معلومات</span>
-                    </div>
                     <div class="data-row-grid">
                         <div class="data-field">
                             <span class="data-label">📅 نېټه</span>
                             <span class="data-value" id="confirmDate">-</span>
                         </div>
                         <div class="data-field">
-                            <span class="data-label">💰 عائد</span>
-                            <span class="data-value" id="confirmIncome">-</span>
+                            <span class="data-label">💸 مصارف</span>
+                            <span class="data-value" id="confirmExpense">-</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="data-row">
                     <div class="data-row-grid">
-                        <div class="data-field">
-                            <span class="data-label">💸 مصارف</span>
-                            <span class="data-value" id="confirmExpense">-</span>
-                        </div>
                         <div class="data-field" style="grid-column: 1 / -1;">
                             <span class="data-label">📝 د کار تفصیل</span>
                             <span class="data-value" id="confirmDetail">-</span>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Added Category to Modal -->
+                <div class="data-row" id="categoryRow" style="display: none;">
+                    <div class="data-field">
+                        <span class="data-label">📂 کټګوري</span>
+                        <span class="data-value" id="confirmCategory">-</span>
                     </div>
                 </div>
 
@@ -1325,10 +1560,18 @@
             { id: 'home', name: 'کور مصارف', password: 'home123', icon: '🏠', desc: ' د کور ورځنئ خرڅه' }
         ];
 
-        // Saudi Sub-Accounts Data - Updated with new names and optional image support
+        // Saudi Sub-Accounts Data
         const SAUDI_SUB_ACCOUNTS = [
             { id: 'saudi_12module', name: '12 ماډل ترېله 3125 نمبر', password: 'saudi123', icon: '🚛', image: './trailer_3125.jpg', desc: '12 ماډل ترېله' },
             { id: 'saudi_14module', name: '14 ماډل ترېله 6437 نمبر', password: 'saudi123', icon: '🚚', image: './trailer_6437.jpg', desc: '14 ماډل ترېله' }
+        ];
+
+        // Home Sub-Accounts Data
+        const HOME_SUB_ACCOUNTS = [
+            { id: 'home_lalak', name: 'للک', password: 'home123', icon: '👨‍👧‍👦', desc: 'د للک مصارف', cardClass: 'home-card-lalak' },
+            { id: 'home_saifullah', name: 'سیف الله', password: 'home123', icon: '👤', desc: 'د سیف الله مصارف', cardClass: 'home-card-saifullah' },
+            { id: 'home_saeedullah', name: 'سعید الله', password: 'home123', icon: '👤', desc: 'د سعید الله مصارف', cardClass: 'home-card-saeedullah' },
+            { id: 'home_siddiqullah', name: 'صدیق الله', password: 'home123', icon: '👤', desc: 'د صدیق الله مصارف', cardClass: 'home-card-siddiqullah' }
         ];
 
         let currentJob = null;
@@ -1363,13 +1606,25 @@
             `).join('');
         }
 
+        function initHomeSubAccountSelector() {
+            const container = document.getElementById('homeSubAccountGrid');
+            container.innerHTML = HOME_SUB_ACCOUNTS.map(account => `
+                <div class="job-card ${account.cardClass}" onclick="selectHomeSubAccount('${account.id}', '${account.name}', '${account.password}', '${account.icon}')">
+                    <div class="job-icon">${account.icon}</div>
+                    <div class="job-name">${account.name}</div>
+                    <div class="job-desc">${account.desc}</div>
+                </div>
+            `).join('');
+        }
+
         function selectJob(jobId, jobName, password, icon) {
             if (jobId === 'saudi') {
-                // Show Saudi sub-account menu instead of going directly to password
                 document.getElementById('jobSelectionScreen').classList.add('hidden');
                 document.getElementById('saudiSubAccountScreen').classList.remove('hidden');
+            } else if (jobId === 'home') {
+                document.getElementById('jobSelectionScreen').classList.add('hidden');
+                document.getElementById('homeSubAccountScreen').classList.remove('hidden');
             } else {
-                // Original logic for other jobs
                 currentJob = { id: jobId, name: jobName, icon: icon };
                 currentPassword = password;
                 document.getElementById('jobSelectionScreen').classList.add('hidden');
@@ -1379,10 +1634,17 @@
         }
 
         function selectSaudiSubAccount(subId, subName, password, image) {
-            // Set the sub-account as current job
             currentJob = { id: subId, name: subName, image: image };
             currentPassword = password;
             document.getElementById('saudiSubAccountScreen').classList.add('hidden');
+            document.getElementById('passwordScreen').classList.remove('hidden');
+            setTimeout(() => document.getElementById('passwordInput').focus(), 100);
+        }
+
+        function selectHomeSubAccount(subId, subName, password, icon) {
+            currentJob = { id: subId, name: subName, icon: icon };
+            currentPassword = password;
+            document.getElementById('homeSubAccountScreen').classList.add('hidden');
             document.getElementById('passwordScreen').classList.remove('hidden');
             setTimeout(() => document.getElementById('passwordInput').focus(), 100);
         }
@@ -1392,29 +1654,48 @@
             document.getElementById('jobSelectionScreen').classList.remove('hidden');
         }
 
+        function backFromHomeSubAccount() {
+            document.getElementById('homeSubAccountScreen').classList.add('hidden');
+            document.getElementById('jobSelectionScreen').classList.remove('hidden');
+        }
+
         function backToJobs() {
             document.getElementById('passwordScreen').classList.add('hidden');
-            document.getElementById('passwordInput').value = '';
-            document.getElementById('passwordError').style.display = 'none';
-            
-            // Check if we came from Saudi sub-account menu
-            if (currentJob && currentJob.id && currentJob.id.startsWith('saudi')) {
+            if (currentJob && currentJob.id.startsWith('saudi_')) {
                 document.getElementById('saudiSubAccountScreen').classList.remove('hidden');
+            } else if (currentJob && currentJob.id.startsWith('home_')) {
+                document.getElementById('homeSubAccountScreen').classList.remove('hidden');
             } else {
                 document.getElementById('jobSelectionScreen').classList.remove('hidden');
-                currentJob = null;
             }
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('passwordError').style.display = 'none';
+            currentJob = null;
         }
 
         function logout() {
             document.getElementById('formContainer').classList.add('hidden');
-            document.getElementById('jobSelectionScreen').classList.remove('hidden');
+            
+            // Check where to go back based on current job type
+            if (currentJob && currentJob.id.startsWith('home_')) {
+                document.getElementById('homeSubAccountScreen').classList.remove('hidden');
+                document.getElementById('jobSelectionScreen').classList.add('hidden');
+            } else if (currentJob && currentJob.id.startsWith('saudi_')) {
+                document.getElementById('saudiSubAccountScreen').classList.remove('hidden');
+                document.getElementById('jobSelectionScreen').classList.add('hidden');
+            } else {
+                document.getElementById('jobSelectionScreen').classList.remove('hidden');
+            }
+
             document.getElementById('passwordScreen').classList.add('hidden');
-            document.getElementById('saudiSubAccountScreen').classList.add('hidden');
             document.getElementById('passwordInput').value = '';
             document.getElementById('passwordError').style.display = 'none';
             document.getElementById('trailerForm').reset();
             currentJob = null;
+            
+            // Reset category selection visually
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('customCategoryInput').style.display = 'none';
         }
 
         function checkPassword() {
@@ -1436,9 +1717,56 @@
                     document.getElementById('currentJobIcon').textContent = currentJob.icon || JOBS.find(job => job.id === currentJob.id)?.icon || '🕌';
                 }
                 document.getElementById('currentJobName').textContent = currentJob.name;
+                
+                // --- SHARED BALANCE & CATEGORY LOGIC ---
+                if (currentJob.id.startsWith('home_')) {
+                    document.getElementById('balanceSection').style.display = 'block';
+                    updateBalanceDisplay();
+                    
+                    document.getElementById('categoryGroup').style.display = 'block';
+                    document.getElementById('noteGroup').style.display = 'none';
+                    // document.getElementById('category').required = true; // Hidden input doesn't support required attribute the same way visually, handled in validation
+
+
+                    // Admin check
+                    if (currentJob.name === 'سیف الله') {
+                        document.getElementById('editBalanceBtn').style.display = 'inline-block';
+                    } else {
+                        document.getElementById('editBalanceBtn').style.display = 'none';
+                    }
+                } else {
+                    document.getElementById('balanceSection').style.display = 'none';
+                    document.getElementById('categoryGroup').style.display = 'none';
+                    document.getElementById('noteGroup').style.display = 'block';
+                    document.getElementById('category').required = false;
+                }
+
             } else {
                 errorDiv.style.display = 'block';
                 document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        function updateBalanceDisplay() {
+            const bal = localStorage.getItem('home_shared_balance') || '25000';
+            document.getElementById('balanceValue').textContent = parseInt(bal).toLocaleString();
+            
+            // Changed from < 5000 to <= 5000 as per request "remains 5000"
+            if (parseInt(bal) <= 5000) {
+                showToast('warning', 'خبرتیا!', 'د کور ګډ بیلانس 5000 افغانیو یا کم دی!');
+                document.getElementById('balanceSection').style.border = '2px solid #ef4444';
+            } else {
+                document.getElementById('balanceSection').style.border = '1px solid rgba(16, 185, 129, 0.3)';
+            }
+        }
+
+        function editBalance() {
+            const current = localStorage.getItem('home_shared_balance') || '0';
+            const newBal = prompt("نوی بیلانس داخل کړئ:", current);
+            if (newBal !== null && !isNaN(newBal) && newBal.trim() !== '') {
+                localStorage.setItem('home_shared_balance', newBal);
+                updateBalanceDisplay();
+                showToast('success', 'بیلانس تازه شو');
             }
         }
 
@@ -1453,18 +1781,11 @@
             const expense = document.getElementById('expense').value;
             const detail = document.getElementById('detail').value || '';
             const note = document.getElementById('note').value || '';
+            const category = document.getElementById('category').value;
 
-            const incomeError = document.getElementById('incomeError');
             const expenseError = document.getElementById('expenseError');
             
             let hasError = false;
-
-            if (!income || income.trim() === '') {
-                incomeError.classList.add('show');
-                hasError = true;
-            } else {
-                incomeError.classList.remove('show');
-            }
 
             if (!expense || expense.trim() === '') {
                 expenseError.classList.add('show');
@@ -1473,39 +1794,62 @@
                 expenseError.classList.remove('show');
             }
 
+            // Balance Check for Home Accounts
+            if (currentJob.id.startsWith('home_') && expense) {
+                const currentBal = parseFloat(localStorage.getItem('home_shared_balance') || '0');
+                // Removed blocking check for insufficient balance as per user request
+                /*
+                if (parseFloat(expense) > currentBal) {
+                    showToast('error', 'تېروتنه', 'ستاسو بیلانس د دې مصرف لپاره کافي نه دی!');
+                    return;
+                }
+                */
+            }
+            
             if (hasError) {
                 return;
             }
 
-// 2026 check disabled for debugging
-            // const year = new Date(date).getFullYear();
-            // if (year !== 2026) {
-            //    showToast('error', 'یوازې د 2026 کال نیټې منل کېږي', 'مهرباني وکړئ د 2026 کال نیټه انتخاب کړئ');
-            //    return;
-            // }
-
             const dateParts = date.split('-');
             const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
-            formDataToSubmit = { date, formattedDate, income, expense, detail, note };
+            
+            // Logic for note/category
+            // Send category SEPARATELY, do not overwrite note
+            let finalNote = note;
+            let finalCategory = '';
+            
+            if (currentJob.id.startsWith('home_')) {
+                finalCategory = category; 
+            }
+
+            formDataToSubmit = { date, formattedDate, income, expense, detail, note: finalNote, category: finalCategory };
             showModal();
         });
 
         function showModal() {
             document.getElementById('confirmDate').textContent = formDataToSubmit.formattedDate;
-            document.getElementById('confirmIncome').textContent = formDataToSubmit.income || '0';
             document.getElementById('confirmExpense').textContent = formDataToSubmit.expense || '0';
             document.getElementById('confirmDetail').textContent = formDataToSubmit.detail || 'ندي لیکل شوی';
+            
+            // Category Row
+            if (formDataToSubmit.category) {
+                document.getElementById('confirmCategory').textContent = formDataToSubmit.category;
+                document.getElementById('categoryRow').style.display = 'block';
+            } else {
+                document.getElementById('categoryRow').style.display = 'none';
+            }
+
             if (formDataToSubmit.note) {
                 document.getElementById('confirmNote').textContent = formDataToSubmit.note;
                 document.getElementById('noteRow').style.display = 'block';
             } else {
                 document.getElementById('noteRow').style.display = 'none';
             }
+
             const lastSaveData = localStorage.getItem('lastSaveData');
             if (lastSaveData) {
                 const data = JSON.parse(lastSaveData);
                 document.getElementById('lastSaveDate').textContent = data.date;
-                document.getElementById('lastSaveIncome').textContent = data.income || '0';
                 document.getElementById('lastSaveExpense').textContent = data.expense || '0';
                 document.getElementById('lastSaveDetail').textContent = data.detail || 'ندي لیکل شوی';
                 if (data.note) {
@@ -1530,13 +1874,26 @@
             btn.disabled = true;
             btn.textContent = '✓ ثبتیږي....';
             try {
+                // Deduct Balance for Home Accounts
+                if (currentJob.id.startsWith('home_')) {
+                    const exp = parseFloat(formDataToSubmit.expense || '0');
+                    if (exp > 0) {
+                        let bal = parseFloat(localStorage.getItem('home_shared_balance') || '0');
+                        bal -= exp;
+                        localStorage.setItem('home_shared_balance', bal);
+                        updateBalanceDisplay();
+                    }
+                }
+
                 const url = new URL(GOOGLE_SHEETS_URL);
                 url.searchParams.append('date', formDataToSubmit.formattedDate);
-                url.searchParams.append('workType', currentJob.id);
+                url.searchParams.append('workType', currentJob.id); // Keeping ID for backend
                 url.searchParams.append('income', formDataToSubmit.income || '0');
                 url.searchParams.append('expense', formDataToSubmit.expense || '0');
                 url.searchParams.append('detail', formDataToSubmit.detail || '');
                 url.searchParams.append('note', formDataToSubmit.note || '');
+                // ADDED CATEGORY PARAMETER
+                url.searchParams.append('category', formDataToSubmit.category || '');
                 
                 const response = await fetch(url.toString(), { method: 'GET' });
                 const text = await response.text();
@@ -1576,9 +1933,36 @@
             setTimeout(() => toast.classList.remove('show'), 5000);
         }
 
-        // Initialize both selectors
+        // Initialize all selectors
         initJobSelector();
         initSaudiSubAccountSelector();
+        initHomeSubAccountSelector();
+
+        // Category Selection Logic
+        function selectCategory(value, element) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            element.classList.add('active');
+            
+            const customInput = document.getElementById('customCategoryInput');
+            const categoryInput = document.getElementById('category');
+
+            if (value === 'نور') {
+                customInput.style.display = 'block';
+                customInput.focus();
+                categoryInput.value = customInput.value; // Initialize with current custom input value if any
+            } else {
+                customInput.style.display = 'none';
+                categoryInput.value = value;
+            }
+        }
+
+        function updateCustomCategory(val) {
+            // Only update if "Other" is currently selected (which it should be if this input is visible)
+            document.getElementById('category').value = val;
+        }
     </script>
 </body>
 </html>
