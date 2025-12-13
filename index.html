@@ -2754,14 +2754,21 @@
                 
                 // Add all accounts options
                 JOBS.forEach(job => {
+                   // Skip current job if already added as first option
+                   if (job.id === currentJob.id) return;
+
                    if (job.id !== 'saudi' && job.id !== 'home') {
                        selectorHtml += `<option value="${job.id}">${job.name}</option>`;
                    }
                 });
                 SAUDI_SUB_ACCOUNTS.forEach(acc => {
+                    // Skip if current user (unlikely for main jobs but good practice)
+                    if (acc.id === currentJob.id) return;
                     selectorHtml += `<option value="${acc.id}">🚛 ${acc.name}</option>`;
                 });
                 HOME_SUB_ACCOUNTS.forEach(acc => {
+                     // Skip if current user (e.g. if a home user is admin)
+                    if (acc.id === currentJob.id) return;
                     selectorHtml += `<option value="${acc.id}">🏠 ${acc.name}</option>`;
                 });
                 
@@ -2858,6 +2865,9 @@
                 
                 // Add all main accounts
                 JOBS.forEach(job => {
+                   // Skip current job if already added as first option
+                   if (job.id === currentJob.id) return;
+
                    if (job.id !== 'saudi' && job.id !== 'home') { // Skip containers if they don't hold data directly, but mobile/boklyn do
                        optionsHtml += `<option value="${job.id}">${job.name}</option>`;
                    }
@@ -2865,11 +2875,13 @@
 
                 // Add Saudi Sub Accounts
                 SAUDI_SUB_ACCOUNTS.forEach(acc => {
+                    if (acc.id === currentJob.id) return;
                     optionsHtml += `<option value="${acc.id}">🚛 ${acc.name}</option>`;
                 });
 
                  // Add Home Sub Accounts
                 HOME_SUB_ACCOUNTS.forEach(acc => {
+                    if (acc.id === currentJob.id) return;
                     optionsHtml += `<option value="${acc.id}">🏠 ${acc.name}</option>`;
                 });
 
