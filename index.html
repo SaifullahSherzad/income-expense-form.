@@ -2031,7 +2031,7 @@
                     <p class="modal-subtitle">د حساب عمومي معلومات</p>
                 </div>
                 <button type="button" id="dashboardDeleteBtn" class="btn-secondary" style="margin-right: auto; background: rgba(239, 68, 68, 0.2); color: #fca5a5; margin-left: 10px; font-size: 12px; display: none;" onclick="clearAllData()">🗑️ ړنګول</button>
-                <button type="button" class="btn-close-fancy" onclick="closeDashboard()" style="position: absolute; top: 15px; left: 15px;">✕</button>
+                <button type="button" class="btn-close-fancy" onclick="closeDashboard()">✕</button>
             </div>
 
             <div class="modal-body" style="flex: 1; overflow-y: auto; padding: 20px;">
@@ -2134,7 +2134,7 @@
                     <p class="modal-subtitle">د وروستیو معاملو لیست</p>
                 </div>
                 <button type="button" id="reportDeleteBtn" class="btn-secondary" style="margin-right: auto; background: rgba(239, 68, 68, 0.2); color: #fca5a5; margin-left: 10px; font-size: 12px; display: none;" onclick="clearAllData()">🗑️ ړنګول</button>
-                <button type="button" class="btn-close-fancy" onclick="closeReport()" style="position: absolute; top: 15px; left: 15px;">✕</button>
+                <button type="button" class="btn-close-fancy" onclick="closeReport()">✕</button>
             </div>
 
             <div class="modal-body" style="flex: 1; overflow-y: auto; padding: 20px;">
@@ -3343,11 +3343,8 @@
 
         function saveTransaction(e) {
             e.preventDefault();
-            const rawIncome = document.getElementById('income').value;
-            const rawExpense = document.getElementById('expense').value;
-            
-            const income = parseFloat(rawIncome || 0);
-            const expense = parseFloat(rawExpense || 0);
+            const income = parseFloat(document.getElementById('income').value || 0);
+            const expense = parseFloat(document.getElementById('expense').value || 0);
             const date = document.getElementById('date').value;
             const detail = document.getElementById('detail').value;
             const note = document.getElementById('note').value;
@@ -3355,26 +3352,13 @@
             const currency = document.getElementById('currency').value;
 
             const expenseError = document.getElementById('expenseError');
-            const incomeError = document.getElementById('incomeError');
             let hasError = false;
 
-            // Validation for Expense
-            if (rawExpense === '' || parseFloat(rawExpense) < 0) {
+            if (!expense || expense <= 0) {
                 expenseError.classList.add('show');
                 hasError = true;
             } else {
                 expenseError.classList.remove('show');
-            }
-
-            // Validation for Income (if visible)
-            const incomeGroup = document.getElementById('incomeGroup');
-            if (incomeGroup && incomeGroup.style.display !== 'none') {
-                if (rawIncome === '' || parseFloat(rawIncome) < 0) {
-                     incomeError.classList.add('show');
-                     hasError = true;
-                } else {
-                     incomeError.classList.remove('show');
-                }
             }
 
             if (!date) {
@@ -4433,6 +4417,21 @@
                 renderDebtList();
                 closeDebtForm();
                 showToast('success', 'ثبت شو', 'د قرض ریکارډ اضافه شو');
+                
+                // Submit to Google Sheets
+                const workType = type === 'receivable' ? 'debt_receivable' : 'debt_liability';
+                const payload = {
+                    workType,
+                    date,
+                    name,
+                    detail: desc
+                };
+                
+                fetch(GOOGLE_SHEETS_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).catch(err => console.error('Google Sheets error:', err));
             }
         }
 
