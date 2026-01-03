@@ -1754,42 +1754,66 @@
 
             <!-- Search & Stats Container -->
             <div style="flex-shrink: 0;">
-                <!-- Search Inputs -->
-                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; margin-bottom: 20px; display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-end;">
-                    <div style="flex: 2; min-width: 250px; margin-bottom: 10px;">
-                        <label style="display: block; margin-bottom: 10px; font-size: 13px; color: #94a3b8; font-weight: 600;">د څه شي لټون کوئ؟</label>
-                        <input type="text" id="reportSearchText" placeholder="🔍 لټون (تفصیل، نوم...)" oninput="filterReport()" style="width: 80%; padding: 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: white; outline: none; transition: all 0.3s; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);">
-                    </div>
-                    <div style="flex: 1; min-width: 180px; margin-bottom: 10px;">
-                        <label style="display: block; margin-bottom: 10px; font-size: 13px; color: #94a3b8; font-weight: 600;">له نېټې</label>
-                        <input type="date" id="reportStartDate" onchange="filterReport()" style="width: 90%; padding: 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: white; outline: none; transition: all 0.3s;">
-                    </div>
-                    <div style="flex: 1; min-width: 180px; margin-bottom: 10px;">
-                        <label style="display: block; margin-bottom: 10px; font-size: 13px; color: #94a3b8; font-weight: 600;">تر نېټې</label>
-                        <input type="date" id="reportEndDate" onchange="filterReport()" style="width: 90%; padding: 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: white; outline: none; transition: all 0.3s;">
-                    </div>
-                    <div style="flex: 0; min-width: 120px; margin-bottom: 10px;">
-                        <button onclick="clearReportFilters()" style="width: 100%; padding: 14px 20px; height: 52px; background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 12px; cursor: pointer; font-weight: bold; white-space: nowrap; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px;" onmouseover="this.style.background='rgba(239, 68, 68, 0.3)'" onmouseout="this.style.background='rgba(239, 68, 68, 0.2)'">پاکول ✕</button>
+                <!-- Download Section -->
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 10px; margin-bottom: 20px;">
+                    <h3 style="color: #94a3b8; font-size: 14px; margin-bottom: 15px; font-weight: 600;">📥 د راپور ډاونلوډ</h3>
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="display: block; margin-bottom: 8px; font-size: 12px; color: #94a3b8;">د راپور ډول</label>
+                            <select id="reportType" onchange="toggleReportInputs()" style="width: 100%; padding: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: white; outline: none;">
+								<option value="daily">ورځنی (Daily)</option>	
+                                <option value="monthly" selected>میاشتنی (Monthly)</option>                   
+                                <option value="yearly">کلنی (Yearly)</option>
+                                <option value="custom">نېټه وټاکئ</option>
+                            </select>
+                        </div>
+                        
+                        <div id="dateInputGroup" style="flex: 1; min-width: 150px; display: none;">
+                            <label style="display: block; margin-bottom: 8px; font-size: 12px; color: #94a3b8;">نیټه وټاکئ</label>
+                            <input type="date" id="reportDateInput" style="width: 80%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: white; outline: none;">
+                        </div>
+
+                        <div id="monthInputGroup" style="flex: 1; min-width: 150px;">
+                            <label style="display: block; margin-bottom: 8px; font-size: 12px; color: #94a3b8;">میاشت وټاکئ</label>
+                            <input type="month" id="reportMonthInput" style="width: 90%; padding: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: white; outline: none;">
+                        </div>
+
+                        <div id="yearInputGroup" style="flex: 1; min-width: 150px; display: none;">
+                            <label style="display: block; margin-bottom: 8px; font-size: 12px; color: #94a3b8;">کال وټاکئ</label>
+                            <select id="reportYearInput" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: white; outline: none;">
+                                <option value="2026">2026</option>
+                            </select>
+                        </div>
+
+                        <button onclick="downloadReport()" style="padding: 12px 24px; background: linear-gradient(135deg, #8b5cf6, #3b82f6); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3); transition: all 0.3s;">
+                            ښکته کول 📥
+                        </button>
                     </div>
                 </div>
 
-                <!-- Stats Cards -->
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 20px;">
-                    <div class="glass-card" style="padding: 15px; text-align: center; border: 1px solid rgba(16, 185, 129, 0.3);">
-                        <div style="color: #94a3b8; font-size: 13px;">ټول عائد</div>
-                        <div id="reportTotalIncome" style="color: #10b981; font-size: 20px; font-weight: 800;">0</div>
-                    </div>
-                    <div class="glass-card" style="padding: 15px; text-align: center; border: 1px solid rgba(239, 68, 68, 0.3);">
-                        <div style="color: #94a3b8; font-size: 13px;">ټول مصارف</div>
-                        <div id="reportTotalExpense" style="color: #ef4444; font-size: 20px; font-weight: 800;">0</div>
-                    </div>
-                    <div class="glass-card" style="padding: 15px; text-align: center; border: 1px solid rgba(59, 130, 246, 0.3);">
-                        <div style="color: #94a3b8; font-size: 13px;">خالص بیلانس</div>
-                        <div id="reportNetBalance" style="color: #60a5fa; font-size: 20px; font-weight: 800;">0</div>
+                <!-- Filter Section -->
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 10px; margin-bottom: 20px;">
+                    <h3 style="color: #94a3b8; font-size: 14px; margin-bottom: 15px; font-weight: 600;">🔍 لټون</h3>
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
+                        <div style="flex: 2; min-width: 250px;">
+                            <label style="display: block; margin-bottom: 8px; font-size: 12px; color: #94a3b8;">لټون (تفصیل، یاداښت...)</label>
+                            <input type="text" id="tableFilterSearch" oninput="applyTableFilter()" placeholder="څه شی لټوئ؟" style="width: 90%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: white; outline: none;">
+                        </div>
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="display: block; margin-bottom: 8px; font-size: 12px; color: #94a3b8;">له نیټې</label>
+                            <input type="date" id="tableFilterStart" onchange="applyTableFilter()" style="width: 90%; padding: 5px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: white; outline: none;">
+                        </div>
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="display: block; margin-bottom: 8px; font-size: 12px; color: #94a3b8;">تر نیټې</label>
+                            <input type="date" id="tableFilterEnd" onchange="applyTableFilter()" style="width: 90%; padding: 5px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: white; outline: none;">
+                        </div>
+                        <button onclick="clearTableFilters()" style="padding: 12px 24px; background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 10px; cursor: pointer; font-weight: bold; transition: all 0.3s;">
+                            پاکول ✕
+                        </button>
                     </div>
                 </div>
-            </div>
-
+            </div> 
+			
             <!-- Table Container -->
             <div style="flex: 1; overflow-y: auto; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
                 <table style="width: 100%; border-collapse: collapse; direction: rtl; text-align: right; position: relative;">
@@ -2957,59 +2981,67 @@
         let currentReportData = [];
 
         function openReport() {
-            if (!currentJob) return;
-
             document.getElementById('formContainer').classList.add('hidden');
             document.getElementById('reportScreen').classList.remove('hidden');
 
-            const reportTitle = document.getElementById('reportTitle');
-            if (reportTitle) reportTitle.textContent = `د ${currentJob.name} راپور`;
+            document.getElementById('reportTitle').textContent = `د ${currentJob.name} راپور`;
 
-            // Reset filters
-            const searchInput = document.getElementById('reportSearchText');
-            if (searchInput) searchInput.value = '';
-            
-            const startDateInput = document.getElementById('reportStartDate');
-            if (startDateInput) startDateInput.value = '';
-            
-            const endDateInput = document.getElementById('reportEndDate');
-            if (endDateInput) endDateInput.value = '';
+            // Initialize new download inputs
+            toggleReportInputs();
+
+            // Clear table filters
+            document.getElementById('tableFilterSearch').value = '';
+            document.getElementById('tableFilterStart').value = '';
+            document.getElementById('tableFilterEnd').value = '';
 
             // Load Data
             const storageKey = 'history_' + currentJob.id;
-            let rawData = [];
-            try {
-                rawData = JSON.parse(localStorage.getItem(storageKey) || '[]');
-            } catch (e) {
-                console.error("Error loading data", e);
-                rawData = [];
-            }
+            let rawData = JSON.parse(localStorage.getItem(storageKey) || '[]');
 
             // Legacy Fallback
             if (rawData.length === 0) {
-                 try {
-                     const legacyTrans = JSON.parse(localStorage.getItem('transactions') || '[]');
-                     const filteredLegacy = legacyTrans.filter(t => t.workType === currentJob.id);
-                     if (filteredLegacy.length > 0) rawData = filteredLegacy;
-                 } catch (e) { console.error(e); }
+                 const legacyTrans = JSON.parse(localStorage.getItem('transactions') || '[]');
+                 const filteredLegacy = legacyTrans.filter(t => t.workType === currentJob.id);
+                 if (filteredLegacy.length > 0) rawData = filteredLegacy;
             }
 
             currentReportData = rawData;
-            filterReport();
+            
+            // Render all data initially (or you could limit to recent 100)
+            renderReportTable(currentReportData);
+            updateReportStats(currentReportData);
         }
 
         // Alias for compatibility with deleteTransaction
         function filterReportByDuration() {
-            filterReport();
+            // Just re-render current data
+            renderReportTable(currentReportData);
+            updateReportStats(currentReportData);
         }
 
         function filterReport() {
-            const searchText = document.getElementById('reportSearchText').value.toLowerCase();
-            const startDate = document.getElementById('reportStartDate').value;
-            const endDate = document.getElementById('reportEndDate').value;
+           // Deprecated/Removed function, kept empty to prevent crashes if called
+           renderReportTable(currentReportData);
+           updateReportStats(currentReportData);
+        }
+
+        function clearReportFilters() {
+            // Deprecated function
+             renderReportTable(currentReportData);
+             updateReportStats(currentReportData);
+        }
+
+        // Table Filtering Functions
+        function applyTableFilter() {
+            const searchText = document.getElementById('tableFilterSearch').value.toLowerCase();
+            const startDate = document.getElementById('tableFilterStart').value;
+            const endDate = document.getElementById('tableFilterEnd').value;
 
             let filtered = currentReportData.filter(item => {
-                const dateMatch = (!startDate || item.date >= startDate) && (!endDate || item.date <= endDate);
+                // Ensure date format compatibility (YYYY-MM-DD vs YYYY/MM/DD)
+                const itemDate = item.date.replace(/\//g, '-');
+                
+                const dateMatch = (!startDate || itemDate >= startDate) && (!endDate || itemDate <= endDate);
                 const textMatch = !searchText || 
                                   (item.detail && item.detail.toLowerCase().includes(searchText)) ||
                                   (item.category && item.category.toLowerCase().includes(searchText)) ||
@@ -3021,11 +3053,11 @@
             updateReportStats(filtered);
         }
 
-        function clearReportFilters() {
-            document.getElementById('reportSearchText').value = '';
-            document.getElementById('reportStartDate').value = '';
-            document.getElementById('reportEndDate').value = '';
-            filterReport();
+        function clearTableFilters() {
+            document.getElementById('tableFilterSearch').value = '';
+            document.getElementById('tableFilterStart').value = '';
+            document.getElementById('tableFilterEnd').value = '';
+            applyTableFilter();
         }
 
         function renderReportTable(data) {
@@ -3168,12 +3200,7 @@
                 } else {
                     if (document.getElementById('dashboardBtn')) document.getElementById('dashboardBtn').style.display = 'inline-flex';
                     if (allowedReportIds.includes(currentJob.id) || isSaudiSub) {
-                        const btn = document.getElementById('reportNavBtn');
-                        if (btn) {
-                            btn.style.display = 'inline-flex';
-                            // Ensure onclick is bound
-                            btn.onclick = openReport;
-                        }
+                        if (document.getElementById('reportNavBtn')) document.getElementById('reportNavBtn').style.display = 'inline-flex';
                     } else {
                         if (document.getElementById('reportNavBtn')) document.getElementById('reportNavBtn').style.display = 'none';
                     }
@@ -4575,6 +4602,150 @@
              }
         }, 500);
 
+    </script>
+    <script>
+        // --- NEW: Report Download System ---
+        function toggleReportInputs() {
+            const type = document.getElementById('reportType').value;
+            document.getElementById('dateInputGroup').style.display = 'none';
+            document.getElementById('monthInputGroup').style.display = 'none';
+            document.getElementById('yearInputGroup').style.display = 'none';
+
+            if (type === 'daily' || type === 'custom') {
+                document.getElementById('dateInputGroup').style.display = 'block';
+            } else if (type === 'monthly') {
+                document.getElementById('monthInputGroup').style.display = 'block';
+            } else if (type === 'yearly') {
+                document.getElementById('yearInputGroup').style.display = 'block';
+            }
+        }
+
+        function downloadReport() {
+            const type = document.getElementById('reportType').value;
+            let filteredData = [];
+            let reportTitle = "";
+            
+            // Get data from localStorage
+            let historyKey = 'history_' + currentJob.id;
+            let rawData = JSON.parse(localStorage.getItem(historyKey) || '[]');
+
+            if (type === 'daily') {
+                const date = document.getElementById('reportDateInput').value;
+                if (!date) return showToast('error', 'نیټه وټاکئ');
+                filteredData = rawData.filter(item => item.date.replace(/\//g, '-') === date);
+                reportTitle = `ورځنی راپور - ${date}`;
+            } else if (type === 'monthly') {
+                const month = document.getElementById('reportMonthInput').value; // YYYY-MM
+                if (!month) return showToast('error', 'میاشت وټاکئ');
+                filteredData = rawData.filter(item => item.date.startsWith(month.replace('-', '/')));
+                reportTitle = `میاشتنی راپور - ${month}`;
+            } else if (type === 'yearly') {
+                const year = document.getElementById('reportYearInput').value;
+                if (!year) return showToast('error', 'کال وټاکئ');
+                filteredData = rawData.filter(item => item.date.startsWith(year));
+                reportTitle = `کلنی راپور - ${year}`;
+            } else {
+                // Custom or other logic if needed
+                 const date = document.getElementById('reportDateInput').value;
+                if (!date) return showToast('error', 'نیټه وټاکئ');
+                filteredData = rawData.filter(item => item.date.replace(/\//g, '-') === date);
+                reportTitle = `راپور - ${date}`;
+            }
+
+            if (filteredData.length === 0) {
+                return showToast('warning', 'هیڅ معلومات نشته', 'د ټاکل شوې نیټې لپاره معلومات پیدا نشول');
+            }
+
+            // Generate HTML for Print
+            let printWindow = window.open('', '_blank');
+            
+            let tableRows = filteredData.map(item => `
+                <tr>
+                    <td>${item.date}</td>
+                    <td>${parseFloat(item.income || 0).toLocaleString()}</td>
+                    <td>${parseFloat(item.expense || 0).toLocaleString()}</td>
+                    <td>${parseFloat(item.sentToHome || item.sentToHomeMobile || 0).toLocaleString()}</td>
+                    <td>${parseFloat(item.driverSalary || 0).toLocaleString()}</td>
+                    <td>${item.detail || '-'}</td>
+                    <td>${item.note || '-'}</td>
+                </tr>
+            `).join('');
+
+            let totalIncome = filteredData.reduce((sum, item) => sum + parseFloat(item.income || 0), 0);
+            let totalExpense = filteredData.reduce((sum, item) => sum + parseFloat(item.expense || 0), 0);
+            let totalSentHome = filteredData.reduce((sum, item) => sum + parseFloat(item.sentToHome || item.sentToHomeMobile || 0), 0);
+            let totalDriverSalary = filteredData.reduce((sum, item) => sum + parseFloat(item.driverSalary || 0), 0);
+            let netBalance = totalIncome - totalExpense;
+
+            printWindow.document.write(`
+                <html dir="rtl">
+                <head>
+                    <title>${reportTitle}</title>
+                    <style>
+                        body { font-family: system-ui, sans-serif; padding: 20px; direction: rtl; }
+                        h1 { text-align: center; color: #333; }
+                        .summary { display: flex; gap: 20px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;}
+                        .card { background: #f3f4f6; padding: 15px; border-radius: 8px; border: 1px solid #ddd; min-width: 120px; text-align: center; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 12px; }
+                        th, td { border: 1px solid #ddd; padding: 8px; text-align: right; }
+                        th { background-color: #f3f4f6; font-weight: bold; }
+                        @media print {
+                            .no-print { display: none; }
+                            th { background-color: #eee !important; -webkit-print-color-adjust: exact; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>${currentJob.name} - ${reportTitle}</h1>
+                    
+                    <div class="summary">
+                        <div class="card">
+                            <div style="font-size:12px; color:#666;">ټول عاید</div>
+                            <div style="font-size:16px; font-weight:bold; color:green;">${totalIncome.toLocaleString()}</div>
+                        </div>
+                        <div class="card">
+                            <div style="font-size:12px; color:#666;">ټول مصارف</div>
+                            <div style="font-size:16px; font-weight:bold; color:red;">${totalExpense.toLocaleString()}</div>
+                        </div>
+                         <div class="card">
+                            <div style="font-size:12px; color:#666;">خالص</div>
+                            <div style="font-size:16px; font-weight:bold; color:blue;">${netBalance.toLocaleString()}</div>
+                        </div>
+                         <div class="card">
+                            <div style="font-size:12px; color:#666;">کورته لېږل شوی</div>
+                            <div style="font-size:16px; font-weight:bold; color:orange;">${totalSentHome.toLocaleString()}</div>
+                        </div>
+                         <div class="card">
+                            <div style="font-size:12px; color:#666;">ډرېور تنخوا</div>
+                            <div style="font-size:16px; font-weight:bold; color:purple;">${totalDriverSalary.toLocaleString()}</div>
+                        </div>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>نېټه</th>
+                                <th>عاید</th>
+                                <th>مصارف</th>
+                                <th>کورته لېږل شوی</th>
+                                <th>ډرېور تنخوا</th>
+                                <th>تفصیل</th>
+                                <th>یاداښت</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${tableRows}
+                        </tbody>
+                    </table>
+                    
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button class="no-print" onclick="window.print()" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">چاپ / PDF ډاونلوډ</button>
+                    </div>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+        }
     </script>
 </body>
 </html>
