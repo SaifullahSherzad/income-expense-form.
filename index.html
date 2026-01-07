@@ -23,6 +23,7 @@
 
     <!-- Chart.js Library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- QR Library -->
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
@@ -2365,6 +2366,12 @@
                 </div>      
               </div>  
                         
+                <!-- Added Detail Field for Joint Home Expenses -->
+                <div class="input-group full-width" id="homeJointDetailGroup" style="display: none;">
+                    <label for="detailHomeJoint">📝 تفصیل</label>
+                    <textarea id="detailHomeJoint" name="detailHomeJoint" placeholder="د مصرف تفصیل ولیکئ..." rows="2"></textarea>
+                </div>
+
                 <div class="input-group full-width" id="imageGroup">
                     <label>📷 د بیل/فاتورې عکس (اختیاري)</label>
                     <!-- Main Container Box -->
@@ -3743,35 +3750,38 @@
                     document.getElementById('currency').disabled = false;
                 }
 
-                // Show/Hide specific fields for Saudi/Brooklyn
-                const isSaudiOrBrooklyn = (currentJob.id === 'saudi' || currentJob.id.startsWith('saudi_') || currentJob.id === 'boklyn');
-                const isMobile = (currentJob.id === 'mobile');
+            // Reset visibility for ALL special groups first
+            const specialGroups = [
+                'incomeGroup', 'sentToHomeGroup', 'driverSalaryGroup', 
+                'detailSaudiGroup', 'noteSaudiGroup', 
+                'sentToHomeMobileGroup', 'shopRentGroup', 
+                'detailMobileGroup', 'noteMobileGroup',
+                'homeJointDetailGroup'
+            ];
+            specialGroups.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = 'none';
+            });
 
-                if (isSaudiOrBrooklyn) {
-                    document.getElementById('sentToHomeGroup').style.display = 'block';
-                    document.getElementById('driverSalaryGroup').style.display = 'block';
-                    document.getElementById('detailSaudiGroup').style.display = 'block';
-                    document.getElementById('noteSaudiGroup').style.display = 'block';
-                    document.getElementById('incomeGroup').style.display = 'block';
-                } else {
-                    document.getElementById('sentToHomeGroup').style.display = 'none';
-                    document.getElementById('driverSalaryGroup').style.display = 'none';
-                    document.getElementById('detailSaudiGroup').style.display = 'none';
-                    document.getElementById('noteSaudiGroup').style.display = 'none';
-                }
+            const isSaudi = currentJob.id === 'saudi_12module' || currentJob.id === 'saudi_14module';
+            const isMobile = currentJob.id === 'mobile';
+            const isHomeJoint = currentJob.id === 'home_joint';
 
-                if (isMobile) {
-                    document.getElementById('sentToHomeMobileGroup').style.display = 'block';
-                    document.getElementById('detailMobileGroup').style.display = 'block';
-                    document.getElementById('noteMobileGroup').style.display = 'block';
-                    document.getElementById('shopRentGroup').style.display = 'block';
-                    document.getElementById('incomeGroup').style.display = 'block';
-                } else {
-                    document.getElementById('sentToHomeMobileGroup').style.display = 'none';
-                    document.getElementById('detailMobileGroup').style.display = 'none';
-                    document.getElementById('noteMobileGroup').style.display = 'none';
-                    document.getElementById('shopRentGroup').style.display = 'none';
-                }
+            // Show groups based on account type
+            if (isSaudi) {
+                ['incomeGroup', 'sentToHomeGroup', 'driverSalaryGroup', 'detailSaudiGroup', 'noteSaudiGroup'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = 'block';
+                });
+            } else if (isMobile) {
+                ['incomeGroup', 'sentToHomeMobileGroup', 'shopRentGroup', 'detailMobileGroup', 'noteMobileGroup'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = 'block';
+                });
+            } else if (isHomeJoint) {
+                const el = document.getElementById('homeJointDetailGroup');
+                if (el) el.style.display = 'block';
+            }
 
                 if (currentJob.image) {
                     document.getElementById('currentJobIcon').innerHTML = `<img src="${currentJob.image}" alt="${currentJob.name}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.3);">`;
@@ -3929,8 +3939,8 @@
             const expense = document.getElementById('expense').value;
             
             // Get values for all possible fields
-            const detail = document.getElementById('detailSaudi')?.value || document.getElementById('detailMobile')?.value || '';
-            const note = document.getElementById('noteSaudi')?.value || document.getElementById('noteMobile')?.value || '';
+            const detail = document.getElementById('detail')?.value || document.getElementById('detailSaudi')?.value || document.getElementById('detailMobile')?.value || document.getElementById('detailHomeJoint')?.value || '';
+            const note = document.getElementById('note')?.value || document.getElementById('noteSaudi')?.value || document.getElementById('noteMobile')?.value || '';
             const category = document.getElementById('category')?.value || '';
             const currency = document.getElementById('currency')?.value || 'AFN';
             const sentToHome = document.getElementById('sentToHome')?.value || '';
@@ -3993,7 +4003,8 @@
                 actualPayment: document.getElementById('actualPayment')?.value || '',
                 difference: document.getElementById('difference')?.value || '',
                 status: document.getElementById('status')?.value || '',
-                remainingCash: document.getElementById('remainingCash')?.value || ''
+                remainingCash: document.getElementById('remainingCash')?.value || '',
+                id: currentJob.id
             };
 
             console.log("Opening Modal with data:", formDataToSubmit);
@@ -4044,6 +4055,10 @@
                 
                 if (formDataToSubmit.expense && parseFloat(formDataToSubmit.expense) > 0) {
                     summaryHtml += `<p style="color: #f87171;"><strong>💸 مصرف (خرڅه):</strong> ${formDataToSubmit.expense}</p>`;
+                }
+
+                if (formDataToSubmit.id === 'home_joint' && formDataToSubmit.detail) {
+                    summaryHtml += `<p><strong>📝 تفصیل:</strong> ${formDataToSubmit.detail}</p>`;
                 }
 
                 if (formDataToSubmit.sentToHome && parseFloat(formDataToSubmit.sentToHome) > 0) {
@@ -4322,25 +4337,32 @@
         }
 
         function showToast(type, title, desc = '') {
-            const toast = document.getElementById('toast');
-            if (toast) {
-                const toastTitle = document.getElementById('toastTitle');
-                const toastDescription = document.getElementById('toastDescription');
-                
-                if(toastTitle) toastTitle.textContent = title;
-                if(toastDescription) toastDescription.textContent = desc;
-                
-                // Success/Error Border Colors
-                if (type === 'success') toast.style.borderRight = '8px solid #10b981';
-                else if (type === 'error') toast.style.borderRight = '8px solid #ef4444';
-                else toast.style.borderRight = '8px solid #fbbf24';
-                
-                toast.classList.add('show');
-                
-                if (window.toastTimeout) clearTimeout(window.toastTimeout);
-                window.toastTimeout = setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 4000);
+            console.log(`Toasting: ${type} - ${title}`);
+            
+            // 1. Try Custom Toast
+            const t = document.getElementById('toast');
+            if(t) {
+                document.getElementById('toastTitle').textContent = title;
+                document.getElementById('toastDescription').textContent = desc;
+                t.style.borderRight = type === 'success' ? '8px solid #10b981' : '#ef4444';
+                t.classList.add('show');
+                setTimeout(() => t.classList.remove('show'), 4000);
+            }
+
+            // 2. SweetAlert (Robust alternative)
+            if(typeof Swal !== 'undefined') {
+                Swal.fire({
+                    toast: true,
+                    position: 'bottom-right',
+                    icon: type === 'error' ? 'error' : 'success',
+                    title: title,
+                    text: desc,
+                    showConfirmButton: false,
+                    timer: 4000,
+                    timerProgressBar: true,
+                    background: '#1e1b4b',
+                    color: '#fff'
+                });
             } else {
                 alert(title + "\n" + desc);
             }
