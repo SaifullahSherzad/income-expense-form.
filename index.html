@@ -2760,7 +2760,7 @@
                                         </div>
 
                                         <script>
-                                                const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzAokbEV6xxLso1f-92t8BZ3hnT8_3bDJenVB9QElwElQBgttsh5H7cSLW2gWFC5i_kGw/exec';
+                                                const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxUgijxJUusdYz6gBc1Cxo0VxO2Kzalg77G_fpEndycuYmzguf72zceS0pN4T_ZF7Whpw/exec';
                                                 // Note: DRIVE_FOLDER_URL is usually handled by the Google Script, not frontend directly unless using Google Picker API,
                                                 // but keeping it here as it was in the original code.
                                                 const DRIVE_FOLDER_URL = 'https://drive.google.com/drive/folders/1I5FZzH-exwNCoFTMsfMnjS31ep8MX8RX';
@@ -6235,81 +6235,6 @@
                                                         });
                                                 };
                                         </script>
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzAokbEV6xxLso1f-92t8BZ3hnT8_3bDJenVB9QElwElQBgttsh5H7cSLW2gWFC5i_kGw/exec';
-
-async function submitToGoogleSheet(formData, accountType) {
-    try {
-        const params = new URLSearchParams();
-        
-        // د فارم ډیټا تنظیمول
-        if (accountType === '3125' || accountType === '6437' || accountType === 'buchlin') {
-            params.append('account_type', accountType);
-            params.append('date_time', document.getElementById('date').value);
-            params.append('income', document.getElementById('income').value);
-            params.append('expenses', document.getElementById('expense').value);
-            params.append('driver_salary', document.getElementById('driverSalary').value);
-            params.append('sent_home', document.getElementById('sentToHome').value);
-            params.append('description', document.getElementById('detailSaudi').value);
-            params.append('note', document.getElementById('noteSaudi').value);
-        } else if (accountType === 'mobile') {
-            params.append('account_type', 'mobile');
-            params.append('date_time', document.getElementById('date').value);
-            params.append('income', document.getElementById('income').value);
-            params.append('expenses', document.getElementById('expense').value);
-            params.append('driver_salary', document.getElementById('shopRent').value); // Shop Rent mapped to driver_salary for consistency
-            params.append('sent_home', document.getElementById('sentToHomeMobile').value);
-            params.append('description', document.getElementById('detailMobile').value);
-            params.append('note', document.getElementById('noteMobile').value);
-        }
-
-        // د انځور لینک (که شتون ولري)
-        const previewImg = document.getElementById('previewImg');
-        if (previewImg && previewImg.src && !previewImg.src.startsWith('data:')) {
-            params.append('bill_link', previewImg.src);
-        }
-
-        const response = await fetch(WEB_APP_URL, {
-            method: 'POST',
-            mode: 'no-cors', // د CORS ستونزې د مخنیوي لپاره
-            body: params
-        });
-
-        // څرنګه چې no-cors کاروو، نو ځواب په مستقیم ډول نه شو لوستلی
-        // خو موږ کولای شو د بریالیتوب پیغام وښیو
-        Swal.fire({
-            icon: 'success',
-            title: 'بشپړ شو!',
-            text: 'معلومات ګوګل شیټ ته واستول شول.',
-            timer: 2000
-        });
-        
-        return true;
-    } catch (error) {
-        console.error('Error:', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'تېروتنه!',
-            text: 'د معلوماتو په لېږلو کې ستونزه راغله.'
-        });
-        return false;
-    }
-}
-
-// د فارم د سبمیټ پر مهال دا فنکشن کال کړئ
-document.getElementById('trailerForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // د اوسني اکاونټ ډول معلومول (دا باید ستاسو په اصلي کوډ کې د جاب سلیکشن پر بنسټ وي)
-    const currentJob = document.getElementById('currentJobName').innerText;
-    let accountType = '';
-    
-    if (currentJob.includes('3125')) accountType = '3125';
-    else if (currentJob.includes('6437')) accountType = '6437';
-    else if (currentJob.includes('بوکلین')) accountType = 'buchlin';
-    else if (currentJob.includes('موبایل')) accountType = 'mobile';
-    
-    submitToGoogleSheet(null, accountType);
-});
 </body>
 
 </html>
