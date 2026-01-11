@@ -51,9 +51,10 @@
                         align-items: flex-start;
                         justify-content: center;
                         padding: 0;
-                        position: relative;
-                        min-height: 100vh;
-                        overflow: auto;
+                        position: fixed;
+                        width: 100%;
+                        height: 100%;
+                        overflow: hidden;
                 }
 
                 @media (min-width: 768px) {
@@ -279,15 +280,18 @@
                         z-index: 10;
                         animation: slideInDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
                         position: relative;
-                        max-height: calc(100vh - 10px);
+                        height: 100%;
+                        max-height: 100%;
                         overflow-y: auto;
                         overflow-x: hidden;
+                        -webkit-overflow-scrolling: touch;
                 }
 
                 @media (min-width: 768px) {
                         .container {
                                 padding: 10px 16px 16px 16px;
-                                max-height: calc(100vh - 10px);
+                                height: 100%;
+                                max-height: 100%;
                                 overflow-y: auto;
                                 overflow-x: hidden;
                         }
@@ -296,7 +300,8 @@
                 @media (min-width: 768px) and (max-height: 900px) {
                         .container {
                                 padding: 10px 16px 16px 16px;
-                                max-height: calc(100vh - 10px);
+                                height: 100%;
+                                max-height: 100%;
                                 overflow-y: auto;
                                 overflow-x: hidden;
                         }
@@ -1344,10 +1349,9 @@
                         padding: 20px 30px !important;
                         border-radius: 16px !important;
                         background: #1e1b4b !important;
-                        /* Deep Indigo */
                         border: 2px solid rgba(255, 255, 255, 0.2) !important;
                         color: white !important;
-                        z-index: 999999 !important;
+                        z-index: 2147483647 !important;
                         opacity: 0 !important;
                         visibility: hidden !important;
                         transform: translateY(20px) !important;
@@ -1355,7 +1359,7 @@
                         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
                         direction: rtl !important;
                         min-width: 320px !important;
-                        pointer-events: auto !important;
+                        pointer-events: none !important;
                         display: block !important;
                 }
 
@@ -2093,9 +2097,14 @@
 
                         <div class="job-header" style="flex-direction: row; margin-bottom: 25px; gap: 20px; flex-shrink: 0; align-items: center; padding-top: 20px;">
                                 <div class="logo" style="width: 100px; height: 100px; font-size: 40px; border-radius: 20px; border: 2px solid rgba(255,255,255,0.1);"><img src="./logo.jpg" alt="Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 20px;"></div>
-                                <div style="text-align: right;">
+                                <div style="text-align: right; flex-grow: 1;">
                                         <h2 style="font-size: 28px; margin-bottom: 5px;">شېرزاد حسابونه</h2>
                                         <p class="job-header-subtitle" style="font-size: 16px;">عمومي مالي ډشبورډ</p>
+                                </div>
+                                <div style="display: flex; gap: 10px;">
+                                    <button onclick="updateGeneralDashboard()" style="width: 45px; height: 45px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'" title="تازه کول">
+                                        🔄
+                                    </button>
                                 </div>
                         </div>
 
@@ -2400,7 +2409,7 @@
                                         </div>
                                 </div>
                                 <div style="display: flex; gap: 8px;">
-                                        <button type="button" id="editBalanceBtn" class="balance-edit-btn" onclick="editBalance()" style="width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; cursor: pointer; font-size: 20px;">✏️</button>
+                                        <button type="button" id="refreshBalanceBtn" class="balance-edit-btn" onclick="fetchHomeData()" style="width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; cursor: pointer; font-size: 20px;">🔄</button>
                                 </div>
                         </div>
 
@@ -2751,7 +2760,7 @@
                                         </div>
 
                                         <script>
-                                                const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzAokbEV6xxLso1f-92t8BZ3hnT8_3bDJenVB9QElwElQBgttsh5H7cSLW2gWFC5i_kGw/exec';
+                                                const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxUgijxJUusdYz6gBc1Cxo0VxO2Kzalg77G_fpEndycuYmzguf72zceS0pN4T_ZF7Whpw/exec';
                                                 // Note: DRIVE_FOLDER_URL is usually handled by the Google Script, not frontend directly unless using Google Picker API,
                                                 // but keeping it here as it was in the original code.
                                                 const DRIVE_FOLDER_URL = 'https://drive.google.com/drive/folders/1I5FZzH-exwNCoFTMsfMnjS31ep8MX8RX';
@@ -4454,11 +4463,20 @@
                                                         console.log(`Toasting: ${type} - ${title}`);
 
                                                         // 1. Try Custom Toast
-                                                        const t = document.getElementById('toast');
+                                                        let t = document.getElementById('toast');
                                                         if (t) {
+                                                                // Move to body immediately if not already there
+                                                                if (t.parentNode !== document.body) {
+                                                                    document.body.appendChild(t);
+                                                                }
+                                                                
                                                                 document.getElementById('toastTitle').textContent = title;
                                                                 document.getElementById('toastDescription').textContent = desc;
-                                                                t.style.borderRight = type === 'success' ? '8px solid #10b981' : '#ef4444';
+                                                                t.style.borderRight = type === 'success' ? '8px solid #10b981' : '8px solid #ef4444';
+                                                                
+                                                                // Force z-index again just in case
+                                                                t.style.zIndex = '2147483647';
+                                                                
                                                                 t.classList.add('show');
                                                                 setTimeout(() => t.classList.remove('show'), 4000);
                                                         }
@@ -4475,7 +4493,16 @@
                                                                         timer: 4000,
                                                                         timerProgressBar: true,
                                                                         background: '#1e1b4b',
-                                                                        color: '#fff'
+                                                                        color: '#fff',
+                                                                        customClass: {
+                                                                                container: 'swal2-top-layer'
+                                                                        },
+                                                                        didOpen: (toast) => {
+                                                                                toast.style.zIndex = '2147483647';
+                                                                                // Ensure swal container is also at top
+                                                                                const container = document.querySelector('.swal2-container');
+                                                                                if (container) container.style.zIndex = '2147483647';
+                                                                        }
                                                                 });
                                                         } else {
                                                                 alert(title + "\n" + desc);
@@ -5212,70 +5239,45 @@
 
 
                                                 // OVERRIDE: Update General Dashboard to use Debt Data
-                                                function updateGeneralDashboard() {
-                                                        // 1. Calculate Account Balances
-                                                        const accounts = [
-                                                                { id: 'boklyn', type: 'afn' },
-                                                                { id: 'mobile', type: 'afn' },
-                                                                { id: 'saudi_12module', type: 'sar' }, // SAR
-                                                                { id: 'saudi_14module', type: 'sar' } // SAR
-                                                        ];
+                                                async function updateGeneralDashboard() {
+                                                        const refreshBtn = event?.currentTarget;
+                                                        if (refreshBtn) {
+                                                            refreshBtn.style.animation = 'spin 1s linear infinite';
+                                                            refreshBtn.disabled = true;
+                                                        }
 
-                                                        let totalCashAFN = 0;
-                                                        let boklynTotal = 0;
-                                                        let mobileTotal = 0;
-                                                        let saudiTotals = [];
-
-                                                        // Helper to get balance
-                                                        const getBal = (id) => {
-                                                                const stats = JSON.parse(localStorage.getItem('stats_' + id) || '{"income": 0, "expense": 0}');
-                                                                return parseFloat(stats.income) - parseFloat(stats.expense);
-                                                        };
-
-                                                        // Boklyn
-                                                        boklynTotal = getBal('boklyn');
-                                                        totalCashAFN += boklynTotal;
-
-                                                        // Mobile
-                                                        mobileTotal = getBal('mobile');
-                                                        totalCashAFN += mobileTotal;
-
-                                                        // Saudi Accounts
-                                                        const SAR_TO_AFN = 18.5;
-                                                        let totalSaudiSAR = 0;
-
-                                                        SAUDI_SUB_ACCOUNTS.forEach(acc => {
-                                                                const bal = getBal(acc.id);
-                                                                saudiTotals.push({ name: acc.name, balance: bal, icon: acc.icon });
-                                                                totalSaudiSAR += bal;
-                                                        });
-
-                                                        const saudiInAFN = totalSaudiSAR * SAR_TO_AFN;
-
-                                                        // 3. Total Worth Calculation
-                                                        const totalCashCombined = totalCashAFN + saudiInAFN;
-                                                        const totalWorth = totalCashCombined;
-
-                                                        // 4. Update UI
-                                                        document.getElementById('dashTotalWorth').textContent = totalWorth.toLocaleString();
-                                                        document.getElementById('dashTotalCash').textContent = totalCashCombined.toLocaleString();
-                                                        if (document.getElementById('dashLiability')) document.getElementById('dashLiability').textContent = "0";
-                                                        if (document.getElementById('dashReceivable')) document.getElementById('dashReceivable').textContent = "0";
-
-
-                                                        // New Dashboard Stats Update (Placeholders)
-                                                        if (document.getElementById('dashTotalWorth')) document.getElementById('dashTotalWorth').textContent = (totalWorth || 0).toLocaleString();
-                                                        if (document.getElementById('dashNetProfit')) document.getElementById('dashNetProfit').textContent = "0";
-                                                        if (document.getElementById('dashTotalCash')) document.getElementById('dashTotalCash').textContent = (totalCashCombined || 0).toLocaleString();
-                                                        if (document.getElementById('dashCapitalInUse')) document.getElementById('dashCapitalInUse').textContent = "0";
-                                                        if (document.getElementById('dashInventory')) document.getElementById('dashInventory').textContent = (inventory || 0).toLocaleString();
-                                                        if (document.getElementById('dashZakat')) document.getElementById('dashZakat').textContent = Math.floor(zakat || 0).toLocaleString();
-                                                        if (document.getElementById('dashGrowth')) document.getElementById('dashGrowth').textContent = (growth || 0).toFixed(1);
-                                                        if (document.getElementById('dashOpExp')) document.getElementById('dashOpExp').textContent = (opExp || 0).toLocaleString();
-                                                        if (document.getElementById('dashCapExp')) document.getElementById('dashCapExp').textContent = (capExp || 0).toLocaleString();
-                                                        if (document.getElementById('dashTotalIncome')) document.getElementById('dashTotalIncome').textContent = "0";
-                                                        if (document.getElementById('dashPersonalExpense')) document.getElementById('dashPersonalExpense').textContent = "0";
-
+                                                        try {
+                                                            const url = new URL(GOOGLE_SHEETS_URL);
+                                                            url.searchParams.append('action', 'getGeneralDashboardData');
+                                                            
+                                                            const response = await fetch(url.toString());
+                                                            const data = await response.json();
+                                                            
+                                                            if (data) {
+                                                                // Update UI with data from Google Sheets
+                                                                if (document.getElementById('dashTotalWorth')) document.getElementById('dashTotalWorth').textContent = (data.totalWorth || 0).toLocaleString();
+                                                                if (document.getElementById('dashTotalCash')) document.getElementById('dashTotalCash').textContent = (data.totalCash || 0).toLocaleString();
+                                                                if (document.getElementById('dashTotalCapital')) document.getElementById('dashTotalCapital').textContent = (data.totalCapital || 0).toLocaleString();
+                                                                if (document.getElementById('dashTotalIncome')) document.getElementById('dashTotalIncome').textContent = (data.totalIncome || 0).toLocaleString();
+                                                                if (document.getElementById('dashNetProfit')) document.getElementById('dashNetProfit').textContent = (data.netProfit || 0).toLocaleString();
+                                                                if (document.getElementById('dashNetRemaining')) document.getElementById('dashNetRemaining').textContent = (data.netRemaining || 0).toLocaleString();
+                                                                if (document.getElementById('dashTotalExpense')) document.getElementById('dashTotalExpense').textContent = (data.totalExpense || 0).toLocaleString();
+                                                                if (document.getElementById('dashTotalHouseholdExpense')) document.getElementById('dashTotalHouseholdExpense').textContent = (data.totalHouseholdExpense || 0).toLocaleString();
+                                                                if (document.getElementById('dashTotalInvestment')) document.getElementById('dashTotalInvestment').textContent = (data.totalInvestment || 0).toLocaleString();
+                                                                if (document.getElementById('dashLoansToPeople')) document.getElementById('dashLoansToPeople').textContent = (data.loansToPeople || 0).toLocaleString();
+                                                                if (document.getElementById('dashLoansFromPeople')) document.getElementById('dashLoansFromPeople').textContent = (data.loansFromPeople || 0).toLocaleString();
+                                                                
+                                                                showToast('success', 'تازه شو', 'ډیټا له ګوګل شیټ څخه په بریالیتوب تازه شوه');
+                                                            }
+                                                        } catch (error) {
+                                                            console.error("Error refreshing dashboard:", error);
+                                                            showToast('error', 'تېروتنه', 'د ډیټا په تازه کولو کې ستونزه راغله');
+                                                        } finally {
+                                                            if (refreshBtn) {
+                                                                refreshBtn.style.animation = '';
+                                                                refreshBtn.disabled = false;
+                                                            }
+                                                        }
                                                 }
                                         </script>
                                         <script>
