@@ -2404,7 +2404,7 @@
                                 <div style="flex: 1;">
                                         <div class="balance-label" style="font-size: 14px; color: #94a3b8; margin-bottom: 4px;">موجوده ګډ بیلانس</div>
                                         <div class="balance-value" style="font-size: 24px; font-weight: 800; color: #c084fc;">
-                                                <span id="balanceValue">0</span>
+                                                <span id="balanceValue">-</span>
                                                 <span class="balance-currency">AFN</span>
                                         </div>
                                 </div>
@@ -2760,7 +2760,7 @@
                                         </div>
 
                                         <script>
-                                                const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbx6F7NYPBU4loQc4ZX2QVA-2ri4rGineBer8GgHGSJ41vXTlmQLjA_3OUIDRjFobnkThQ/exec';
+                                                const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxUgijxJUusdYz6gBc1Cxo0VxO2Kzalg77G_fpEndycuYmzguf72zceS0pN4T_ZF7Whpw/exec';
                                                 // Note: DRIVE_FOLDER_URL is usually handled by the Google Script, not frontend directly unless using Google Picker API,
                                                 // but keeping it here as it was in the original code.
                                                 const DRIVE_FOLDER_URL = 'https://drive.google.com/drive/folders/1I5FZzH-exwNCoFTMsfMnjS31ep8MX8RX';
@@ -4013,11 +4013,16 @@
                                                 }
 
                                                 function updateBalanceDisplay() {
-                                                        const bal = localStorage.getItem('home_shared_balance') || '25000';
-                                                        document.getElementById('balanceValue').textContent = parseInt(bal).toLocaleString();
+                                                        const bal = localStorage.getItem('home_shared_balance') || '-';
+                                                        const balValue = parseInt(bal);
+                                                        if (isNaN(balValue)) {
+                                                            document.getElementById('balanceValue').textContent = '-';
+                                                            return;
+                                                        }
+                                                        document.getElementById('balanceValue').textContent = balValue.toLocaleString();
 
                                                         // Changed from < 5000 to <= 5000 as per request "remains 5000"
-                                                        if (parseInt(bal) <= 5000) {
+                                                        if (balValue <= 5000) {
                                                                 showToast('warning', 'خبرتیا!', 'د کور ګډ بیلانس 5000 افغانی یا کم دی!');
                                                                 document.getElementById('balanceSection').style.border = '2px solid #ef4444';
                                                         } else {
@@ -4745,8 +4750,14 @@
                                                         if (document.getElementById('individualRight')) document.getElementById('individualRight').value = data.individualRight || '';
                                                         if (document.getElementById('actualPayment')) document.getElementById('actualPayment').value = data.actualPayment || '';
                                                         if (document.getElementById('difference')) document.getElementById('difference').value = data.difference || '';
-                                                        if (document.getElementById('status')) document.getElementById('status').value = data.status || '';
+                                                        if (document.getElementById('status')) {
+                                                            const statusValue = data.status !== undefined && data.status !== null ? String(data.status) : '';
+                                                            document.getElementById('status').value = statusValue;
+                                                        }
                                                         if (document.getElementById('remainingCash')) document.getElementById('remainingCash').value = data.remainingCash || '';
+                                                        
+                                                        // Update Joint Balance and Total
+                                                        if (document.getElementById('balanceValue')) document.getElementById('balanceValue').textContent = formatCurrency(data.balance || 0);
 
                                                     } catch (error) {
                                                         console.error("Error fetching Home stats:", error);
