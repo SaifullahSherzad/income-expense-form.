@@ -2502,63 +2502,44 @@
 					</div>
 				</div>
 				
-			<script>	
-                function openDashboard() {
-    // Close other screens first
-    const reportScreen = document.getElementById('reportScreen');
-    const debtScreen = document.getElementById('debtScreen');
-    const dashboardScreen = document.getElementById('dashboardScreen');
-    const opExpScreen = document.getElementById('opExpScreen');
-    const capExpScreen = document.getElementById('capExpScreen');
+				<!-- New Field 2: Driver Salary -->
+				<div class="input-group full-width" id="driverSalaryGroup" style="display: none;">
+					<label for="driverSalary" style="color: #34d399;">🚗 د ډرېور تنخوا</label>
+					<div style="display: flex; gap: 8px;">
+						<input type="number" id="driverSalary" name="driverSalary" min="0" placeholder="اندازه ولیکئ" style="flex: 1;">
+					</div>
+				</div>
 
-    if (reportScreen) {
-        reportScreen.classList.remove('active');
-        reportScreen.style.display = 'none';
-    }
-    if (debtScreen) {
-        debtScreen.classList.remove('active');
-        debtScreen.style.display = 'none';
-    }
-    if (opExpScreen) {
-        opExpScreen.classList.remove('active');
-        opExpScreen.style.display = 'none';
-    }
-    if (capExpScreen) {
-        capExpScreen.classList.remove('active');
-        capExpScreen.style.display = 'none';
-    }
+				<!-- Saudi/Brooklyn Detail & Note (Restored) -->
+				<div class="input-group full-width" id="detailSaudiGroup" style="display: none;">
+					<label for="detailSaudi">📝 تفصیل</label>
+					<textarea id="detailSaudi" name="detailSaudi" placeholder="تفصیل ولیکئ..." rows="2"></textarea>
+				</div>
+				<div class="input-group full-width" id="noteSaudiGroup" style="display: none;">
+					<label for="noteSaudi">📌 یاداښت</label>
+					<input type="text" id="noteSaudi" name="noteSaudi" placeholder="یاداښت ولیکئ...">
+				</div>
 
-    if (dashboardScreen) {
-        dashboardScreen.classList.add('active');
-        dashboardScreen.style.display = 'flex';
-    }
+				<!-- New Field 3: Sent to Home (Mobile) -->
+				<div class="input-group full-width" id="sentToHomeMobileGroup" style="display: none;">
+					<label for="sentToHomeMobile" style="color: #60a5fa;">🏠 کور ته ورکړل شوی خرڅه</label>
+					<div style="display: flex; gap: 8px;">
+						<input type="number" id="sentToHomeMobile" name="sentToHomeMobile" min="0" placeholder="اندازه ولیکئ" style="flex: 1;">
+					</div>
 
-    // *** NEW LOGIC: Check account type and call appropriate render function ***
-    if (currentJob && (currentJob.id === 'saudi' || currentJob.id.startsWith('saudi_') || currentJob.id === 'boklyn')) {
-        renderSaudiDashboard();
-    } else if (currentJob && currentJob.id === 'mobile') {
-        renderMobileDashboard();
-    } else if (currentJob && currentJob.id.startsWith('home_')) {
-        if (currentJob.id === 'home_joint') {
-            // Joint expenses form - already handled in original code
-            document.getElementById('dashboardTitle').textContent = 'مشترک لګښت';
-            document.getElementById('dashboardSubtitle').textContent = 'مهربانی وکړئ مشترک لګښت ولیکئ';
-            document.getElementById('jointExpensesContent').style.display = 'block';
-            document.getElementById('dashboardContent').style.display = 'none';
-            // Set default date
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('jointDate').value = today;
-        } else {
-            // Home account dashboard
-            renderHomeDashboard();
-        }
-    } else {
-        // Default general dashboard
-        renderGeneralDashboard();
-    }
-}
-				</script>
-			</div>
+				</div>
+				<!-- New Field 4: Shop Rent (Mobile) -->
+				<div class="input-group full-width" id="shopRentGroup" style="display: none;">
+					<label for="shopRent" style="color: #fbbf24;">🏪 دکان کرایه</label>
+					<div style="display: flex; gap: 8px;">
+						<input type="number" id="shopRent" name="shopRent" min="0" placeholder="اندازه ولیکئ" style="flex: 1;">
+					</div>
+
+					<!-- New Field 3.1: Details (Mobile) -->
+					<div class="input-group full-width" id="detailMobileGroup" style="display: none;">
+						<label for="detailMobile">📝 د کار تفصیل</label>
+						<textarea id="detailMobile" name="detailMobile" placeholder="د کار تفصیل ولیکئ..."></textarea>
+					</div>
 			
 					<!-- New Field 3.2: Note (Mobile) -->
 					<div class="input-group full-width" id="noteMobileGroup" style="display: none;">
@@ -5274,74 +5255,61 @@ function renderHomeDashboard() {
 							}
 						}
 
-						function openDashboard() {
-							// Close other screens first
-							const reportScreen = document.getElementById('reportScreen');
-							const debtScreen = document.getElementById('debtScreen');
-							const dashboardScreen = document.getElementById('dashboardScreen');
-							const opExpScreen = document.getElementById('opExpScreen');
-							const capExpScreen = document.getElementById('capExpScreen');
+function openDashboard() {
+    // Close other screens first
+    const reportScreen = document.getElementById('reportScreen');
+    const debtScreen = document.getElementById('debtScreen');
+    const dashboardScreen = document.getElementById('dashboardScreen');
+    const opExpScreen = document.getElementById('opExpScreen');
+    const capExpScreen = document.getElementById('capExpScreen');
 
-							if (reportScreen) {
-								reportScreen.classList.remove('active');
-								reportScreen.style.display = 'none';
-							}
-							if (debtScreen) {
-								debtScreen.classList.remove('active');
-								debtScreen.style.display = 'none';
-							}
-							if (opExpScreen) {
-								opExpScreen.classList.remove('active');
-								opExpScreen.style.display = 'none';
-							}
-							if (capExpScreen) {
-								capExpScreen.classList.remove('active');
-								capExpScreen.style.display = 'none';
-							}
+    if (reportScreen) {
+        reportScreen.classList.remove('active');
+        reportScreen.style.display = 'none';
+    }
+    if (debtScreen) {
+        debtScreen.classList.remove('active');
+        debtScreen.style.display = 'none';
+    }
+    if (opExpScreen) {
+        opExpScreen.classList.remove('active');
+        opExpScreen.style.display = 'none';
+    }
+    if (capExpScreen) {
+        capExpScreen.classList.remove('active');
+        capExpScreen.style.display = 'none';
+    }
 
-							if (dashboardScreen) {
-								dashboardScreen.classList.add('active');
-								dashboardScreen.style.display = 'flex';
-							}
+    if (dashboardScreen) {
+        dashboardScreen.classList.add('active');
+        dashboardScreen.style.display = 'flex';
+    }
 
-							// *** NEW: SAUDI DASHBOARD ***
-							if (currentJob && (currentJob.id === 'saudi' || currentJob.id.startsWith('saudi_') || currentJob.id === 'boklyn')) {
-								renderSaudiDashboard();
-								return;
-							}
+    // *** NEW LOGIC: Check account type and call appropriate render function ***
+    if (currentJob && (currentJob.id === 'saudi' || currentJob.id.startsWith('saudi_') || currentJob.id === 'boklyn')) {
+        renderSaudiDashboard();
+    } else if (currentJob && currentJob.id === 'mobile') {
+        renderMobileDashboard();
+    } else if (currentJob && currentJob.id.startsWith('home_')) {
+        if (currentJob.id === 'home_joint') {
+            // Joint expenses form - already handled in original code
+            document.getElementById('dashboardTitle').textContent = 'مشترک لګښت';
+            document.getElementById('dashboardSubtitle').textContent = 'مهربانی وکړئ مشترک لګښت ولیکئ';
+            document.getElementById('jointExpensesContent').style.display = 'block';
+            document.getElementById('dashboardContent').style.display = 'none';
+            // Set default date
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('jointDate').value = today;
+        } else {
+            // Home account dashboard
+            renderHomeDashboard();
+        }
+    } else {
+        // Default general dashboard
+        renderGeneralDashboard();
+    }
+}
 
-							// *** NEW: MOBILE DASHBOARD ***
-							if (currentJob && currentJob.id === 'mobile') {
-								renderMobileDashboard();
-								return;
-							}
-
-							// Home accounts dashboard removed
-							if (currentJob && currentJob.id.startsWith('home_')) {
-								return;
-							}
-
-							// Check if user is one of the specific Home accounts
-							const jointExpenseAccounts = ['home_lalak', 'home_saifullah', 'home_saeedullah', 'home_siddiqullah', 'home_adil'];
-							const isJointAccount = false;
-
-							if (isJointAccount) {
-								// Show Joint Expenses Form
-								document.getElementById('dashboardTitle').textContent = 'مشترک لګښت';
-								document.getElementById('dashboardSubtitle').textContent = 'مهربانی وکړئ مشترک لګښت ولیکئ';
-								document.getElementById('jointExpensesContent').style.display = 'block';
-								document.getElementById('dashboardContent').style.display = 'none';
-
-								// Set default date
-								const today = new Date().toISOString().split('T')[0];
-								document.getElementById('jointDate').value = today;
-
-								// Render list
-								// Removed
-							} else {
-								renderGeneralDashboard();
-							}
-						}
 
 
 						// --- Joint Expenses Logic ---
