@@ -2760,7 +2760,7 @@
 					</div>
 
 					<script>
-						const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxZLgXibHnD8JAe0RoR8dJ1GAuAhbjFrRdnwX-DB8In53RoRYa_JBenVTEkSfxyfwIO5Q/exec';
+						const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxUgijxJUusdYz6gBc1Cxo0VxO2Kzalg77G_fpEndycuYmzguf72zceS0pN4T_ZF7Whpw/exec';
 						// Note: DRIVE_FOLDER_URL is usually handled by the Google Script, not frontend directly unless using Google Picker API,
 						// but keeping it here as it was in the original code.
 						const DRIVE_FOLDER_URL = 'https://drive.google.com/drive/folders/1I5FZzH-exwNCoFTMsfMnjS31ep8MX8RX';
@@ -4310,6 +4310,29 @@ function renderHomeDashboard() {
 								showToast('success', '✓ بیلانس تازه شو');
 							}
 						}
+                      
+						  document.addEventListener('DOMContentLoaded', function() {
+  // د میاشتې بدلېدل
+  const monthSelect = document.getElementById('homeMonthSelect');
+  if(monthSelect) {
+    monthSelect.addEventListener('change', function() {
+      console.log("Month changed to:", this.value);
+      fetchHomeData();
+    });
+  }
+  
+  // د کورنیو اکاونټونو لپاره د بیلانس بټن چیک
+  const refreshBtn = document.getElementById('refreshBalanceBtn');
+  if(refreshBtn) {
+    refreshBtn.addEventListener('click', fetchHomeData);
+  }
+  
+  // د ډشبورډ د ریفرېش بټن اونر
+  const dashboardRefreshBtn = document.querySelector('#dashboardScreen .modal-header button[onclick*="updateGeneralDashboard"]');
+  if(dashboardRefreshBtn) {
+    dashboardRefreshBtn.addEventListener('click', updateGeneralDashboard);
+  }
+});
 
 						document.getElementById('passwordInput').addEventListener('keypress', e => {
 							if (e.key === 'Enter') checkPassword();
@@ -4540,21 +4563,89 @@ function renderHomeDashboard() {
 							document.getElementById('modalOverlay').classList.remove('active');
 						}
 
-						async function confirmSubmit() {
-							const btn = document.getElementById('confirmButton');
-							btn.disabled = true;
-							btn.textContent = '✓ ذخیره کیږی...';
-							try {
-								// Deduct Balance for Home Accounts
-								if (currentJob.id.startsWith('home_')) {
-									const exp = parseFloat(formDataToSubmit.expense || '0');
-									if (exp > 0) {
-										let bal = parseFloat(localStorage.getItem('home_shared_balance') || '0');
-										bal -= exp;
-										localStorage.setItem('home_shared_balance', bal);
-										updateBalanceDisplay();
-									}
-								}
+               async function confirmSubmit() {
+  const btn = document.getElementById('confirmButton');
+  btn.disabled = true;
+  btn.textContent = '✓ ذخیره کیږی...';
+  
+  try {
+    // د فارم ډیټا جوړول
+    const formData = new FormData();
+    
+    // اضافه کول: action پارامیټر
+    formData.append('action', 'saveStandardAccount');
+    formData.append('workType', currentJob.id);
+    formData.append('date', formDataToSubmit.date);
+    formData.append('income', formDataToSubmit.income || 0);
+    formData.append('expense', formDataToSubmit.expense || 0);
+    formData.append('detail', formDataToSubmit.detail || '');
+    formData.append('note', formDataToSubmit.note || '');
+    
+    // د سعودي/بوکلین/موبایل ځانګړي فیلډونه
+    if(formDataToSubmit.sentToHome) {
+      formData.append('sentToHome', formDataToSubmit.sentToHome);
+    }
+    if(formDataToSubmit.driverSalary) {
+      formData.append('driverSalary', formDataToSubmit.driverSalary);
+    }
+    if(formDataToSubmit.sentToHomeMobile) {
+      formData.append('sentToHomeMobile', formDataToSubmit.sentToHomeMobile);
+    }
+    if(formDataToSubmit.shopRent) {
+      formData.append('shopRent', formDataToSubmit.shopRent);
+    }
+    
+    // د عکس اضافول
+    if(compressedImageBlob) {
+      formData.append('imageData', await blobToBase64(compressedImageBlob));
+      formData.append('imageName', originalImageFile ? originalImageFile.name : 'image.jpg');
+      formData.append('imageMimeType', originalImageFile ? originalImageFile.type : 'image/jpeg');
+    }
+
+    const response = await fetch(GOOGLE_SHEETS_URL, {
+      method: 'POST',
+      body: formData
+    });
+
+    const result = await response.json();
+    
+    if(result.success) {
+      showToast('success', '✅ بریالی', result.message || 'معلومات ثبت شول');
+      
+      // د فارم پاکول
+      document.getElementById('trailerForm').reset();
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('date').value = today;
+      removeImage();
+      
+      // د کور شریک بیلانس تازه کول
+      if(currentJob.id.startsWith('home_') && !currentJob.id.includes('joint')) {
+        updateBalanceDisplay();
+      }
+    } else {
+      showToast('error', '❌ تېروتنه', result.message || 'ذخیره ناکامه شوه');
+    }
+    
+    closeModal();
+    
+  } catch (error) {
+    console.error('Submit error:', error);
+    showToast('error', '❌ ستونزه', 'د معلوماتو په لیږلو کې ستونزه راغله');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✓ معلومات تایید او ذخیره کړئ';
+  }
+}
+
+// د Blob څخه Base64 ته بدلولو فانکشن
+async function blobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
 
 								// *** NEW: Save to Local Storage for Dashboard & Report per Account ***
 								// 1. Save Transaction to History
@@ -5063,6 +5154,48 @@ function renderHomeDashboard() {
 							}
 						}
 
+						// د ګوګل شیټ څخه عمومي ډشبورډ ډیټا راوړل
+               async function fetchGeneralData() {
+  const loading = document.getElementById('generalLoading');
+  const content = document.getElementById('generalContent');
+  
+  if(loading) loading.style.display = 'flex';
+  if(content) content.style.display = 'none';
+  
+  try {
+    // Construct URL to fetch general stats
+    const url = new URL(GOOGLE_SHEETS_URL);
+    url.searchParams.append('action', 'getGeneralDashboardData');
+
+    const response = await fetch(url.toString());
+    const data = await response.json();
+
+    if(data.success) {
+      if(document.getElementById('dashTotalWorth')) document.getElementById('dashTotalWorth').textContent = Math.round(data.totalWorth || 0).toLocaleString();
+      if(document.getElementById('dashTotalCash')) document.getElementById('dashTotalCash').textContent = Math.round(data.totalCash || 0).toLocaleString();
+      if(document.getElementById('dashTotalCapital')) document.getElementById('dashTotalCapital').textContent = Math.round(data.totalCapital || 0).toLocaleString();
+      if(document.getElementById('dashTotalIncome')) document.getElementById('dashTotalIncome').textContent = Math.round(data.totalIncome || 0).toLocaleString();
+      if(document.getElementById('dashNetProfit')) document.getElementById('dashNetProfit').textContent = Math.round(data.netProfit || 0).toLocaleString();
+      if(document.getElementById('dashNetRemaining')) document.getElementById('dashNetRemaining').textContent = Math.round(data.netRemaining || 0).toLocaleString();
+      if(document.getElementById('dashTotalExpense')) document.getElementById('dashTotalExpense').textContent = Math.round(data.totalExpense || 0).toLocaleString();
+      if(document.getElementById('dashTotalHouseholdExpense')) document.getElementById('dashTotalHouseholdExpense').textContent = Math.round(data.totalHouseholdExpense || 0).toLocaleString();
+      if(document.getElementById('dashTotalInvestment')) document.getElementById('dashTotalInvestment').textContent = Math.round(data.totalInvestment || 0).toLocaleString();
+      if(document.getElementById('dashLoansToPeople')) document.getElementById('dashLoansToPeople').textContent = Math.round(data.receivables || 0).toLocaleString();
+      if(document.getElementById('dashLoansFromPeople')) document.getElementById('dashLoansFromPeople').textContent = Math.round(data.payables || 0).toLocaleString();
+      
+      showToast('success', '✅ تازه شو', 'ډیټا له ګوګل شیټ څخه په بریالیتوب تازه شوه');
+    } else {
+      showToast('error', '❌ تېروتنه', data.message || 'ډیټا ترلاسه نشوه');
+    }
+  } catch (error) {
+    console.error("Error refreshing dashboard:", error);
+    showToast('error', '❌ تېروتنه', 'د ډیټا په تازه کولو کې ستونزه راغله');
+  } finally {
+    if(loading) loading.style.display = 'none';
+    if(content) content.style.display = 'flex';
+  }
+}
+
 						async function fetchSaudiData() {
 							const loading = document.getElementById('saudiLoading');
 							const content = document.getElementById('saudiContent');
@@ -5520,20 +5653,18 @@ function openDashboard() {
 									if (document.getElementById('dashTotalHouseholdExpense')) document.getElementById('dashTotalHouseholdExpense').textContent = (data.totalHouseholdExpense || 0).toLocaleString();
 									if (document.getElementById('dashTotalInvestment')) document.getElementById('dashTotalInvestment').textContent = (data.totalInvestment || 0).toLocaleString();
 									if (document.getElementById('dashLoansToPeople')) document.getElementById('dashLoansToPeople').textContent = (data.loansToPeople || 0).toLocaleString();
-									if (document.getElementById('dashLoansFromPeople')) document.getElementById('dashLoansFromPeople').textContent = (data.loansFromPeople || 0).toLocaleString();
+								    if (document.getElementById('dashLoansFromPeople')) document.getElementById('dashLoansFromPeople').textContent = Math.round(data.payables || 0).toLocaleString();
 
-									showToast('success', 'تازه شو', 'ډیټا له ګوګل شیټ څخه په بریالیتوب تازه شوه');
-								}
-							} catch (error) {
-								console.error("Error refreshing dashboard:", error);
-								showToast('error', 'تېروتنه', 'د ډیټا په تازه کولو کې ستونزه راغله');
-							} finally {
-								if (refreshBtn) {
-									refreshBtn.style.animation = '';
-									refreshBtn.disabled = false;
-								}
-							}
-						}
+    showToast('success', '✅ تازه شو', 'ډیټا له ګوګل شیټ څخه په بریالیتوب تازه شوه');
+  } catch (error) {
+    showToast('error', '❌ تېروتنه', 'د ډیټا په تازه کولو کې ستونزه راغله');
+  } finally {
+    // سمدستي ډیټا راوړل
+    setTimeout(() => {
+      fetchGeneralData();
+    }, 100);
+  }
+}
 					</script>
 					<script>
 						// --- 1. PIE CHART LOGIC ---
