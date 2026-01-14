@@ -2760,7 +2760,7 @@
 					</div>
 
 					<script>
-						const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyGnMtVR0lgDbGC69PNjvygShOctv4NJfYBRtDBNJp5Yei2jiDWnJ7E8WJFngmEkHJBRA/exec';
+						const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxUgijxJUusdYz6gBc1Cxo0VxO2Kzalg77G_fpEndycuYmzguf72zceS0pN4T_ZF7Whpw/exec';
 						// Note: DRIVE_FOLDER_URL is usually handled by the Google Script, not frontend directly unless using Google Picker API,
 						// but keeping it here as it was in the original code.
 						const DRIVE_FOLDER_URL = 'https://drive.google.com/drive/folders/1I5FZzH-exwNCoFTMsfMnjS31ep8MX8RX';
@@ -2794,96 +2794,6 @@
 						let originalImageFile = null; // Store the original file
 						let compressedImageBlob = null; // Store the compressed blob
 
-function renderSaudiDashboard() {
-    const modal = document.querySelector('#dashboardScreen .modal');
-    const isBrooklyn = currentJob.id === 'boklyn';
-    const currencyLabel = isBrooklyn ? 'افغانۍ (AFN)' : 'ر.س (SAR)';
-
-    // Get current month index
-    const currentMonthIndex = new Date().getMonth();
-    const pashtoMonths = [
-        "جنوري", "فبروري", "مارچ", "اپریل", "می", "جون",
-        "جولای", "اگست", "سپتمبر", "اکتوبر", "نومبر", "دیسمبر"
-    ];
-
-    // Generate options
-    let optionsHtml = '';
-    pashtoMonths.forEach((m, index) => {
-        const selected = index === currentMonthIndex ? 'selected' : '';
-        optionsHtml += `<option value="${m}" ${selected}>${m}</option>`;
-    });
-
-    // Clear existing content and set new structure
-    modal.innerHTML = `
-        <div class="modal-header" style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
-            <div class="modal-icon" style="background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4);">📊</div>
-            <div>
-                <div class="modal-title">ډشبورډ</div>
-                <p class="modal-subtitle">مالي راپور او احصایه</p>
-            </div>
-            <button type="button" class="btn-close-fancy" onclick="closeDashboard()" style="position: absolute; top: 15px; left: 15px;">✕</button>
-        </div>
-
-        <div class="modal-body" style="flex: 1; overflow-y: auto; padding: 20px;">
-            <!-- Month Selector -->
-            <div style="margin-bottom: 20px; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
-                <label style="color: #94a3b8; font-size: 12px; display: block; margin-bottom: 8px;">د میاشتې انتخاب:</label>
-                <select id="saudiMonthSelect" onchange="fetchSaudiData()" style="width: 100%; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px; outline: none; font-family: inherit;">
-                    ${optionsHtml}
-                </select>
-            </div>
-
-            <div id="saudiLoading" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px;">
-                <div class="spinner"></div>
-                <p style="margin-top: 15px; color: #94a3b8;">له ګوګل شیټ معلومات راټولیږي...</p>
-            </div>
-
-            <div id="saudiContent" style="display: none; flex-direction: column; gap: 15px;">
-
-                <!-- 1. Monthly Total Revenue -->
-                <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 16px; padding: 20px; position: relative; overflow: hidden;">
-                    <div style="position: absolute; top: -10px; left: -10px; width: 60px; height: 60px; background: rgba(16, 185, 129, 0.2); border-radius: 50%; filter: blur(20px);"></div>
-                    <div style="font-size: 14px; color: #a7f3d0; margin-bottom: 5px;">میاشتنی ټول عاید</div>
-                    <div id="saudiRevenue" style="font-size: 28px; font-weight: 800; color: #34d399; text-shadow: 0 0 20px rgba(52, 211, 153, 0.3);">0</div>
-                    <div style="font-size: 12px; color: #6ee7b7; opacity: 0.8;">${currencyLabel}</div>
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <!-- 2. Sent Home -->
-                    <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 16px; padding: 15px;">
-                        <div style="font-size: 12px; color: #bfdbfe; margin-bottom: 5px;">کور ته لېږل شوي</div>
-                        <div id="saudiSentHome" style="font-size: 20px; font-weight: 700; color: #60a5fa;">0</div>
-                    </div>
-
-                    <!-- 3. Salaries -->
-                    <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 16px; padding: 15px;">
-                        <div style="font-size: 12px; color: #fde68a; margin-bottom: 5px;">ورکړل شوې تنخوا</div>
-                        <div id="saudiSalaries" style="font-size: 20px; font-weight: 700; color: #fbbf24;">0</div>
-                    </div>
-                </div>
-
-                <!-- 4. Expenses -->
-                <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 16px; padding: 20px;">
-                    <div style="font-size: 14px; color: #fca5a5; margin-bottom: 5px;">میاشتنی ټول لګښت</div>
-                    <div id="saudiExpenses" style="font-size: 24px; font-weight: 800; color: #f87171;">0</div>
-                </div>
-
-                <!-- 5. Net Profit -->
-                <div style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(124, 58, 237, 0.1)); border: 1px solid rgba(139, 92, 246, 0.5); border-radius: 16px; padding: 20px; text-align: center; box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);">
-                    <div style="font-size: 16px; color: #e9d5ff; margin-bottom: 8px; font-weight: bold;">✨ میاشتنئ خالصه ګټه</div>
-                    <div id="saudiNetProfit" style="font-size: 32px; font-weight: 900; color: #c084fc; text-shadow: 0 0 30px rgba(192, 132, 252, 0.5);">0</div>
-                    <div style="font-size: 12px; color: #d8b4fe;">${currencyLabel}</div>
-                </div>
-
-                <div style="margin-top: 10px; text-align: center;">
-                     <button onclick="fetchSaudiData()" class="btn-secondary" style="font-size: 12px; padding: 8px 16px;">🔄 معلومات تازه کړئ</button>
-                </div>
-            </div>
-        </div>
-    `;
-
-    fetchSaudiData();
-}
 						
 						// Camera Variables
 						let videoStream = null;
@@ -2891,151 +2801,6 @@ function renderSaudiDashboard() {
 						let html5QrCode = null;
 
 						/* Currency Helper Functions */
-						function openOpExpScreen() {
-							document.getElementById('opExpScreen').classList.add('active');
-							renderExpList('opExp');
-						}
-
-						function closeOpExpScreen() {
-							document.getElementById('opExpScreen').classList.remove('active');
-						}
-
-						function openCapExpScreen() {
-							document.getElementById('capExpScreen').classList.add('active');
-							renderExpList('capExp');
-						}
-
-						function closeCapExpScreen() {
-							document.getElementById('capExpScreen').classList.remove('active');
-						}
-
-						function handleOpExpSubmit(e) {
-							e.preventDefault();
-							saveExp('opExp');
-						}
-
-						function handleCapExpSubmit(e) {
-							e.preventDefault();
-							saveExp('capExp');
-						}
-
-						function saveExp(type) {
-							const amount = document.getElementById(type + 'Amount').value;
-							const date = document.getElementById(type + 'Date').value;
-							const desc = document.getElementById(type + 'Desc').value;
-							if (!amount || !date || !desc) return;
-
-							const list = JSON.parse(localStorage.getItem(type + '_list') || '[]');
-							list.push({ amount, date, desc, timestamp: Date.now() });
-							localStorage.setItem(type + '_list', JSON.stringify(list));
-
-							document.getElementById(type + 'Amount').value = '';
-							document.getElementById(type + 'Desc').value = '';
-							renderExpList(type);
-							updateGeneralDashboard();
-							showToast('success', 'ریکارډ ذخیره شو');
-						}
-
-function renderMobileDashboard() {
-    const modal = document.querySelector('#dashboardScreen .modal');
-
-    // Get current month index
-    const currentMonthIndex = new Date().getMonth();
-    const pashtoMonths = [
-        "جنوري", "فبروري", "مارچ", "اپریل", "می", "جون",
-        "جولای", "اگست", "سپتمبر", "اکتوبر", "نومبر", "دیسمبر"
-    ];
-
-    // Generate options
-    let optionsHtml = '';
-    pashtoMonths.forEach((m, index) => {
-        const selected = index === currentMonthIndex ? 'selected' : '';
-        optionsHtml += `<option value="${m}" ${selected}>${m}</option>`;
-    });
-
-    // Clear existing content and set new structure
-    modal.innerHTML = `
-        <div class="modal-header" style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
-            <div class="modal-icon" style="background: linear-gradient(135deg, #3b82f6, #2563eb); box-shadow: 0 12px 30px rgba(59, 130, 241, 0.4);">📊</div>
-            <div>
-                <div class="modal-title">ډشبورډ</div>
-                <p class="modal-subtitle">د موبایل حساب مالي راپور</p>
-            </div>
-            <button type="button" class="btn-close-fancy" onclick="closeDashboard()" style="position: absolute; top: 15px; left: 15px;">✕</button>
-        </div>
-
-        <div class="modal-body" style="flex: 1; overflow-y: auto; padding: 20px;">
-            <!-- Month Selector -->
-            <div style="margin-bottom: 20px; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
-                <label style="color: #94a3b8; font-size: 12px; display: block; margin-bottom: 8px;">د میاشتې انتخاب:</label>
-                <select id="mobileMonthSelect" onchange="fetchMobileData()" style="width: 100%; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 8px; outline: none; font-family: inherit;">
-                    ${optionsHtml}
-                </select>
-            </div>
-
-            <div id="mobileLoading" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px;">
-                <div class="spinner"></div>
-                <p style="margin-top: 15px; color: #94a3b8;">له ګوګل شیټ معلومات راټولیږي...</p>
-            </div>
-
-            <div id="mobileContent" style="display: none; flex-direction: column; gap: 15px;">
-
-                <!-- 1. Monthly Total Income -->
-                <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 16px; padding: 20px;">
-                    <div style="font-size: 14px; color: #a7f3d0; margin-bottom: 5px;">میاشتنی ټول عاید</div>
-                    <div id="mobileRevenue" style="font-size: 28px; font-weight: 800; color: #34d399;">0</div>
-                    <div style="font-size: 12px; color: #6ee7b7; opacity: 0.8;">افغانۍ (AFN)</div>
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <!-- 2. Sent Home (Mobile) -->
-                    <div style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 16px; padding: 15px;">
-                        <div style="font-size: 12px; color: #bfdbfe; margin-bottom: 5px;">کور ته ورکړل شوی</div>
-                        <div id="mobileSentHome" style="font-size: 20px; font-weight: 700; color: #60a5fa;">0</div>
-                    </div>
-
-                    <!-- 3. Shop Rent -->
-                    <div style="background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 16px; padding: 15px;">
-                        <div style="font-size: 12px; color: #fde68a; margin-bottom: 5px;">دکان کرایه</div>
-                        <div id="mobileShopRent" style="font-size: 20px; font-weight: 700; color: #fbbf24;">0</div>
-                    </div>
-                </div>
-
-                <!-- 4. Monthly Total Expense -->
-                <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 16px; padding: 20px;">
-                    <div style="font-size: 14px; color: #fca5a5; margin-bottom: 5px;">میاشتنی ټول لګښت</div>
-                    <div id="mobileExpenses" style="font-size: 24px; font-weight: 800; color: #f87171;">0</div>
-                </div>
-                                        
-                <div style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(124, 58, 237, 0.1)); border: 1px solid rgba(139, 92, 246, 0.5); border-radius: 16px; padding: 20px; text-align: center;">
-                    <div style="font-size: 16px; color: #e9d5ff; margin-bottom: 8px; font-weight: bold;">✨ میاشنئ خالصه ګټه</div>
-                    <div id="mobileNetProfit" style="font-size: 32px; font-weight: 900; color: #c084fc;">0</div>
-                    <div style="font-size: 12px; color: #d8b4fe;">افغانۍ (AFN)</div>
-                </div>
-
-                <div style="margin-top: 10px; text-align: center;">
-                     <button onclick="fetchMobileData()" class="btn-secondary" style="font-size: 12px; padding: 8px 16px;">🔄 معلومات تازه کړئ</button>
-                </div>
-            </div>
-        </div>
-    `;
-
-    fetchMobileData();
-}						
-						
-						function renderExpList(type) {
-							const list = JSON.parse(localStorage.getItem(type + '_list') || '[]');
-							const container = document.getElementById(type + 'List');
-							container.innerHTML = list.reverse().map(item => `
-                <div class="data-row" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 10px;">
-                    <div>
-                        <div style="font-weight: bold;">${item.desc}</div>
-                        <div style="font-size: 11px; color: #94a3b8;">${item.date}</div>
-                    </div>
-                    <div style="font-weight: bold; color: ${type === 'opExp' ? '#f87171' : '#fb923c'}">${parseFloat(item.amount).toLocaleString()} ؋</div>
-                </div>
-            `).join('');
-						}
 
 						/* Expenses Helpers */
 						function openOpExpScreen() {
@@ -6621,6 +6386,18 @@ function openDashboard() {
 							});
 						};
 					</script>
+<script>
+    // Safety check to ensure jobs are rendered
+    window.addEventListener("load", function() {
+        if (typeof initJobSelector === "function") {
+            const grid = document.getElementById("jobGrid");
+            if (grid && grid.children.length === 0) {
+                console.log("Job grid empty, re-initializing...");
+                initJobSelector();
+            }
+        }
+    });
+</script>
 </body>
 
 </html>
